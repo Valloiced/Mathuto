@@ -18,9 +18,9 @@ export default function ArithmeticBlitzGame() {
 
     const [loading, setLoading] = useState(false);
     const [gameStatus, setGameStatus] = useState({
-        isGameOver: true,
+        isGameOver: false,
         totalPoints: null,
-        finalPoints: 100
+        finalPoints: 0
     });
 
     useEffect(() => {
