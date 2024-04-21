@@ -1,0 +1,116 @@
+import React from 'react';
+import { View, Text, Image } from 'react-native';
+import styles from './style/topLeaderboard.style';
+
+import { User } from '../../assets/icons';
+import { SHADOWS } from '../../constants/theme';
+
+export default function TopLeaderbord({ topScores }) {
+    const firstRank = topScores[0] || {};
+    const secondRank = topScores[1] || {};
+    const thirdRank = topScores[2] || {};
+
+    return (
+        <View style={styles.topLeaderboard}>
+            <View style={styles.secondRank}>
+                <View
+                    style={[
+                        // Image Size, Border Color
+                        styles.rankImgWrapper(70, '#09E98B'),
+                        SHADOWS.medium
+                    ]}
+                >
+                    <Image
+                        source={
+                            !secondRank.profileImg
+                                ? User
+                                : { uri: secondRank.profileImg }
+                        }
+                        style={[styles.rankImg]}
+                    />
+                </View>
+                <View style={styles.rankDetails}>
+                    <Text
+                        style={styles.ranker}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                    >
+                        {secondRank?.username || '--:--'}
+                    </Text>
+                    <View style={styles.pointsWrapper}>
+                        <Text style={styles.points()}>
+                            {secondRank?.score || '--'}
+                        </Text>
+                        <Text style={styles.pointsLabel}>pts</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={styles.firstRank}>
+                <View
+                    style={[
+                        // Image Size, Border Color
+                        styles.rankImgWrapper(90, '#FCD137'),
+                        SHADOWS.medium
+                    ]}
+                >
+                    <Image
+                        source={
+                            !firstRank.profileImg
+                                ? User
+                                : { uri: firstRank.profileImg }
+                        }
+                        style={[styles.rankImg]}
+                    />
+                </View>
+                <View style={styles.rankDetails}>
+                    <Text
+                        style={styles.ranker}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                    >
+                        {firstRank?.username || '--:--'}
+                    </Text>
+                    <View style={styles.pointsWrapper}>
+                        <Text style={styles.points('top')}>
+                            {firstRank?.score || '--'}
+                        </Text>
+                        <Text style={styles.pointsLabel}>pts</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={styles.thirdRank}>
+                <View
+                    style={[
+                        // Image Size, Border Color
+                        styles.rankImgWrapper(70, '#48F4FF'),
+                        SHADOWS.medium
+                    ]}
+                >
+                    <Image
+                        source={
+                            !thirdRank.profileImg
+                                ? User
+                                : { uri: thirdRank.profileImg }
+                        }
+                        style={[styles.rankImg]}
+                    />
+                </View>
+                <View style={styles.rankDetails}>
+                    <Text
+                        style={styles.ranker}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                    >
+                        {thirdRank?.username || '--:--'}
+                    </Text>
+                    <View style={styles.pointsWrapper}>
+                        <Text style={styles.points()}>
+                            {thirdRank?.score || '--'}
+                        </Text>
+                        <Text style={styles.pointsLabel}>pts</Text>
+                    </View>
+                </View>
+            </View>
+        </View>
+    );
+}
