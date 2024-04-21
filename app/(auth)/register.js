@@ -10,6 +10,7 @@ import Toast from 'react-native-toast-message';
 import styles from '../../components/register/style/register.style';
 
 import FormsContainer from '../../components/register/FormsContainer';
+import { SIZES } from '../../constants/theme';
 
 export default function Register() {
     const [registerForm, setRegisterForm] = useState({
@@ -74,6 +75,7 @@ export default function Register() {
                     type: 'success',
                     text1: 'Registration Successfully',
                     position: 'bottom',
+                    bottomOffset: SIZES.xxLarge * 1.8,
                     autoHide: true,
                     visibilityTime: 5000
                 });

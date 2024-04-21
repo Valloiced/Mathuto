@@ -3,10 +3,11 @@ import { Redirect } from 'expo-router';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// Entry Point
 export default function Home() {
     return (
         <SafeAreaView>
-            <Redirect href="/home" />
+            <Redirect href="/login" />
         </SafeAreaView>
     );
 }

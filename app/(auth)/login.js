@@ -7,7 +7,7 @@ import { firebaseAuthService } from '../../utils/firebase.utils';
 
 import MathtutoIcon from '../../assets/icon.png';
 
-import { SHADOWS } from '../../constants/theme';
+import { SHADOWS, SIZES } from '../../constants/theme';
 import styles from '../../components/login/styles/login.style';
 
 import FormsContainer from '../../components/login/FormsContainer';
@@ -72,6 +72,7 @@ export default function Login() {
                     type: 'success',
                     text1: 'Login Successfully',
                     position: 'bottom',
+                    bottomOffset: SIZES.xxLarge * 1.8,
                     autoHide: true,
                     visibilityTime: 5000
                 });

@@ -28,7 +28,6 @@
         "web": {
             "favicon": "./assets/favicon.png"
         },
-        "main": "App/index.js",
         "plugins": [
             "expo-router",
             [

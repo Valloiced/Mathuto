@@ -42,6 +42,10 @@ const Layout = () => {
             <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
                 <Stack>
                     <Stack.Screen
+                        name="index"
+                        options={{ headerShown: false, title: 'Tabs' }}
+                    />
+                    <Stack.Screen
                         name="(tabs)"
                         options={{ headerShown: false, title: 'Tabs' }}
                     />

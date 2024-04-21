@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.PopRegular,
         letterSpacing: 1,
         backgroundColor: COLORS.white,
-        borderRadius: BORDER_RADIUS.medium,
+        borderRadius: BORDER_RADIUS.small,
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,
         paddingHorizontal: SIZES.small,
