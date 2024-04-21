@@ -1,4 +1,4 @@
-package com.valloiced.mathtuto
+package com.valloiced.mathuto
 
 import android.app.Application
 import android.content.res.Configuration
