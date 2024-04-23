@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { router } from 'expo-router';
 import {
     firebaseAuthService,
@@ -13,6 +14,7 @@ import FormsContainer from '../../components/register/FormsContainer';
 import { SIZES } from '../../constants/theme';
 
 export default function Register() {
+    const netinfo = useNetInfo();
     const [registerForm, setRegisterForm] = useState({
         username: '',
         email: '',
@@ -41,6 +43,17 @@ export default function Register() {
 
     const handleSubmit = async () => {
         const { username, email, password } = registerForm;
+
+        if (netinfo.isConnected === false) {
+            return Toast.show({
+                type: 'error',
+                text1: 'You are offline',
+                text2: 'You need connection to login.',
+                position: 'bottom',
+                autoHide: true,
+                visibilityTime: 5000
+            });
+        }
 
         if (email.trim() === '' || password.trim() === '') {
             return Toast.show({

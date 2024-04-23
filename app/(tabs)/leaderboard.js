@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { View, StatusBar, ScrollView, RefreshControl } from 'react-native';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
@@ -15,6 +16,7 @@ import useProfile from '../../hooks/useProfile';
 
 export default function Leaderboard() {
     const user = useProfile();
+    const netinfo = useNetInfo();
 
     const [currentCategory, setCurrentCategory] = useState('daily-scores');
     const [leaderboards, setLeaderboards] = useState({
@@ -25,11 +27,24 @@ export default function Leaderboard() {
 
     const [refreshing, setRefreshing] = useState(false);
 
-    const fetchLeaderboardData = async () => {
+    const fetchLeaderboardData = useCallback(async () => {
         try {
+            if (netinfo.isConnected === false) {
+                Toast.show({
+                    type: 'error',
+                    text1: 'You are offline',
+                    text2: 'You need connection to load the leaderboard',
+                    position: 'top',
+                    autoHide: true,
+                    visibilityTime: 5000
+                });
+                return;
+            }
+
             Toast.show({
                 type: 'success',
                 text1: 'Updating leaderboard',
+                position: 'top',
                 autoHide: true,
                 visibilityTime: 5000
             });
@@ -51,18 +66,19 @@ export default function Leaderboard() {
                 type: 'error',
                 text1: 'Something went wrong',
                 test2: error.message,
+                position: 'bottom',
                 autoHide: true,
-                visibilityTime: 5000
+                visibilityTime: 4000
             });
         }
-    };
+    }, [netinfo.isConnected]);
 
     /** Well, if user wants it, they could just refresh the leaderboard by themselves */
     const onRefresh = useCallback(async () => {
         setRefreshing(true);
         await fetchLeaderboardData();
         setRefreshing(false);
-    }, []);
+    }, [fetchLeaderboardData]);
 
     useEffect(() => {
         // Leaderboard refreshes every 10 minutes
@@ -75,7 +91,7 @@ export default function Leaderboard() {
         );
 
         return () => clearInterval(fetchInterval);
-    }, []);
+    }, [fetchLeaderboardData]);
 
     const currentUserRank = user[currentCategory]?.rank;
     const currentUserScore = user[currentCategory]?.score;

@@ -18,7 +18,7 @@ import styles from './style/password.style';
 import layoutStyles from './style/settings.style';
 import { COLORS } from '../../constants/theme';
 
-export default function Password({ uid }) {
+export default function Password({ uid, setModalVisible, setDialogCallback }) {
     const [passwordForm, setPasswordForm] = useState({
         currentPassword: '',
         newPassword: '',
@@ -50,7 +50,7 @@ export default function Password({ uid }) {
 
             const user = await firebaseAuthService.getCurrentUser();
             const passwordMatch =
-                firebaseAuthService.reauthenticateWithPassword(
+                await firebaseAuthService.reauthenticateWithPassword(
                     user.email,
                     currentPassword
                 );
@@ -195,6 +195,17 @@ export default function Password({ uid }) {
         }
     };
 
+    const handlePress = () => {
+        const callback = (value) => {
+            if (value) {
+                handleUpdates();
+            }
+        };
+
+        setDialogCallback(() => callback);
+        setModalVisible(true);
+    };
+
     /** Text Input handlers */
     const handleCurrentPasswordInput = (text) => {
         hideIndicatorOnFormUpdates();
@@ -278,7 +289,7 @@ export default function Password({ uid }) {
                         )}
                         // Button is clickable if there's pending updates, the form is submitting, or the user is not login
                         disabled={!isBeingUpdated || isSubmitting || !uid}
-                        onPress={handleUpdates}
+                        onPress={handlePress}
                     >
                         <View style={layoutStyles.submitLabel}>
                             <Text style={layoutStyles.submitBtnText}>

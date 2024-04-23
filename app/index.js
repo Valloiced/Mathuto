@@ -8,6 +8,7 @@ export default function Home() {
     return (
         <SafeAreaView>
             <Redirect href="/login" />
+            {/* <Redirect href="/stacks/video/yt" /> */}
         </SafeAreaView>
     );
 }

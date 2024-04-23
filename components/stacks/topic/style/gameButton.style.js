@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         padding: SIZES.xSmall,
         backgroundColor: COLORS.tertiary,
         borderTopRightRadius: BORDER_RADIUS.medium * 1.2,
-        borderTopLeftRadius: BORDER_RADIUS * 1.2
+        borderTopLeftRadius: BORDER_RADIUS.medium * 1.2
     },
     gameButton: {
         flexDirection: 'row',

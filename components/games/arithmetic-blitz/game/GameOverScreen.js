@@ -22,8 +22,9 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
         scoreDetails;
     const netinfo = useNetInfo();
 
+    const [showConfetti, setShowConfetti] = useState(true);
     const [submitting, setSubmitting] = useState(true);
-    const [error, setError] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     const confettiRef = useRef(null);
 
@@ -53,11 +54,13 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                     autoHide: true,
                     visibilityTime: 5000
                 });
-                setError(true);
+                setIsError(true);
             } finally {
                 setSubmitting(false);
             }
         };
+
+        let confettiTimeout;
 
         // If score is 0, then don't submit it, just wasting resources
         if (modalVisible && netinfo.isConnected && totalPoints) {
@@ -65,14 +68,31 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
         }
 
         // Show confetti
-        if (modalVisible && confettiRef.current) {
+        if (
+            modalVisible && // if modal is shown
+            confettiRef.current && // if confetti is mounted
+            totalPoints !== 0 // if user earned a score
+        ) {
             confettiRef.current.play(0);
+            confettiTimeout = setTimeout(() => setShowConfetti(false), 3000);
         }
 
-        // Just display the score if score is 0
+        // Just display the score if score is 0 and no connection
         if (totalPoints === 0 || !netinfo.isConnected) {
-            setSubmitting(true);
+            setSubmitting(false);
         }
+
+        // Timeout so that user would be redirected back to home page when they stayed
+        // a bit long (don't know why)
+        let screenTimeout;
+        if (modalVisible) {
+            screenTimeout = setTimeout(() => router.replace('/home'), 15000);
+        }
+
+        return () => {
+            clearTimeout(confettiTimeout);
+            clearTimeout(screenTimeout);
+        };
     }, [totalPoints, modalVisible, netinfo.isConnected, confettiRef]);
 
     return (
@@ -108,7 +128,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                         {netinfo.isConnected ? (
                             submitting ? (
                                 <Status message={'Submitting Score...'} />
-                            ) : !error ? (
+                            ) : !isError ? (
                                 <View style={styles.totalScoreBoard}>
                                     <View style={styles.totalScoreWrapper}>
                                         <Text style={styles.totalScoreHeader}>
@@ -174,7 +194,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                         resizeMode="cover"
                         loop={false}
                         source={require('../../../../assets/confetti.json')}
-                        style={styles.confetti(submitting)}
+                        style={styles.confetti(showConfetti)}
                     />
                 </View>
             </Modal>
@@ -183,8 +203,8 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
 }
 
 const styles = StyleSheet.create({
-    confetti: (submitting) => ({
-        display: submitting ? 'flex' : 'none',
+    confetti: (showConfetti) => ({
+        display: showConfetti ? 'flex' : 'none',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -274,12 +294,13 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: SIZES.small,
+        gap: SIZES.medium,
         paddingVertical: SIZES.medium,
         marginBottom: SIZES.xxLarge - SIZES.medium // marginBottom - padding (For consistent vertical alignment)
     },
     button: (bgColor, submitting) => ({
-        backgroundColor: submitting ? bgColor + 'BF' : bgColor, // 50% opacity if disabled
+        opacity: submitting ? 0.5 : 1,
+        backgroundColor: bgColor,
         paddingVertical: SIZES.small,
         paddingHorizontal: SIZES.xxLarge * 1.2,
         flexDirection: 'row',

@@ -76,6 +76,15 @@ const HidePassword = ({ style, size, color }) => (
     <EntIcon name="eye-with-line" style={style} size={size} color={color} />
 );
 
+const Offline = ({ style, size, color }) => (
+    <Ionicon
+        name="cloud-offline-outline"
+        style={style}
+        size={size}
+        color={color}
+    />
+);
+
 const UserSolid = ({ style, size, color }) => (
     <FontIcon name="user" style={style} size={size} color={color} />
 );
@@ -122,6 +131,7 @@ module.exports = {
     Checkmark,
     ViewPassword,
     HidePassword,
+    Offline,
     UserSolid,
     MailSolid,
     LockSolid,

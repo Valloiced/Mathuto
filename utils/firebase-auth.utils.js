@@ -62,7 +62,8 @@ class FirebaseAuthService {
                 password
             );
             await reauthenticateWithCredential(user, credential);
-            return true; // Reauthentication successful
+
+            return true;
         } catch (error) {
             console.error('Error reauthenticating:', error);
             return false;

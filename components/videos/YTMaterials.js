@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 import styles from './style/ytMaterials.style';
 import YTMaterialsCard from './YTMaterialsCard';
@@ -12,6 +13,8 @@ import {
 } from '../../utils/youtube.utils';
 
 export default function YTMaterials() {
+    const netinfo = useNetInfo();
+
     const [searchData, setSearchData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -24,6 +27,20 @@ export default function YTMaterials() {
             }
 
             return recentLessons.map((lessons) => lessons.name);
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
+    const fetchRecentSavedData = async () => {
+        try {
+            const response = await AsyncStorage.getItem('recent-yt-data');
+            const recentYTData = JSON.parse(response);
+            if (!recentYTData) {
+                return [];
+            }
+
+            return recentYTData;
         } catch (error) {
             console.error(error.message);
         }
@@ -133,6 +150,13 @@ export default function YTMaterials() {
 
             const videoListDetails = await Promise.all(fetchVideoDetails);
 
+            // For offline use, cache
+            await AsyncStorage.removeItem('recent-yt-data');
+            await AsyncStorage.setItem(
+                'recent-yt-data',
+                JSON.stringify(videoListDetails)
+            );
+
             setSearchData(videoListDetails);
         } catch (error) {
             console.error(error.message);
@@ -147,15 +171,48 @@ export default function YTMaterials() {
         }
     }, []);
 
+    const renderSavedRecommendation = useCallback(async () => {
+        try {
+            const savedYtData = await fetchRecentSavedData();
+
+            if (savedYtData.length) {
+                setSearchData(savedYtData);
+            } else {
+                Toast.show({
+                    type: 'error',
+                    text1: 'You are offline',
+                    text2: 'You need connection to load videos',
+                    position: 'top',
+                    autoHide: true,
+                    visibilityTime: 5000
+                });
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
+
     useEffect(() => {
-        searchRecommendations();
-    }, [searchRecommendations]);
+        if (netinfo.isConnected === false) {
+            renderSavedRecommendation();
+        }
+        if (netinfo.isConnected) {
+            searchRecommendations();
+        }
+    }, [searchRecommendations, netinfo, renderSavedRecommendation]);
 
     const onRefresh = useCallback(async () => {
         setRefreshing(true);
-        await searchRecommendations();
+
+        if (netinfo.isConnected === false) {
+            renderSavedRecommendation();
+        }
+        if (netinfo.isConnected) {
+            searchRecommendations();
+        }
+
         setRefreshing(false);
-    }, [searchRecommendations]);
+    }, [searchRecommendations, netinfo, renderSavedRecommendation]);
 
     return (
         <View style={styles.ytMaterialContainer}>

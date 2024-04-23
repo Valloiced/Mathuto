@@ -23,7 +23,14 @@ import { COLORS, SHADOWS } from '../../constants/theme';
 import styles from './style/personalInfo.style';
 import layoutStyles from './style/settings.style';
 
-export default function PersonalInfo({ uid, username, email, profileImg }) {
+export default function PersonalInfo({
+    uid,
+    username,
+    email,
+    profileImg,
+    setModalVisible,
+    setDialogCallback
+}) {
     const [pendingUpdates, setPendingUpdates] = useState({
         newUsername: '',
         newEmail: '',
@@ -31,6 +38,7 @@ export default function PersonalInfo({ uid, username, email, profileImg }) {
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isError, setIsError] = useState(false);
     const [showIndicator, setShowIndicator] = useState(false);
 
     const hideIndicatorOnFormUpdates = () => {
@@ -150,6 +158,18 @@ export default function PersonalInfo({ uid, username, email, profileImg }) {
         }
     };
 
+    /** Passes a callback to the confirmation dialog which confirms the update */
+    const handlePress = () => {
+        const callback = (value) => {
+            if (value) {
+                handleUpdates();
+            }
+        };
+
+        setDialogCallback(() => callback);
+        setModalVisible(true);
+    };
+
     /** Text Input handlers */
     const handleUsernameInput = (text) => {
         hideIndicatorOnFormUpdates();
@@ -218,7 +238,7 @@ export default function PersonalInfo({ uid, username, email, profileImg }) {
                         )}
                         // Button is clickable if there's pending updates, the form is submitting, or the user is not login
                         disabled={!isBeingUpdated || isSubmitting || !uid}
-                        onPress={handleUpdates}
+                        onPress={handlePress}
                     >
                         <View style={layoutStyles.submitLabel}>
                             <Text style={layoutStyles.submitBtnText}>

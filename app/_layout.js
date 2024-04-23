@@ -55,7 +55,7 @@ const Layout = () => {
                     />
                 </Stack>
                 {/* Toast message adjusted to be positioned at the top of the tab bar */}
-                <Toast />
+                <Toast bottomOffset={SIZES.xxLarge * 2} />
             </View>
         );
     }

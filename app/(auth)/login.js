@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { Link, router } from 'expo-router';
 import { Image, View, Text } from 'react-native';
 import Toast from 'react-native-toast-message';
@@ -14,6 +15,8 @@ import FormsContainer from '../../components/login/FormsContainer';
 import SocialsContainer from '../../components/login/SocialsContainer';
 
 export default function Login() {
+    const netinfo = useNetInfo();
+
     const [loginForm, setLoginForm] = useState({
         email: '',
         password: ''
@@ -51,6 +54,17 @@ export default function Login() {
 
     const handleLogin = async () => {
         const { email, password } = loginForm;
+
+        if (netinfo.isConnected === false) {
+            return Toast.show({
+                type: 'error',
+                text1: 'You are offline',
+                text2: 'You need connection to login.',
+                position: 'top',
+                autoHide: true,
+                visibilityTime: 5000
+            });
+        }
 
         if (email.trim() === '' || password.trim() === '') {
             return Toast.show({

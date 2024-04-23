@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
         marginTop: SIZES.xLarge,
         paddingVertical: SIZES.medium,
         paddingHorizontal: SIZES.medium,
+        paddingBottom: SIZES.xxLarge * 2,
         borderTopLeftRadius: BORDER_RADIUS.large,
         borderTopRightRadius: BORDER_RADIUS.large,
         backgroundColor: COLORS.white

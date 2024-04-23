@@ -16,7 +16,7 @@ export default function ArithmeticBlitzGame() {
     const params = useLocalSearchParams();
     const user = useProfile();
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [gameStatus, setGameStatus] = useState({
         isGameOver: false,
         totalPoints: null,

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { ScrollView } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import styles from '../../../components/settings/style/settings.style';
 
@@ -9,21 +11,54 @@ import ButtonContainer from '../../../components/settings/ButtonContainer';
 import AppInfo from '../../../components/settings/AppInfo';
 
 import useProfile from '../../../hooks/useProfile';
+import ConfirmChanges from '../../../components/settings/dialogs/ConfirmChanges';
 
 export default function Settings() {
     const user = useProfile();
+    const netinfo = useNetInfo();
+
+    /* Dialogs for profile update confirmation */
+    const [modalVisible, setModalVisible] = useState(false);
+    const [dialogCallback, setDialogCallback] = useState(() => () => {}); // Sheesh
+
+    useEffect(() => {
+        if (netinfo.isConnected === false) {
+            Toast.show({
+                type: 'error',
+                text1: 'You are offline',
+                text2: 'You need connection to update your profile',
+                position: 'top',
+                autoHide: true,
+                visibilityTime: 5000
+            });
+        }
+    }, [netinfo]);
 
     return (
-        <ScrollView style={styles.settingsContainer}>
-            <PersonalInfo
-                uid={user.uid}
-                username={user.username}
-                email={user.email}
-                profileImg={user?.profileImg}
+        <>
+            <ScrollView style={styles.settingsContainer}>
+                <PersonalInfo
+                    uid={user.uid}
+                    username={user.username}
+                    email={user.email}
+                    profileImg={user?.profileImg}
+                    setModalVisible={setModalVisible}
+                    setDialogCallback={setDialogCallback}
+                />
+                <Password
+                    uid={user.uid}
+                    setModalVisible={setModalVisible}
+                    setDialogCallback={setDialogCallback}
+                />
+                <ButtonContainer />
+                <AppInfo />
+            </ScrollView>
+            <ConfirmChanges
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                dialogCallback={dialogCallback}
+                setDialogCallback={setDialogCallback}
             />
-            <Password uid={user.uid} />
-            <ButtonContainer />
-            <AppInfo />
-        </ScrollView>
+        </>
     );
 }

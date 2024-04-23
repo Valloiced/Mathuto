@@ -18,8 +18,9 @@ export default function Home() {
         if (netinfo.isConnected === false) {
             Toast.show({
                 type: 'error',
-                text1: 'No internet connection.',
+                text1: 'You are offline',
                 text2: 'Some features would be inaccessible',
+                position: 'top',
                 autoHide: true,
                 visibilityTime: 5000
             });

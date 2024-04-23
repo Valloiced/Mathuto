@@ -5,6 +5,13 @@ import styles from './style/modal.style';
 import { SHADOWS } from '../../../constants/theme';
 
 export default function GameModal({ modalVisible, setModalVisible }) {
+    const handlePress = (route) => {
+        // Set the visibility as false first or else modal would appear in different parts of app
+        setModalVisible(false);
+
+        router.push(route);
+    };
+
     return (
         <Modal
             animationType="slide"
@@ -25,7 +32,7 @@ export default function GameModal({ modalVisible, setModalVisible }) {
                                     SHADOWS.medium
                                 ]}
                                 onPress={() =>
-                                    router.push(
+                                    handlePress(
                                         '/games/arithmetic-blitz/game/easy'
                                     )
                                 }
@@ -40,7 +47,7 @@ export default function GameModal({ modalVisible, setModalVisible }) {
                                     SHADOWS.medium
                                 ]}
                                 onPress={() =>
-                                    router.push(
+                                    handlePress(
                                         '/games/arithmetic-blitz/game/medium'
                                     )
                                 }
@@ -55,7 +62,7 @@ export default function GameModal({ modalVisible, setModalVisible }) {
                                     SHADOWS.medium
                                 ]}
                                 onPress={() =>
-                                    router.push(
+                                    handlePress(
                                         '/games/arithmetic-blitz/game/hard'
                                     )
                                 }

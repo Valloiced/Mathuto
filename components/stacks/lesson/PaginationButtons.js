@@ -30,7 +30,7 @@ export default function PaginationButtons({ topicId, currentPage }) {
                     Toast.show({
                         type: 'info',
                         text1: 'You reached the end of the lessons.',
-                        position: 'bottom',
+                        position: 'top',
                         autoHide: true,
                         visibilityTime: 5000
                     });
