@@ -25,6 +25,7 @@ const FONT = {
     MSBold: 'MontBold',
     MSExtraBold: 'MontExBold',
     MSLight: 'MontLight',
+    MSBlack: 'MontBlack',
     PopRegular: 'Poppins',
     PopSemiBold: 'PoppinsSemiBold',
     PopBold: 'PoppinsBold',

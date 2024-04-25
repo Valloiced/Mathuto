@@ -85,6 +85,14 @@ const Offline = ({ style, size, color }) => (
     />
 );
 
+const WrongSolid = ({ style, size, color }) => (
+    <AntIcon name="closesquareo" style={style} size={size} color={color} />
+);
+
+const WrongCloseSolid = ({ style, size, color }) => (
+    <AntIcon name="closesquare" style={style} size={size} color={color} />
+);
+
 const UserSolid = ({ style, size, color }) => (
     <FontIcon name="user" style={style} size={size} color={color} />
 );
@@ -132,6 +140,8 @@ module.exports = {
     ViewPassword,
     HidePassword,
     Offline,
+    WrongSolid,
+    WrongCloseSolid,
     UserSolid,
     MailSolid,
     LockSolid,
