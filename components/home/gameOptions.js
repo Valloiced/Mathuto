@@ -37,7 +37,7 @@ export default function GameOptions() {
                     />
                 </View>
             </View>
-            {/* <View style={styles.optionsWrapper}>
+            <View style={styles.optionsWrapper}>
                 <Text style={styles.categoryHeader}>Lesson Math Games</Text>
 
                 <View style={styles.gameWrapper}>
@@ -45,11 +45,11 @@ export default function GameOptions() {
                         bg={MathScrambleBG}
                         title={'Math Scramble'}
                         handlePress={() =>
-                            router.push('/games/arithmetic-blitz/game-lobby')
+                            router.push('/games/math-scramble/game-lobby')
                         }
                     />
                 </View>
-            </View> */}
+            </View>
         </View>
     );
 }
