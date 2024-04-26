@@ -86,7 +86,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
         // a bit long (don't know why)
         let screenTimeout;
         if (modalVisible) {
-            screenTimeout = setTimeout(() => router.replace('/home'), 15000);
+            screenTimeout = setTimeout(() => router.replace('/home'), 20000);
         }
 
         return () => {
