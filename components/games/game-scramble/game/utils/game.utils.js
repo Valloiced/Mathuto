@@ -1,6 +1,12 @@
 import { Dimensions } from 'react-native';
+import { LevelTheme } from './theme.utils';
 
 import { SIZES } from '../../../../../constants/theme';
+
+const getLevelTheme = (themeIndex = 0) => {
+    const themes = Object.values(LevelTheme);
+    return themes[themeIndex % themes.length];
+};
 
 const findLongestWord = (wordList) => {
     let max = -Infinity;
@@ -16,16 +22,16 @@ const findLongestWord = (wordList) => {
     return wordList[maxIdx];
 };
 
-const scramble = (pickedWord) => {
-    // Shuffle the generated position in which the characters in picked word will based.
-    function shufflePos(posArray) {
-        for (let i = posArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [posArray[i], posArray[j]] = [posArray[j], posArray[i]];
-        }
-        return posArray;
+/** Shuffle position indices */
+function shufflePos(posArray) {
+    for (let i = posArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [posArray[i], posArray[j]] = [posArray[j], posArray[i]];
     }
+    return posArray;
+}
 
+const scramble = (pickedWord) => {
     // Will work for double worded terms
     let shuffledWords = [];
     const words = pickedWord.split(' ');
@@ -35,6 +41,8 @@ const scramble = (pickedWord) => {
         word = word.split('');
 
         const generateCharPos = new Array(word.length).fill(0).map((_, i) => i);
+
+        // Shuffle the generated position in which the characters in picked word will based.
         const shuffledCharPos = shufflePos(generateCharPos);
 
         const shuffledWord = shuffledCharPos.map((charPos) => word[charPos]);
@@ -73,6 +81,8 @@ const determineFontSize = (charCount, wordWidth) => {
 
 module.exports = {
     findLongestWord,
+    getLevelTheme,
+    shufflePos,
     scramble,
     determineFontSize
 };

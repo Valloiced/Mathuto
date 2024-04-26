@@ -1,133 +1,45 @@
 import React, { useId } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Dimensions,
+    TouchableOpacity
+} from 'react-native';
+import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { FONT, SHADOWS, SIZES } from '../../../../constants/theme';
+import { COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
+import { GameTheme } from './utils/theme.utils';
 
-const sampleWords = [
-    // 'Discrete', // 7 char
-    // 'Alibi', // 5 char
-    'Test for thing', // 4char
-    // 'Automation', // 10 char,
-    'Pythagorean Theorem' // 6 char
-];
+import GameProgressBar from './GameProgressBar';
 
-const findLongestWord = (wordList) => {
-    let max = -Infinity;
-    let maxIdx;
-
-    for (let i = 0; i < wordList.length; i++) {
-        if (wordList[i].length > max) {
-            max = wordList[i].length;
-            maxIdx = i;
-        }
-    }
-
-    return wordList[maxIdx];
-};
-
-const scramble = (pickedWord) => {
-    // Shuffle the generated position in which the characters in picked word will based.
-    function shufflePos(posArray) {
-        for (let i = posArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [posArray[i], posArray[j]] = [posArray[j], posArray[i]];
-        }
-        return posArray;
-    }
-
-    // Will work for double worded terms
-    let shuffledWords = [];
-    const words = pickedWord.split(' ');
-
-    // Shuffle every words in a term on their own
-    words.forEach((word) => {
-        word = word.split('');
-
-        const generateCharPos = new Array(word.length).fill(0).map((_, i) => i);
-        const shuffledCharPos = shufflePos(generateCharPos);
-
-        const shuffledWord = shuffledCharPos.map((charPos) => word[charPos]);
-        shuffledWords.push(shuffledWord);
-    });
-
-    return shuffledWords;
-};
-
-const determineFontSize = (charCount, wordWidth) => {
-    const { width } = Dimensions.get('window');
-
-    const screenPadding = SIZES.medium * 2;
-    const charGap = SIZES.small; // Gap between characters in a word
-
-    const totalCharWidth = wordWidth * charCount;
-    const availableWidth = width - screenPadding - charGap * (charCount - 1);
-
-    // Adjust scaling factor to ensure readability
-    const scalingFactor = 0.9;
-
-    let fontSize =
-        (availableWidth / totalCharWidth) * wordWidth * scalingFactor;
-
-    // Set a minimum and maximum font size, not so big, not so small
-    const maxFontSize = 64;
-    const minFontSize = 24;
-    if (fontSize < minFontSize) {
-        fontSize = minFontSize;
-    } else if (fontSize > maxFontSize) {
-        fontSize = maxFontSize;
-    }
-
-    return fontSize;
-};
-
-export default function GameAction() {
+export default function GameAction({
+    scrambledTerm,
+    description,
+    levelTheme,
+    fontSize
+}) {
     const id = useId();
 
     const generateScrambledWord = () => {
-        /** Helper Functions */
-
-        // Generate Shuffled words first which returns a two dimensional array for double worded terms
-        const generate = () => {
-            const listLength = sampleWords.length;
-            const randIndex = Math.floor(Math.random() * listLength);
-
-            const pickWord = sampleWords[randIndex];
-            return scramble(pickWord);
-        };
-
         // Attaching Text Tags for every character in every word
         const attachTextTag = (word) => {
+            const fontStyle = {
+                fontSize: fontSize,
+                color: levelTheme
+            };
+
             return word.map((char, i) => (
-                <Text
+                <Animated.Text
                     key={id + i + char}
-                    style={[charStyle, styles.scrambledWord, SHADOWS.text]}
+                    style={[styles.scrambledWord, SHADOWS.text, fontStyle]}
                 >
                     {char}
-                </Text>
+                </Animated.Text>
             ));
         };
 
-        /** Entry */
-        // Generate shuffled words first
-        const newScrambledWords = generate();
-
-        // Find the longest word which would work for double worded terms,
-        // this would be used to determine the consistent font size of all words
-        const longestWord = findLongestWord(newScrambledWords);
-
-        // Measure the width of the longest word temporary for font size
-        const wordWidth = longestWord.reduce(
-            (acc, char) => acc + char.length,
-            0
-        );
-
-        const charStyle = {
-            fontSize: Math.floor(
-                determineFontSize(longestWord.length, wordWidth)
-            )
-        };
-
-        return newScrambledWords.map((word, i) => (
+        return scrambledTerm.map((word, i) => (
             <View key={id + i + word} style={styles.scrambledWord}>
                 {attachTextTag(word)}
             </View>
@@ -141,6 +53,13 @@ export default function GameAction() {
             <View style={styles.scrambledWordWrapper}>
                 {renderScrambledWord}
             </View>
+            <GameProgressBar levelTheme={levelTheme} />
+            <View style={styles.descriptionWrapper}>
+                <Text style={styles.description}>{description}</Text>
+            </View>
+            <TouchableOpacity>
+                <Text>Shuffle</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -152,8 +71,7 @@ const styles = StyleSheet.create({
         marginVertical: SIZES.xLarge
     },
     scrambledWordWrapper: {
-        backgroundColor: 'yellow',
-        height: height * 0.3,
+        height: height * 0.2,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-end',
@@ -162,8 +80,22 @@ const styles = StyleSheet.create({
     scrambledWord: {
         flexDirection: 'row',
         gap: SIZES.small,
-        color: '#895B1E',
+        color: COLORS.textSecondary,
         fontFamily: FONT.MSBlack,
         textTransform: 'uppercase'
+    },
+    descriptionWrapper: {
+        height: height * 0.15,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: SIZES.medium
+    },
+    description: {
+        color: GameTheme.textColor,
+        fontFamily: FONT.MSBold,
+        fontSize: SIZES.small,
+        textAlign: 'center',
+        letterSpacing: 1
     }
 });
