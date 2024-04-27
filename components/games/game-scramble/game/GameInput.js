@@ -1,4 +1,4 @@
-import React, { useId, useState, useRef, useEffect } from 'react';
+import React, { useId, useRef, useEffect, useCallback } from 'react';
 import {
     StyleSheet,
     View,
@@ -26,6 +26,8 @@ export default function GameInput({
     levelTheme,
     fontSize,
     answerInput,
+    handleSubmit,
+    answerStatus,
     dispatch
 }) {
     const id = useId();
@@ -41,13 +43,13 @@ export default function GameInput({
 
     const textInputRef = useRef(null);
 
-    const toTextBoxes = () => {
+    const toTextBoxes = useCallback(() => {
         const attachTextBox = (char, i, j) => {
             const emptyChar = ' ';
             const textBoxChar = answerInput[i + j] || emptyChar;
 
             return (
-                <Text key={id + j + char} style={[textStyle, styles.textBox]}>
+                <Text key={id + j + char} style={[styles.textBox, textStyle]}>
                     {textBoxChar}
                 </Text>
             );
@@ -91,7 +93,22 @@ export default function GameInput({
             fontSize: fontSize / 1.5,
             width: textBoxWidth,
             height: textBoxHeight,
-            marginRight: textBoxGap
+            marginRight: textBoxGap,
+            color: answerStatus.isAnswered
+                ? answerStatus.isCorrectAnswer
+                    ? GameTheme.correctTextColor
+                    : GameTheme.wrongTextColor
+                : GameTheme.textColor,
+            backgroundColor: answerStatus.isAnswered
+                ? answerStatus.isCorrectAnswer
+                    ? GameTheme.correctBgColor
+                    : GameTheme.wrongBgColor
+                : COLORS.white,
+            borderColor: answerStatus.isAnswered
+                ? answerStatus.isCorrectAnswer
+                    ? GameTheme.correctTextColor
+                    : GameTheme.wrongTextColor
+                : COLORS.textSecondary + '40'
         };
 
         /** Render text boxes */
@@ -108,7 +125,13 @@ export default function GameInput({
                 </View>
             );
         });
-    };
+    }, [answerArray, answerInput, answerStatus, fontSize, id, scrambledTerm]);
+
+    useEffect(() => {
+        if (answerStatus.isAnswered) {
+            toTextBoxes();
+        }
+    }, [answerStatus, toTextBoxes]);
 
     const handleOnPress = () => {
         textInputRef?.current?.focus();
@@ -118,9 +141,14 @@ export default function GameInput({
 
     return (
         <View style={styles.gameInputContainer}>
-            <TouchableOpacity style={styles.shuffleWrapper}>
-                <Shuffle style={styles.shuffleIcon(levelTheme)} />
-            </TouchableOpacity>
+            <View style={styles.shuffleWrapper}>
+                <TouchableOpacity
+                    onPress={() => dispatch({ type: 'SHUFFLE' })}
+                    disabled={answerStatus.isAnswered}
+                >
+                    <Shuffle style={styles.shuffleIcon(levelTheme)} />
+                </TouchableOpacity>
+            </View>
             <View>
                 <Pressable onPress={handleOnPress}>{renderInput}</Pressable>
                 <TextInput
@@ -132,7 +160,11 @@ export default function GameInput({
                     maxLength={termLength}
                 />
             </View>
-            <TouchableOpacity style={styles.gameInputBtn}>
+            <TouchableOpacity
+                style={styles.gameInputBtn(answerStatus.isAnswered)}
+                onPress={handleSubmit}
+                disabled={answerStatus.isAnswered}
+            >
                 <Text style={styles.gameInputBtnText}>SUBMIT</Text>
             </TouchableOpacity>
         </View>
@@ -154,7 +186,7 @@ const styles = StyleSheet.create({
     },
     shuffleIcon: (levelTheme) => ({
         fontSize: SIZES.xLarge,
-        color: levelTheme
+        color: levelTheme || GameTheme.secondaryBgColor
     }),
     textBoxWrapper: {
         flexDirection: 'row',
@@ -171,9 +203,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         color: GameTheme.textColor,
         borderWidth: 2,
-        borderColor: COLORS.textSecondary + '40',
-        borderRadius: BORDER_RADIUS.small,
-        backgroundColor: COLORS.white
+        borderRadius: BORDER_RADIUS.small
     },
     hiddenInput: {
         position: 'absolute',
@@ -183,7 +213,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0
     },
-    gameInputBtn: {
+    gameInputBtn: (isDisabled) => ({
         position: 'absolute',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -192,9 +222,11 @@ const styles = StyleSheet.create({
         bottom: SIZES.large,
         alignSelf: 'center',
         width: '70%',
-        backgroundColor: GameTheme.secondaryBgColor,
+        backgroundColor: isDisabled
+            ? GameTheme.textColor + 'BF'
+            : GameTheme.secondaryBgColor,
         borderRadius: BORDER_RADIUS.small
-    },
+    }),
     gameInputBtnText: {
         color: COLORS.white,
         fontFamily: FONT.PopBold,

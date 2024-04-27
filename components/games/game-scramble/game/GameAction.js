@@ -1,12 +1,11 @@
-import React, { useId } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    Dimensions,
-    TouchableOpacity
-} from 'react-native';
-import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
+import React, { useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import Animated, {
+    useSharedValue,
+    useAnimatedStyle,
+    withSpring,
+    withSequence
+} from 'react-native-reanimated';
 
 import { COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
 import { GameTheme } from './utils/theme.utils';
@@ -17,49 +16,78 @@ export default function GameAction({
     scrambledTerm,
     description,
     levelTheme,
-    fontSize
+    fontSize,
+    shuffle,
+    reset,
+    levelDuration,
+    isCancelled
 }) {
-    const id = useId();
+    const charScale = useSharedValue(1);
+
+    const animateShuffle = useCallback(() => {
+        charScale.value = withSequence(
+            withSpring(1.5, {
+                duration: 100,
+                stiffness: 105
+            }),
+            withSpring(1, {
+                duration: 100,
+                stiffness: 105
+            })
+        );
+    }, [charScale]);
+
+    useEffect(() => {
+        animateShuffle();
+    }, [shuffle, animateShuffle]);
+
+    const animatedStyles = useAnimatedStyle(() => ({
+        transform: [{ scale: charScale.value }]
+    }));
 
     const generateScrambledWord = () => {
-        // Attaching Text Tags for every character in every word
-        const attachTextTag = (word) => {
-            const fontStyle = {
-                fontSize: fontSize,
-                color: levelTheme
-            };
-
-            return word.map((char, i) => (
-                <Animated.Text
-                    key={id + i + char}
-                    style={[styles.scrambledWord, SHADOWS.text, fontStyle]}
-                >
-                    {char}
-                </Animated.Text>
-            ));
-        };
-
         return scrambledTerm.map((word, i) => (
-            <View key={id + i + word} style={styles.scrambledWord}>
-                {attachTextTag(word)}
+            <View key={i} style={styles.scrambledWord}>
+                {attachTextTag(word, i)}
             </View>
         ));
     };
 
-    const renderScrambledWord = generateScrambledWord();
+    const attachTextTag = (word, index) => {
+        return word.map((char, i) => {
+            return (
+                <Animated.Text
+                    key={`${index}_${i}`}
+                    style={[
+                        styles.scrambledWord,
+                        SHADOWS.text,
+                        {
+                            fontSize: fontSize,
+                            color: levelTheme
+                        },
+                        animatedStyles // Apply shuffle animation style
+                    ]}
+                >
+                    {char}
+                </Animated.Text>
+            );
+        });
+    };
 
     return (
         <View style={styles.gameActionContainer}>
             <View style={styles.scrambledWordWrapper}>
-                {renderScrambledWord}
+                {generateScrambledWord()}
             </View>
-            <GameProgressBar levelTheme={levelTheme} />
+            <GameProgressBar
+                levelTheme={levelTheme}
+                levelDuration={levelDuration}
+                reset={reset}
+                isCancelled={isCancelled}
+            />
             <View style={styles.descriptionWrapper}>
                 <Text style={styles.description}>{description}</Text>
             </View>
-            <TouchableOpacity>
-                <Text>Shuffle</Text>
-            </TouchableOpacity>
         </View>
     );
 }

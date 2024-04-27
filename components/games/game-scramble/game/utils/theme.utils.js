@@ -1,12 +1,12 @@
 export const GameTheme = {
     primaryBgColor: '#FEF2E4',
     secondaryBgColor: '#994636',
-    wrongBgColor: '',
-    correctBgColor: '',
+    wrongBgColor: '#FEBCB2',
+    correctBgColor: '#B9FBC8',
 
     textColor: '#585B56',
-    wrongTextColor: '',
-    correctTextColor: ''
+    wrongTextColor: '#B63D3D',
+    correctTextColor: '#1C9336'
 };
 
 export const LevelTheme = {
