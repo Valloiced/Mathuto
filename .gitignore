@@ -36,3 +36,7 @@ yarn-error.*
 *.tsbuildinfo
 
 .vercel
+
+# Google Credentials
+google-services.json
+android/app/google-services.json
