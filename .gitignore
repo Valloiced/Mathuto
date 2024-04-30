@@ -37,7 +37,6 @@ yarn-error.*
 
 .vercel
 
-# backend
-server/
-
+# Google Credentials
 google-services.json
+android/app/google-services.json
