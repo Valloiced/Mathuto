@@ -30,6 +30,9 @@
         },
         "plugins": [
             "expo-router",
+            "@react-native-google-signin/google-signin",
+            "@react-native-firebase/app",
+            "@react-native-firebase/auth",
             [
                 "expo-image-picker",
                 {
@@ -44,6 +47,8 @@
             "eas": {
                 "projectId": "3e3146fc-8235-41a6-bb2f-70a5f16dc229"
             }
-        }
+        },
+        "googleServicesFile": "./google-services.json",
+        "package": "com.valloiced.mathuto"
     }
 }
