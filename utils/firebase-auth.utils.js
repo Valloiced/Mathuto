@@ -4,9 +4,11 @@ import {
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
+    signInWithCredential,
     signOut,
     onAuthStateChanged,
-    EmailAuthProvider
+    EmailAuthProvider,
+    GoogleAuthProvider
 } from 'firebase/auth';
 import { filterUserSession } from './auth.utils';
 
@@ -52,6 +54,24 @@ class FirebaseAuthService {
 
     getEmailAuthProvider() {
         return EmailAuthProvider;
+    }
+
+    getGoogleAuthProvider() {
+        return GoogleAuthProvider;
+    }
+
+    async authenticateWithGoogle(idToken) {
+        try {
+            const googleCredential =
+                this.getGoogleAuthProvider().credential(idToken);
+
+            await signInWithCredential(this.auth, googleCredential);
+
+            return true;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
 
     async reauthenticateWithPassword(email, password) {
