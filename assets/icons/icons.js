@@ -89,6 +89,10 @@ const Shuffle = ({ style, size, color }) => (
     <EntIcon name="shuffle" style={style} size={size} color={color} />
 );
 
+const Link = ({ style, size, color }) => (
+    <EntIcon name="link" style={style} size={size} color={color} />
+);
+
 const WrongSolid = ({ style, size, color }) => (
     <AntIcon name="closesquareo" style={style} size={size} color={color} />
 );
@@ -145,6 +149,7 @@ module.exports = {
     HidePassword,
     Offline,
     Shuffle,
+    Link,
     WrongSolid,
     WrongCloseSolid,
     UserSolid,

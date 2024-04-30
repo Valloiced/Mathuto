@@ -48,8 +48,7 @@ export default function HomeLayout() {
                     headerTitleStyle: {
                         color: COLORS.textPrimary,
                         fontFamily: FONT.PopSemiBold,
-                        fontSize: SIZES.medium,
-                        letterSpacing: 1
+                        fontSize: SIZES.medium
                     },
                     drawerIcon: ({ color }) => {
                         return <Settings size={20} color={color} />;

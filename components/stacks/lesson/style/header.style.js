@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         gap: SIZES.large,
         paddingVertical: SIZES.large,
-        paddingHorizontal: SIZES.medium
+        paddingHorizontal: SIZES.medium,
+        marginBottom: SIZES.medium
     },
     headerTitle: {
         fontFamily: FONT.MSExtraBold,

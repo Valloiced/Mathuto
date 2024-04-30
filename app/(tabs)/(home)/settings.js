@@ -11,7 +11,7 @@ import ButtonContainer from '../../../components/settings/ButtonContainer';
 import AppInfo from '../../../components/settings/AppInfo';
 
 import useProfile from '../../../hooks/useProfile';
-import ConfirmChanges from '../../../components/settings/dialogs/ConfirmChanges';
+import ConfirmationDialog from '../../../components/common/dialogs/ConfirmationDialog';
 
 export default function Settings() {
     const user = useProfile();
@@ -53,7 +53,7 @@ export default function Settings() {
                 <ButtonContainer />
                 <AppInfo />
             </ScrollView>
-            <ConfirmChanges
+            <ConfirmationDialog
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
                 dialogCallback={dialogCallback}
