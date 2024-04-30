@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Stack, useGlobalSearchParams } from 'expo-router';
-import { ScrollView, ActivityIndicator } from 'react-native';
+import { ScrollView, ActivityIndicator, Text } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 import styles from '../../../../../components/stacks/lesson/style/lesson.style';
 
 import ReturnHeaderBtn from '../../../../../components/headers/ReturnHeaderBtn';
 import Header from '../../../../../components/stacks/lesson/Header';
-import Description from '../../../../../components/stacks/lesson/Description';
+import LessonTabs from '../../../../../components/stacks/lesson/LessonTabs';
+import Content from '../../../../../components/stacks/lesson/Content';
 import PaginationButtons from '../../../../../components/stacks/lesson/PaginationButtons';
 
 import { COLORS } from '../../../../../constants/theme';
@@ -19,9 +19,11 @@ export default function Lesson() {
 
     const [lesson, setLesson] = useState({
         name: '',
-        content: ''
+        content: {}
     });
     const [loading, setLoading] = useState(true);
+
+    const [currentTab, setCurrentTab] = useState('summary');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,6 +51,7 @@ export default function Lesson() {
 
         fetchData();
     }, [params]);
+
     return (
         <>
             <Stack.Screen
@@ -63,10 +66,17 @@ export default function Lesson() {
             />
             <ScrollView style={styles.lessonContainer}>
                 <Header lessonId={params.lesson_id} lessonName={lesson.name} />
+                <LessonTabs
+                    currentTab={currentTab}
+                    setCurrentTab={setCurrentTab}
+                />
                 {loading ? (
                     <ActivityIndicator color={COLORS.primary} size="large" />
                 ) : (
-                    <Description content={lesson.content} />
+                    <Content
+                        content={lesson.content[currentTab]}
+                        currentTab={currentTab}
+                    />
                 )}
             </ScrollView>
             <PaginationButtons

@@ -7,8 +7,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Home() {
     return (
         <SafeAreaView>
-            {/* <Redirect href="/login" /> */}
-            <Redirect href="/games/math-scramble/game/test" />
+            <Redirect href="/login" />
+            {/* <Redirect href="/stacks/topic/DYn3YNRP7I3N2E45NIe7/lesson/9" /> */}
+            {/* <Redirect href="/games/math-scramble/game/test" /> */}
             {/* <Redirect href="/stacks/video/yt" /> */}
         </SafeAreaView>
     );
