@@ -93,6 +93,14 @@ const Link = ({ style, size, color }) => (
     <EntIcon name="link" style={style} size={size} color={color} />
 );
 
+const ChevronUp = ({ style, size, color }) => (
+    <Font5Icon name="chevron-up" style={style} size={size} color={color} />
+);
+
+const ChevronDown = ({ style, size, color }) => (
+    <Font5Icon name="chevron-down" style={style} size={size} color={color} />
+);
+
 const WrongSolid = ({ style, size, color }) => (
     <AntIcon name="closesquareo" style={style} size={size} color={color} />
 );
@@ -150,6 +158,8 @@ module.exports = {
     Offline,
     Shuffle,
     Link,
+    ChevronUp,
+    ChevronDown,
     WrongSolid,
     WrongCloseSolid,
     UserSolid,

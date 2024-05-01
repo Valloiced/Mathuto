@@ -10,12 +10,12 @@ const styles = StyleSheet.create({
     lessonTabsContainer: {
         flexDirection: 'row',
         paddingHorizontal: SIZES.small,
-        columnGap: SIZES.small,
+        columnGap: SIZES.xxSmall,
         marginVertical: SIZES.large
     },
     lessonTab: (isActive) => ({
         alignItems: 'center',
-        paddingVertical: SIZES.xSmall,
+        paddingVertical: SIZES.xxSmall,
         paddingHorizontal: SIZES.large,
         backgroundColor: isActive ? COLORS.textTertiary : COLORS.lightWhite,
         borderRadius: BORDER_RADIUS.medium,

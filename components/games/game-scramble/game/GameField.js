@@ -6,13 +6,12 @@ import { initialState, reducer } from './utils';
 import GameAction from './GameAction';
 import GameHeader from './GameHeader';
 
-import sampleData from './test/sampleData';
 import GameInput from './GameInput';
 
-export default function GameField({ gameStatus, setGameStatus }) {
+export default function GameField({ gameData, gameStatus, setGameStatus }) {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const levelDuration = 10; // Duration per level (ms)
+    const levelDuration = 15; // Duration per level (secs)
     const timerInterval = useRef(null);
     const [timer, setTimer] = useState(0);
 
@@ -24,10 +23,10 @@ export default function GameField({ gameStatus, setGameStatus }) {
 
     /** Setup */
     useEffect(() => {
-        dispatch({ type: 'SETUP', data: sampleData });
+        dispatch({ type: 'SETUP', data: gameData });
 
         setTimer(levelDuration);
-    }, []);
+    }, [gameData]);
 
     /** Timer Tracker */
     useEffect(() => {
@@ -63,18 +62,18 @@ export default function GameField({ gameStatus, setGameStatus }) {
                     isCorrectAnswer: false
                 });
                 setIsCancelled(false);
-                dispatch({ type: 'NEXT_LEVEL', data: sampleData });
+                dispatch({ type: 'NEXT_LEVEL', data: gameData });
             }, 5000);
         }
 
         return () => nextLevelTimeout && clearTimeout(nextLevelTimeout);
-    }, [answerStatus, setAnswerStatus, gameStatus.isGameOver]);
+    }, [gameData, answerStatus, setAnswerStatus, gameStatus.isGameOver]);
 
     /** End of Game Tracker */
     useEffect(() => {
         // Stop game if all terms are answered
         if (
-            state.rounds >= sampleData.length - 1 &&
+            state.rounds >= gameData.length - 1 &&
             answerStatus.isAnswered &&
             !gameStatus.isGameOver
         ) {
@@ -97,6 +96,7 @@ export default function GameField({ gameStatus, setGameStatus }) {
             // ....
         }
     }, [
+        gameData,
         state.rounds,
         state.remainingLives,
         state.points,
