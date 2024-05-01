@@ -79,10 +79,44 @@ const determineFontSize = (charCount, wordWidth) => {
     return fontSize;
 };
 
+const filterPlayableTerms = (lessons) => {
+    const maxTermPerRow = 11; // Long words with characters having more than 11 are filtered out
+    const playableTerms = lessons.filter((lesson) => {
+        const terms = lesson.name.split(' ');
+
+        return terms.every((term) => term.length <= maxTermPerRow);
+    });
+
+    return playableTerms.map((term) => ({
+        term: term.name,
+        description: term.content?.summary
+    }));
+};
+
+/** Replace existing answers in description with a blank */
+const formatCurrentTerm = (currentTerm) => {
+    const { term, description } = currentTerm;
+    const re = new RegExp(term + '(?:es|s)?', 'gmi');
+    const match = description.match(re);
+    let newDesc = description;
+
+    if (match) {
+        const termLength = term.length;
+        newDesc = description.replace(re, '_'.repeat(termLength));
+    }
+
+    return {
+        term: term,
+        description: newDesc
+    };
+};
+
 module.exports = {
     findLongestWord,
     getLevelTheme,
     shufflePos,
     scramble,
-    determineFontSize
+    determineFontSize,
+    filterPlayableTerms,
+    formatCurrentTerm
 };

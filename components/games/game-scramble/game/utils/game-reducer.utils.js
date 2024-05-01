@@ -3,7 +3,8 @@ import {
     determineFontSize,
     findLongestWord,
     getLevelTheme,
-    scramble
+    scramble,
+    formatCurrentTerm
 } from '../utils/game.utils';
 
 const reducer = (state, action) => {
@@ -38,7 +39,7 @@ const reducer = (state, action) => {
 
             return {
                 ...state,
-                currentTerm: currentTerm,
+                currentTerm: formatCurrentTerm(currentTerm),
                 scrambledTerm: scrambleTerm,
                 levelTheme: getLevelTheme(state.rounds),
                 fontSize: termFontSize,
@@ -72,7 +73,7 @@ const reducer = (state, action) => {
 
             return {
                 ...state,
-                currentTerm: nextTerm,
+                currentTerm: formatCurrentTerm(nextTerm),
                 scrambledTerm: scrambleTerm,
                 levelTheme: getLevelTheme(nextRound),
                 fontSize: termFontSize,
