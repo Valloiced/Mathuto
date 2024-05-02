@@ -4,7 +4,7 @@ const reducer = (state, action) => {
     switch (action.type) {
         case 'SETUP': {
             const seed = Math.random();
-            const generatedNum = Math.floor(seed * 100);
+            const generatedNum = Math.floor(seed * 20);
 
             return {
                 ...state,

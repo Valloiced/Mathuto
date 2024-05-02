@@ -8,7 +8,7 @@ const initialState = {
     numOfFlips: 0,
     flip: 0,
     trackValue: 0,
-    currentValue: ''
+    currentValue: 0
 };
 
 export default initialState;

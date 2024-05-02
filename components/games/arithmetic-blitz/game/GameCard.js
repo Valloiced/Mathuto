@@ -21,7 +21,7 @@ const { height } = Dimensions.get('window');
 export default function GameCard({
     flip,
     currentOper,
-    currentValue,
+    currentValue = 0,
     timer,
     showTimer
 }) {
@@ -36,14 +36,11 @@ export default function GameCard({
         spin.value = flip;
 
         if (flip === 0) {
-            setTimeout(
-                () => setFrontText(`${currentOper}${currentValue}`),
-                200
-            );
+            setTimeout(() => setFrontText(currentOper + currentValue), 200);
         }
 
         if (flip === 1) {
-            setTimeout(() => setBackText(`${currentOper}${currentValue}`), 200);
+            setTimeout(() => setBackText(currentOper + currentValue), 200);
         }
     }, [spin, flip, currentValue, currentOper]);
 

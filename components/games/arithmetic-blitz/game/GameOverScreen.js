@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { router } from 'expo-router';
 import axios from 'axios';
-import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import Animated, { BounceIn, BounceOut, Easing } from 'react-native-reanimated';
 import LottieView from 'lottie-react-native';
 import Toast from 'react-native-toast-message';
 
@@ -10,7 +11,7 @@ import useNetStatus from '../../../../hooks/useNetStatus';
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
 
 import { COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
-import { Restart, HomeSolid } from '../../../../assets/icons';
+import { Restart, HomeSolid, Blitz } from '../../../../assets/icons';
 
 const Status = ({ message }) => (
     <View style={styles.statusContainer}>
@@ -18,7 +19,7 @@ const Status = ({ message }) => (
     </View>
 );
 
-export default function GameOverScreen({ modalVisible, scoreDetails }) {
+export default function GameOverScreen({ scoreDetails }) {
     const { earnedPoints, difficulty, multiplier, totalPoints, overallPoints } =
         scoreDetails;
     const { isConnected } = useNetStatus();
@@ -64,13 +65,12 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
         let confettiTimeout;
 
         // If score is 0, then don't submit it, just wasting resources
-        if (modalVisible && isConnected && totalPoints) {
+        if (isConnected && totalPoints) {
             submitScore();
         }
 
         // Show confetti
         if (
-            modalVisible && // if modal is shown
             confettiRef.current && // if confetti is mounted
             totalPoints !== 0 // if user earned a score
         ) {
@@ -81,124 +81,126 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
         // Just display the score if score is 0 and no connection
         if (totalPoints === 0 || !isConnected) {
             setSubmitting(false);
+            setShowConfetti(false);
         }
 
         // Timeout so that user would be redirected back to home page when they stayed
         // a bit long (don't know why)
-        let screenTimeout;
-        if (modalVisible) {
-            screenTimeout = setTimeout(() => router.replace('/home'), 20000);
-        }
+        // let screenTimeout;
+        // screenTimeout = setTimeout(() => router.replace('/home'), 20000);
 
         return () => {
             clearTimeout(confettiTimeout);
-            clearTimeout(screenTimeout);
+            // clearTimeout(screenTimeout);
         };
-    }, [totalPoints, modalVisible, isConnected, confettiRef]);
+    }, [totalPoints, isConnected, confettiRef]);
+
+    BounceIn.delay(200).duration(500).easing(Easing.ease);
+    BounceOut.delay(200).duration(500).easing(Easing.ease);
 
     return (
         <>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                statusBarTranslucent
+            <Animated.View
+                style={styles.container}
+                entering={BounceIn}
+                exiting={BounceOut}
             >
-                <View style={styles.modalContainer}>
-                    <View style={styles.gameOverContainer}>
-                        <Text style={styles.gameOverHeader}>GOOD JOB!</Text>
-                        <View style={styles.scoreBoard}>
-                            <View style={styles.scoreDetailsWrapper}>
-                                <Text style={styles.scoreDetails}>
-                                    Earned Points
-                                </Text>
-                                <Text style={styles.scoreDetails}>
-                                    {earnedPoints}
-                                </Text>
-                            </View>
-                            <View style={styles.scoreDetailsWrapper}>
-                                <Text style={styles.scoreDetails}>
-                                    Difficulty
-                                </Text>
-                                <Text
-                                    style={styles.scoreDetails}
-                                >{`x ${multiplier}`}</Text>
-                            </View>
+                <View style={styles.gameOverContainer}>
+                    <View style={styles.gameIconWrapper}>
+                        <Image
+                            style={styles.gameIcon}
+                            source={Blitz}
+                            resizeMode="contain"
+                        />
+                    </View>
+                    <Text style={styles.gameOverHeader}>GOOD JOB!</Text>
+                    <View style={styles.scoreBoard}>
+                        <View style={styles.scoreDetailsWrapper}>
+                            <Text style={styles.scoreDetails}>
+                                Earned Points
+                            </Text>
+                            <Text style={styles.scoreDetails}>
+                                {earnedPoints}
+                            </Text>
                         </View>
-                        {/* If there is a network, continue submitting */}
-                        {isConnected ? (
-                            submitting ? (
-                                <Status message={'Submitting Score...'} />
-                            ) : !isError ? (
-                                <View style={styles.totalScoreBoard}>
-                                    <View style={styles.totalScoreWrapper}>
-                                        <Text style={styles.totalScoreHeader}>
-                                            TOTAL POINTS
-                                        </Text>
-                                        <Text style={styles.totalScore}>
-                                            {totalPoints}
-                                        </Text>
-                                    </View>
-                                    <View style={styles.totalScoreWrapper}>
-                                        <Text style={styles.totalScoreHeader}>
-                                            OVERALL POINTS
-                                        </Text>
-                                        <View
-                                            style={styles.overallPointsWrapper}
-                                        >
-                                            <Text style={styles.totalScore}>
-                                                {overallPoints}
-                                            </Text>
-                                            <Text
-                                                style={styles.addedPoints}
-                                            >{`(+${totalPoints})`}</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                            ) : (
-                                <Status message={'Failed to submit score.'} />
-                            )
-                        ) : (
-                            <Status message={'No Internet Connection.'} />
-                        )}
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity
-                                disabled={submitting}
-                                style={[
-                                    styles.button('#66FF88', submitting),
-                                    SHADOWS.medium
-                                ]}
-                                onPress={() => {
-                                    router.replace(`/home`);
-                                }}
-                            >
-                                <HomeSolid size={30} color={'#113A1A'} />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                disabled={submitting}
-                                style={[
-                                    styles.button('#E34D4D', submitting),
-                                    SHADOWS.medium
-                                ]}
-                                onPress={() =>
-                                    router.replace(
-                                        `/games/arithmetic-blitz/game/${difficulty}`
-                                    )
-                                }
-                            >
-                                <Restart size={30} color={'#490000'} />
-                            </TouchableOpacity>
+                        <View style={styles.scoreDetailsWrapper}>
+                            <Text style={styles.scoreDetails}>Difficulty</Text>
+                            <Text
+                                style={styles.scoreDetails}
+                            >{`x ${multiplier}`}</Text>
                         </View>
                     </View>
-                    <LottieView
-                        ref={confettiRef}
-                        resizeMode="cover"
-                        loop={false}
-                        source={require('../../../../assets/confetti.json')}
-                        style={styles.confetti(showConfetti)}
-                    />
+                    {/* If there is a network, continue submitting */}
+                    {isConnected ? (
+                        submitting ? (
+                            <Status message={'Submitting Score...'} />
+                        ) : !isError ? (
+                            <View style={styles.totalScoreBoard}>
+                                <View style={styles.totalScoreWrapper}>
+                                    <Text style={styles.totalScoreHeader}>
+                                        TOTAL POINTS
+                                    </Text>
+                                    <Text style={styles.totalScore}>
+                                        {totalPoints}
+                                    </Text>
+                                </View>
+                                <View style={styles.totalScoreWrapper}>
+                                    <Text style={styles.totalScoreHeader}>
+                                        OVERALL POINTS
+                                    </Text>
+                                    <View style={styles.overallPointsWrapper}>
+                                        <Text style={styles.totalScore}>
+                                            {overallPoints}
+                                        </Text>
+                                        <Text
+                                            style={styles.addedPoints}
+                                        >{`(+${totalPoints})`}</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        ) : (
+                            <Status message={'Failed to submit score.'} />
+                        )
+                    ) : (
+                        <Status message={'No Internet Connection.'} />
+                    )}
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity
+                            disabled={submitting}
+                            style={[
+                                styles.button('#66FF88', submitting),
+                                SHADOWS.medium
+                            ]}
+                            onPress={() => {
+                                router.replace(`/home`);
+                            }}
+                        >
+                            <HomeSolid size={25} color={'#113A1A'} />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            disabled={submitting}
+                            style={[
+                                styles.button('#E34D4D', submitting),
+                                SHADOWS.medium
+                            ]}
+                            onPress={() =>
+                                router.replace(
+                                    `/games/arithmetic-blitz/game/${difficulty}`
+                                )
+                            }
+                        >
+                            <Restart size={25} color={'#490000'} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </Modal>
+                <LottieView
+                    ref={confettiRef}
+                    resizeMode="cover"
+                    loop={false}
+                    source={require('../../../../assets/confetti.json')}
+                    style={styles.confetti(showConfetti)}
+                />
+            </Animated.View>
         </>
     );
 }
@@ -213,12 +215,11 @@ const styles = StyleSheet.create({
         bottom: 0,
         zIndex: 1000
     }),
-    modalContainer: {
+    container: {
         flex: 1,
         position: 'relative',
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: COLORS.textSecondary + '80' // 50% opacity
+        alignItems: 'center'
     },
     gameOverContainer: {
         width: '90%',
@@ -229,20 +230,31 @@ const styles = StyleSheet.create({
         borderColor: COLORS.white,
         borderRadius: 50
     },
+    gameIconWrapper: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: (125 / 1.5) * -1,
+        width: '100%',
+        height: 125
+    },
+    gameIcon: {
+        width: '100%',
+        height: '100%'
+    },
     gameOverHeader: {
         alignSelf: 'center',
-        fontSize: SIZES.xxLarge + 4,
+        fontSize: SIZES.xxLarge,
         color: COLORS.lightWhite,
         fontFamily: FONT.TorBold,
         letterSpacing: 1,
-        marginTop: SIZES.xxLarge
+        marginTop: SIZES.xxLarge * 1.5
     },
     scoreBoard: {
         width: '100%',
         flexDirection: 'column',
         alignItems: 'center',
-        paddingVertical: SIZES.xLarge,
-        paddingHorizontal: SIZES.large
+        paddingVertical: SIZES.large,
+        paddingHorizontal: SIZES.small
     },
     scoreDetailsWrapper: {
         width: '100%',
@@ -268,11 +280,10 @@ const styles = StyleSheet.create({
     },
     totalScoreWrapper: {
         flexDirection: 'column',
-        alignItems: 'center',
-        gap: SIZES.xxSmall
+        alignItems: 'center'
     },
     totalScoreHeader: {
-        fontSize: SIZES.large,
+        fontSize: SIZES.medium,
         color: COLORS.lightWhite,
         fontFamily: FONT.TorBold,
         letterSpacing: 1
