@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useNetInfo } from '@react-native-community/netinfo';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import Animated, { BounceIn, BounceOut, Easing } from 'react-native-reanimated';
 import LottieView from 'lottie-react-native';
 import Toast from 'react-native-toast-message';
+
+import useNetStatus from '../../../../hooks/useNetStatus';
 
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
 
@@ -27,11 +28,12 @@ const Status = ({ message }) => (
 );
 
 export default function GameOverScreen({
+    gameQuery,
     totalPoints,
     overallPoints,
     isCompleted
 }) {
-    const netinfo = useNetInfo();
+    const { isConnected } = useNetStatus();
 
     const [showConfetti, setShowConfetti] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -74,7 +76,7 @@ export default function GameOverScreen({
         let confettiTimeout;
 
         // If score is 0, then don't submit it, just wasting resources
-        if (netinfo.isConnected && totalPoints) {
+        if (isConnected && totalPoints) {
             submitScore();
         }
 
@@ -88,7 +90,7 @@ export default function GameOverScreen({
         }
 
         // Just display the score if score is 0 and no connection
-        if (totalPoints === 0 || !netinfo.isConnected) {
+        if (totalPoints === 0 || !isConnected) {
             setSubmitting(false);
         }
 
@@ -100,7 +102,7 @@ export default function GameOverScreen({
             clearTimeout(confettiTimeout);
             clearTimeout(screenTimeout);
         };
-    }, [totalPoints, isCompleted, netinfo.isConnected, confettiRef]);
+    }, [totalPoints, isCompleted, isConnected, confettiRef]);
 
     BounceIn.delay(200).duration(500).easing(Easing.ease);
     BounceOut.delay(200).duration(500).easing(Easing.ease);
@@ -123,7 +125,7 @@ export default function GameOverScreen({
                     {isCompleted ? 'COMPLETED!' : 'NICELY DONE!'}
                 </Text>
                 {/* If there is a network, continue submitting */}
-                {netinfo.isConnected ? (
+                {isConnected ? (
                     submitting ? (
                         <Status message={'Submitting Score...'} />
                     ) : !isError ? (
@@ -176,7 +178,9 @@ export default function GameOverScreen({
                             SHADOWS.medium
                         ]}
                         onPress={() =>
-                            router.replace(`/games/math-scramble/game/topics`)
+                            router.replace(
+                                `/games/math-scramble/game/${gameQuery}`
+                            )
                         }
                     >
                         <Restart size={25} color={'#490000'} />

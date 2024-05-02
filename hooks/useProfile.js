@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
 import {
     getFirestore,
     collection,
@@ -9,13 +8,15 @@ import {
 } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import useNetStatus from './useNetStatus';
+
 import { firebase, firebaseAuthService } from '../utils/firebase.utils';
 import { getRankings } from '../utils/leaderboard.utils';
 
 const useProfile = () => {
     const [data, setData] = useState({});
 
-    const netinfo = useNetInfo();
+    const { isConnected } = useNetStatus();
 
     useEffect(() => {
         let observer;
@@ -25,7 +26,7 @@ const useProfile = () => {
                 // If there's network connection or login user, get updated profile data
                 const user = await firebaseAuthService.getCurrentUser();
 
-                if (netinfo.isConnected || user) {
+                if (isConnected && user) {
                     // This would not rely on firestore utils as we need to update this in realtime
                     // Directly using firebase on this one
 
@@ -76,7 +77,7 @@ const useProfile = () => {
                 observer();
             }
         };
-    }, [netinfo.isConnected]);
+    }, [isConnected]);
 
     return data;
 };

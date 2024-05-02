@@ -16,7 +16,7 @@ export default function HomeLayout() {
                 headerBackgroundContainerStyle: COLORS.lightWhite,
                 drawerActiveTintColor: COLORS.textTertiary,
                 drawerActiveBackgroundColor: COLORS.secondary + '80',
-                drawerInactiveTintColor: COLORS.textSecondary,
+                drawerInactiveTintColor: COLORS.textSecondary + 'BF',
                 drawerType: 'slide'
             }}
             drawerContent={(props) => <HomeDrawerContent {...props} />}
