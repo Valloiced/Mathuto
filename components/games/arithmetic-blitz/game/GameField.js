@@ -157,6 +157,7 @@ export default function GameField({ difficulty, gameOver }) {
                 flip={state.flip}
                 currentValue={state.currentValue}
                 currentOper={state.currentOper}
+                round={state.round}
                 timer={timer}
                 showTimer={showGameInput} // Show timer with the game input
             />

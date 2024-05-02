@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import {
     Dimensions,
     View,
@@ -13,7 +13,7 @@ import Animated, {
     withTiming
 } from 'react-native-reanimated';
 
-import CardBG from '../../../../assets/bg/arithmetic-blitz-card-bg.png';
+import { BlitzCards } from '../../../../assets/bg/arithmetic-blitz';
 import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 const { height } = Dimensions.get('window');
@@ -21,7 +21,8 @@ const { height } = Dimensions.get('window');
 export default function GameCard({
     flip,
     currentOper,
-    currentValue = 0,
+    currentValue,
+    round,
     timer,
     showTimer
 }) {
@@ -29,20 +30,37 @@ export default function GameCard({
     const [frontText, setFrontText] = useState('');
     const [backText, setBackText] = useState('');
 
+    const frontCardBgRef = useRef(null);
+    const backCardBgRef = useRef(null);
+    const flipTracker = useRef(0);
+
     // Well, timer doesn't go past a minute so I will only format seconds
     const formatTimer = `0:${timer < 10 ? '0' + timer : timer}`;
+
+    const getThemeCard = useCallback(() => {
+        const cardLength = BlitzCards.length;
+        return BlitzCards[flipTracker.current % cardLength];
+    }, []);
 
     useEffect(() => {
         spin.value = flip;
 
         if (flip === 0) {
-            setTimeout(() => setFrontText(currentOper + currentValue), 200);
+            setTimeout(() => {
+                setFrontText(currentOper + currentValue);
+            }, 200);
+            frontCardBgRef.current = getThemeCard();
+            flipTracker.current += 1;
         }
 
         if (flip === 1) {
-            setTimeout(() => setBackText(currentOper + currentValue), 200);
+            setTimeout(() => {
+                setBackText(currentOper + currentValue);
+            }, 200);
+            backCardBgRef.current = getThemeCard();
+            flipTracker.current += 1;
         }
-    }, [spin, flip, currentValue, currentOper]);
+    }, [spin, flip, currentValue, currentOper, getThemeCard]);
 
     const frontAnimatedStyle = useAnimatedStyle(() => {
         const spinVal = interpolate(spin.value, [0, 1], [0, 180]);
@@ -75,7 +93,7 @@ export default function GameCard({
             </View>
             <Animated.View style={[styles.gameCard, frontAnimatedStyle]}>
                 <ImageBackground
-                    source={CardBG}
+                    source={frontCardBgRef.current}
                     style={styles.gameCardBG}
                     imageStyle={styles.gameCardImage}
                 >
@@ -84,7 +102,7 @@ export default function GameCard({
             </Animated.View>
             <Animated.View style={[styles.gameCard, backAnimatedStyle]}>
                 <ImageBackground
-                    source={CardBG}
+                    source={backCardBgRef.current}
                     style={styles.gameCardBG}
                     imageStyle={styles.gameCardImage}
                 >
