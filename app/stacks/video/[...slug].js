@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { StatusBar, ScrollView } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { useNetInfo } from '@react-native-community/netinfo';
+
+import useNetStatus from '../../../hooks/useNetStatus';
 
 import ReturnHeaderBtn from '../../../components/headers/ReturnHeaderBtn';
 import VideoPlayer from '../../../components/stacks/video/VideoPlayer';
@@ -18,7 +19,7 @@ import {
 export default function Video() {
     // params: [videoType, videoId]
     const params = useLocalSearchParams();
-    const netinfo = useNetInfo();
+    const { isConnected } = useNetStatus();
 
     const [videoType, videoId] = params.slug;
 
@@ -62,14 +63,14 @@ export default function Video() {
             }
         };
 
-        if (videoId && netinfo.isConnected) {
+        if (videoId && isConnected) {
             fetchVideoData();
         }
 
-        if (netinfo.isConnected === false) {
+        if (isConnected === false) {
             setModalVisible(true);
         }
-    }, [videoId, netinfo]);
+    }, [videoId, isConnected]);
 
     return (
         <>

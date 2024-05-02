@@ -31,7 +31,7 @@ export default function SelectionContainer({
         /** Single Select */
         setActiveCards((prevSections) => {
             let newSections = [...prevSections];
-            var index = newSections.indexOf(sectionToToggle);
+            let index = newSections.indexOf(sectionToToggle);
             if (index !== -1) {
                 newSections.splice(index, 1);
             } else {
@@ -65,7 +65,7 @@ export default function SelectionContainer({
                 containerStyle={styles.selectionWrapper}
                 sections={materials}
                 activeSections={activeCards}
-                keyExtractor={(item, i) => item.details.id}
+                keyExtractor={(item) => item.id}
                 renderHeader={(section, key, isActive) => (
                     <SelectionCard
                         section={section}

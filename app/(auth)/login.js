@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
 import { Link, router } from 'expo-router';
 import { Image, View, Text } from 'react-native';
 import Toast from 'react-native-toast-message';
+
+import useNetStatus from '../../hooks/useNetStatus';
 
 import { firebaseAuthService } from '../../utils/firebase.utils';
 
@@ -15,7 +16,7 @@ import FormsContainer from '../../components/login/FormsContainer';
 import SocialsContainer from '../../components/login/SocialsContainer';
 
 export default function Login() {
-    const netinfo = useNetInfo();
+    const { isConnected } = useNetStatus();
 
     const [loginForm, setLoginForm] = useState({
         email: '',
@@ -55,7 +56,7 @@ export default function Login() {
     const handleLogin = async () => {
         const { email, password } = loginForm;
 
-        if (netinfo.isConnected === false) {
+        if (isConnected === false) {
             return Toast.show({
                 type: 'error',
                 text1: 'You are offline',

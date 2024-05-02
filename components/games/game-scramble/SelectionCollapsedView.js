@@ -1,5 +1,6 @@
-import React, { useId } from 'react';
-import { View, Text } from 'react-native';
+import React, { useId, useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { View, Text, ActivityIndicator } from 'react-native';
 
 import { filterPlayableTerms } from './game/utils/game.utils';
 
@@ -12,8 +13,32 @@ function RenderBulletList({ term }) {
 
 export default function SelectionCollapsedView({ section }) {
     const id = useId();
-    const playableTerms = filterPlayableTerms(section.lessons);
 
+    const [playableTerms, setPlayableTerms] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchData = useCallback(async () => {
+        try {
+            /** Fetch lesson data for the topics fetched */
+            const topicRes = await axios.get(
+                `${process.env.EXPO_PUBLIC_SERVER}/api/materials/${section.id}?exclude_fields=content,createdOn`
+            );
+
+            const lessons = topicRes.data.lessons;
+
+            setPlayableTerms(filterPlayableTerms(lessons));
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    }, [section]);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
+    /** Render Methods */
     const splitColumn = (arr, termsPerRow, limit) => {
         var result = [];
         for (var i = 0; i < arr.length; i += termsPerRow) {
@@ -47,9 +72,19 @@ export default function SelectionCollapsedView({ section }) {
         <View style={styles.selectionCardCollapse}>
             <View style={styles.collapsibleContainer}>
                 <Text style={styles.collapsibleHeader}>Terms Included</Text>
-                <View style={styles.termsContainer}>{renderColumn()}</View>
-                {playableTerms.length > 6 && (
-                    <Text style={styles.termsIndicator}>And more...</Text>
+                {loading ? (
+                    <ActivityIndicator />
+                ) : (
+                    <>
+                        <View style={styles.termsContainer}>
+                            {renderColumn()}
+                        </View>
+                        {playableTerms.length > 6 && (
+                            <Text style={styles.termsIndicator}>
+                                And more...
+                            </Text>
+                        )}
+                    </>
                 )}
             </View>
         </View>

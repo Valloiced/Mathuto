@@ -1,11 +1,11 @@
 import React from 'react';
+import { router } from 'expo-router';
 import { TouchableOpacity, ImageBackground, View, Text } from 'react-native';
 
 import styles from './style/gameOptions.style';
 
 import ArithmeticBlitzBG from '../../assets/bg/arithmetic-blitz-bg.png';
 import MathScrambleBG from '../../assets/bg/math-scramble-bg.png';
-import { router } from 'expo-router';
 
 function GameOptionsCard({ bg, title, handlePress }) {
     return (

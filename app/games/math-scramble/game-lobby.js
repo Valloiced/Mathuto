@@ -33,17 +33,7 @@ export default function GameLobby() {
                 const topics = materialsRes.data?.topics;
 
                 if (topics) {
-                    /** Fetch lesson data for the topics fetched */
-                    const fetchLessons = topics.map(async (topic) => {
-                        const lessonRes = await axios.get(
-                            `${process.env.EXPO_PUBLIC_SERVER}/api/materials/${topic.id}?exclude_fields=content,createdOn`
-                        );
-
-                        return lessonRes.data;
-                    });
-
-                    const materialsData = await Promise.all(fetchLessons);
-                    setMaterials(materialsData);
+                    setMaterials(topics);
                 }
             } catch (error) {
                 console.error(error);

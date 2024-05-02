@@ -76,6 +76,7 @@ export default function MathScrableGame() {
                     />
                 ) : (
                     <GameOverScreen
+                        gameQuery={params.topics}
                         totalPoints={gameStatus.totalPoints}
                         overallPoints={user.totalPoints}
                         isCompleted={gameStatus.isCompleted}

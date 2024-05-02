@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
+import { router } from 'expo-router';
 import axios from 'axios';
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Toast from 'react-native-toast-message';
 
+import useNetStatus from '../../../../hooks/useNetStatus';
+
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
 
 import { COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
 import { Restart, HomeSolid } from '../../../../assets/icons';
-import { router } from 'expo-router';
 
 const Status = ({ message }) => (
     <View style={styles.statusContainer}>
@@ -20,7 +21,7 @@ const Status = ({ message }) => (
 export default function GameOverScreen({ modalVisible, scoreDetails }) {
     const { earnedPoints, difficulty, multiplier, totalPoints, overallPoints } =
         scoreDetails;
-    const netinfo = useNetInfo();
+    const { isConnected } = useNetStatus();
 
     const [showConfetti, setShowConfetti] = useState(true);
     const [submitting, setSubmitting] = useState(true);
@@ -63,7 +64,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
         let confettiTimeout;
 
         // If score is 0, then don't submit it, just wasting resources
-        if (modalVisible && netinfo.isConnected && totalPoints) {
+        if (modalVisible && isConnected && totalPoints) {
             submitScore();
         }
 
@@ -78,7 +79,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
         }
 
         // Just display the score if score is 0 and no connection
-        if (totalPoints === 0 || !netinfo.isConnected) {
+        if (totalPoints === 0 || !isConnected) {
             setSubmitting(false);
         }
 
@@ -93,7 +94,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
             clearTimeout(confettiTimeout);
             clearTimeout(screenTimeout);
         };
-    }, [totalPoints, modalVisible, netinfo.isConnected, confettiRef]);
+    }, [totalPoints, modalVisible, isConnected, confettiRef]);
 
     return (
         <>
@@ -125,7 +126,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                             </View>
                         </View>
                         {/* If there is a network, continue submitting */}
-                        {netinfo.isConnected ? (
+                        {isConnected ? (
                             submitting ? (
                                 <Status message={'Submitting Score...'} />
                             ) : !isError ? (

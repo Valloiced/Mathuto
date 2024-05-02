@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Stack, useGlobalSearchParams } from 'expo-router';
-import { ScrollView, ActivityIndicator, Text } from 'react-native';
-import Toast from 'react-native-toast-message';
+import { ScrollView, ActivityIndicator } from 'react-native';
+// import Toast from 'react-native-toast-message';
+
+import useCache from '../../../../../hooks/useCache';
 
 import styles from '../../../../../components/stacks/lesson/style/lesson.style';
 
@@ -15,6 +17,8 @@ import PaginationButtons from '../../../../../components/stacks/lesson/Paginatio
 import { COLORS } from '../../../../../constants/theme';
 
 export default function Lesson() {
+    const { data, loadingCache } = useCache('topics', []);
+
     const params = useGlobalSearchParams();
 
     const [lesson, setLesson] = useState({
@@ -25,32 +29,53 @@ export default function Lesson() {
 
     const [currentTab, setCurrentTab] = useState('summary');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { topic_id, lesson_id } = params;
-                const response = await axios.get(
-                    `${process.env.EXPO_PUBLIC_SERVER}/api/materials/${topic_id}/lesson/${lesson_id}`
-                );
+    /** Using cached data for now */
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const { topic_id, lesson_id } = params;
+    //             const response = await axios.get(
+    //                 `${process.env.EXPO_PUBLIC_SERVER}/api/materials/${topic_id}/lesson/${lesson_id}`
+    //             );
 
-                setLesson(response.data.lesson);
-            } catch (error) {
-                console.error('Unable to fetch lesson details:', error.message);
-                Toast.show({
-                    type: 'error',
-                    text1: 'Unable to load lesson details',
-                    text2: error.message,
-                    position: 'bottom',
-                    autoHide: true,
-                    visibilityTime: 5000
-                });
-            } finally {
-                setLoading(false);
-            }
+    //             setLesson(response.data.lesson);
+    //         } catch (error) {
+    //             console.error('Unable to fetch lesson details:', error.message);
+    //             Toast.show({
+    //                 type: 'error',
+    //                 text1: 'Unable to load lesson details',
+    //                 text2: error.message,
+    //                 position: 'bottom',
+    //                 autoHide: true,
+    //                 visibilityTime: 5000
+    //             });
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, [params]);
+
+    useEffect(() => {
+        const updateData = () => {
+            const { topic_id, lesson_id } = params;
+            const cachedMaterial = data.find(
+                (material) => material.details?.id === topic_id
+            );
+
+            const cachedLesson = cachedMaterial.lessons.find(
+                (lessonItem) => lessonItem.lessonNo === Number(lesson_id)
+            );
+
+            setLesson(cachedLesson);
+            setLoading(false);
         };
 
-        fetchData();
-    }, [params]);
+        if (!loadingCache && !lesson.length) {
+            updateData();
+        }
+    }, [params, data, loadingCache, lesson]);
 
     return (
         <>

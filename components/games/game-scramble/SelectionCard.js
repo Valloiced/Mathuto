@@ -18,11 +18,9 @@ export default function SelectionCard({
             onPress={handleSelect}
         >
             <View style={styles.headerWrapper}>
-                <Text style={styles.selectionTitle}>
-                    {section.details.name}
-                </Text>
+                <Text style={styles.selectionTitle}>{section.name}</Text>
                 <Text style={styles.selectionItemCount}>
-                    {section.details.noOfItems} terms
+                    {section.noOfItems} terms
                 </Text>
             </View>
             <View style={styles.chevronWrapper}>

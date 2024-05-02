@@ -69,15 +69,15 @@ export const getChannelDetails = async (channelId, part = 'snippet') => {
 };
 
 export const formatViews = (views) => {
-    views = views.toString();
+    views = Number(views);
 
     if (views < 1e3) {
-        return views;
-    } else if (views >= 1e3 && views <= 999999) {
-        return views.slice(0, views.length - 3) + 'K';
-    } else if (views >= 1e6 && views <= 9999999) {
-        return views.slice(0, views.length - 6) + 'M';
+        return views.toString();
+    } else if (views >= 1e3 && views < 1e6) {
+        return Math.floor(views / 1e3) + 'K';
+    } else if (views >= 1e6 && views < 1e9) {
+        return Math.floor(views / 1e6) + 'M';
     } else {
-        return views.slice(0, views.length - 9) + 'B';
+        return Math.floor(views / 1e9) + 'B';
     }
 };
