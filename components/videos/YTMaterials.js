@@ -59,7 +59,7 @@ export default function YTMaterials() {
                 const currentTime = new Date();
                 const prevSearchTime = new Date(latestQueries.fetchDate);
                 const differenceInTime =
-                    prevSearchTime.getTime() - currentTime.getTime();
+                    currentTime.getTime() - prevSearchTime.getTime();
 
                 const differenceInDays = differenceInTime / (1000 * 3600 * 24);
 
