@@ -80,7 +80,7 @@ const determineFontSize = (charCount, wordWidth) => {
 };
 
 const filterPlayableTerms = (lessons) => {
-    const maxTermPerRow = 11; // Long words with characters having more than 11 are filtered out
+    const maxTermPerRow = 10; // Long words with characters having more than 10 are filtered out
     const playableTerms = lessons.filter((lesson) => {
         const terms = lesson.name.split(' ');
 

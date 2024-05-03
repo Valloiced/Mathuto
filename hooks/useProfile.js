@@ -63,6 +63,10 @@ const useProfile = () => {
                     if (latestProfile) {
                         setData(JSON.parse(latestProfile));
                     }
+
+                    if (observer) {
+                        observer();
+                    }
                 }
             } catch (error) {
                 console.error(error);

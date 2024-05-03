@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { GameTheme } from '../game/utils/theme.utils';
+import { COLORS } from '../../../../constants/theme';
 
 const styles = StyleSheet.create({
-    gameContainer: {
+    gameContainer: (loading) => ({
         height: '100%',
-        backgroundColor: GameTheme.primaryBgColor
-    }
+        backgroundColor: loading ? COLORS.white : GameTheme.primaryBgColor
+    })
 });
 
 export default styles;
