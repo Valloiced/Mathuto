@@ -17,7 +17,8 @@ import {
     SIZES
 } from '../../../../constants/theme';
 
-import { Restart, HomeSolid, Scramble, Crown } from '../../../../assets/icons';
+import { Restart, HomeSolid, Crown } from '../../../../assets/icons';
+import { MathScrambleIcon } from '../../../../assets/icons/math-scramble';
 import { router } from 'expo-router';
 import { GameTheme } from './utils/theme.utils';
 
@@ -92,6 +93,7 @@ export default function GameOverScreen({
         // Just display the score if score is 0 and no connection
         if (totalPoints === 0 || !isConnected) {
             setSubmitting(false);
+            setShowConfetti(false);
         }
 
         // Timeout so that user would be redirected back to home page when they stayed
@@ -117,7 +119,7 @@ export default function GameOverScreen({
                 <View style={styles.gameIconWrapper}>
                     <Image
                         style={styles.gameIcon}
-                        source={isCompleted ? Crown : Scramble}
+                        source={isCompleted ? Crown : MathScrambleIcon}
                         resizeMode="contain"
                     />
                 </View>
