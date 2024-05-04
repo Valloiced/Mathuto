@@ -141,11 +141,8 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
             isAnswered: true,
             isCorrectAnswer: isCorrect
         });
-<<<<<<< HEAD
 
         setShowBanner(true);
-=======
->>>>>>> 6279cec0e060d1ce3ec01074468f62929c883e0a
     };
 
     return (
