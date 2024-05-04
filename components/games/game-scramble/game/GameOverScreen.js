@@ -106,14 +106,14 @@ export default function GameOverScreen({
         };
     }, [totalPoints, isCompleted, isConnected, confettiRef]);
 
-    BounceIn.delay(200).duration(500).easing(Easing.ease);
-    BounceOut.delay(200).duration(500).easing(Easing.ease);
+    const componentEnter = BounceIn.delay(500).duration(850);
+    const componentExit = BounceOut.delay(500).duration(850);
 
     return (
         <Animated.View
             style={styles.container}
-            entering={BounceIn}
-            exiting={BounceOut}
+            entering={componentEnter}
+            exiting={componentExit}
         >
             <View style={[styles.gameOverContainer, SHADOWS.medium]}>
                 <View style={styles.gameIconWrapper}>

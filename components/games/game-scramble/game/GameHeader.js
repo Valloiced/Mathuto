@@ -2,10 +2,20 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { WrongSolid, WrongCloseSolid } from '../../../../assets/icons';
-import { FONT, SIZES } from '../../../../constants/theme';
+import {
+    BORDER_RADIUS,
+    COLORS,
+    FONT,
+    SIZES
+} from '../../../../constants/theme';
 import { GameTheme } from './utils/theme.utils';
 
-export default function GameHeader({ points, remainingLives }) {
+export default function GameHeader({
+    points,
+    remainingLives,
+    lessonsAnswered,
+    noOfLessons
+}) {
     const remainingAttempts = new Array(3)
         .fill(0)
         .map((val, index) =>
@@ -21,6 +31,11 @@ export default function GameHeader({ points, remainingLives }) {
 
     return (
         <View style={styles.headerContainer}>
+            <View style={styles.gameTrackerWrapper}>
+                <Text style={styles.gameTracker}>
+                    {`${lessonsAnswered}/${noOfLessons}`}
+                </Text>
+            </View>
             <View style={styles.pointsWrapper}>
                 <Text style={styles.pointsHeader}>POINTS</Text>
                 <Text style={styles.points}>{points}</Text>
@@ -34,6 +49,21 @@ const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    gameTrackerWrapper: {
+        position: 'absolute',
+        top: 0,
+        left: SIZES.small,
+        paddingVertical: SIZES.xxSmall,
+        paddingHorizontal: SIZES.xSmall,
+        backgroundColor: COLORS.white,
+        borderRadius: BORDER_RADIUS.small
+    },
+    gameTracker: {
+        fontFamily: FONT.MSExtraBold,
+        fontSize: SIZES.small,
+        color: GameTheme.textColor,
+        letterSpacing: 3
     },
     pointsWrapper: {
         flexDirection: 'column',

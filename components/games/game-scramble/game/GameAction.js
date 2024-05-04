@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Animated, {
     useSharedValue,
@@ -11,8 +11,10 @@ import { COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
 import { GameTheme } from './utils/theme.utils';
 
 import GameProgressBar from './GameProgressBar';
+import GameBanner from './GameBanner';
 
 export default function GameAction({
+    term,
     scrambledTerm,
     description,
     levelTheme,
@@ -20,7 +22,10 @@ export default function GameAction({
     shuffle,
     reset,
     levelDuration,
-    isCancelled
+    isCancelled,
+    answerStatus,
+    showBanner,
+    setShowBanner
 }) {
     const charScale = useSharedValue(1);
 
@@ -76,6 +81,13 @@ export default function GameAction({
 
     return (
         <View style={styles.gameActionContainer}>
+            {showBanner && (
+                <GameBanner
+                    answerStatus={answerStatus}
+                    term={term}
+                    setShowBanner={setShowBanner}
+                />
+            )}
             <View style={styles.scrambledWordWrapper}>
                 {generateScrambledWord()}
             </View>
@@ -97,6 +109,30 @@ const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
     gameActionContainer: {
         marginVertical: SIZES.xLarge
+    },
+    gameActionBanner: {
+        position: 'absolute',
+        flexDirection: 'column',
+        width: '100%',
+        top: -SIZES.medium,
+        left: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: SIZES.xxSmall,
+        backgroundColor: GameTheme.correctBgColor,
+        borderWidth: 1,
+        borderColor: GameTheme.correctTextColor
+    },
+    bannerSubtitle: {
+        color: GameTheme.correctTextColor,
+        fontFamily: FONT.PopRegular,
+        fontSize: SIZES.small,
+        letterSpacing: 1
+    },
+    bannerStatus: {
+        color: GameTheme.correctTextColor,
+        fontFamily: FONT.MSBlack,
+        fontSize: SIZES.large
     },
     scrambledWordWrapper: {
         height: height * 0.2,

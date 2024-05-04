@@ -112,7 +112,7 @@ export default function SelectionCollapsedView({ section, isCollapsed }) {
     return (
         <View style={styles.selectionCardCollapse}>
             <View style={styles.collapsibleContainer}>
-                <Text style={styles.collapsibleHeader}>Terms Included</Text>
+                <Text style={styles.collapsibleHeader}>Terms Available</Text>
                 {loading ? (
                     <ActivityIndicator />
                 ) : (

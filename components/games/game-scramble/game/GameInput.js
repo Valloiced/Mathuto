@@ -8,6 +8,7 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
+import Animated, { BounceIn } from 'react-native-reanimated';
 
 import { Shuffle } from '../../../../assets/icons';
 import {
@@ -48,10 +49,16 @@ export default function GameInput({
             const emptyChar = ' ';
             const textBoxChar = answerInput[i + j] || emptyChar;
 
+            const enteringAnimation = BounceIn.delay(50 * j);
+
             return (
-                <Text key={id + j + char} style={[styles.textBox, textStyle]}>
+                <Animated.Text
+                    key={id + j + char}
+                    style={[styles.textBox, textStyle]}
+                    entering={enteringAnimation}
+                >
                     {textBoxChar}
-                </Text>
+                </Animated.Text>
             );
         };
 

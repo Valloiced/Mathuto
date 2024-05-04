@@ -16,6 +16,7 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
     const [timer, setTimer] = useState(0);
 
     const [isCancelled, setIsCancelled] = useState(false);
+    const [showBanner, setShowBanner] = useState(false);
     const [answerStatus, setAnswerStatus] = useState({
         isAnswered: false,
         isCorrectAnswer: false
@@ -45,6 +46,7 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
                 isAnswered: true,
                 isCorrectAnswer: false
             });
+            setShowBanner(true);
         }
 
         return () => clearInterval(timerInterval.current);
@@ -52,22 +54,22 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
 
     /** End of Level Tracker */
     useEffect(() => {
-        let nextLevelTimeout;
-
-        if (answerStatus.isAnswered && !gameStatus.isGameOver) {
-            nextLevelTimeout = setTimeout(() => {
-                setTimer(levelDuration);
-                setAnswerStatus({
-                    isAnswered: false,
-                    isCorrectAnswer: false
-                });
-                setIsCancelled(false);
-                dispatch({ type: 'NEXT_LEVEL', data: gameData });
-            }, 5000);
+        if (answerStatus.isAnswered && !gameStatus.isGameOver && !showBanner) {
+            setTimer(levelDuration);
+            setAnswerStatus({
+                isAnswered: false,
+                isCorrectAnswer: false
+            });
+            setIsCancelled(false);
+            dispatch({ type: 'NEXT_LEVEL', data: gameData });
         }
-
-        return () => nextLevelTimeout && clearTimeout(nextLevelTimeout);
-    }, [gameData, answerStatus, setAnswerStatus, gameStatus.isGameOver]);
+    }, [
+        gameData,
+        showBanner,
+        answerStatus,
+        setAnswerStatus,
+        gameStatus.isGameOver
+    ]);
 
     /** End of Game Tracker */
     useEffect(() => {
@@ -136,6 +138,8 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
             isAnswered: true,
             isCorrectAnswer: isCorrect
         });
+
+        setShowBanner(true);
     };
 
     return (
@@ -143,8 +147,11 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
             <GameHeader
                 points={state.points}
                 remainingLives={state.remainingLives}
+                lessonsAnswered={state.rounds + 1}
+                noOfLessons={gameData.length}
             />
             <GameAction
+                term={state.currentTerm.term}
                 scrambledTerm={state.scrambledTerm}
                 description={state.currentTerm.description}
                 levelTheme={state.levelTheme}
@@ -153,6 +160,9 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
                 reset={state.reset}
                 levelDuration={levelDuration}
                 isCancelled={isCancelled}
+                answerStatus={answerStatus}
+                showBanner={showBanner}
+                setShowBanner={setShowBanner}
             />
             <GameInput
                 levelTheme={state.levelTheme}

@@ -62,7 +62,7 @@ const determineFontSize = (charCount, wordWidth) => {
     const availableWidth = width - screenPadding - charGap * (charCount - 1);
 
     // Adjust scaling factor to ensure readability
-    const scalingFactor = 0.9;
+    const scalingFactor = 0.8;
 
     let fontSize =
         (availableWidth / totalCharWidth) * wordWidth * scalingFactor;
@@ -80,7 +80,7 @@ const determineFontSize = (charCount, wordWidth) => {
 };
 
 const filterPlayableTerms = (lessons) => {
-    const maxTermPerRow = 10; // Long words with characters having more than 10 are filtered out
+    const maxTermPerRow = 9; // Long words with characters having more than 9 are filtered out
     const playableTerms = lessons.filter((lesson) => {
         const terms = lesson.name.split(' ');
 

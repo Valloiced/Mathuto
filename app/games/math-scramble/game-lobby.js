@@ -52,14 +52,6 @@ export default function GameLobby() {
                 }
             } catch (error) {
                 console.error(error);
-                Toast.show({
-                    type: 'error',
-                    text1: 'Something went wrong.',
-                    text2: error.message,
-                    position: 'top',
-                    autoHide: true,
-                    visibilityTime: 5000
-                });
             } finally {
                 setLoading(false);
                 setIsFetching(false);
@@ -86,9 +78,6 @@ export default function GameLobby() {
             router.replace(`/games/math-scramble/game/${topicsQuery}`);
         }
     };
-
-    console.log('render');
-
     return (
         <>
             <StatusBar
