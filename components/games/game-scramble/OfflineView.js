@@ -9,10 +9,7 @@ export default function OfflineView() {
         <View style={styles.offlineViewContainer}>
             <Text style={styles.viewHeader}>No saved lessons yet</Text>
             <TouchableOpacity style={styles.goBackBtn}>
-                <Text
-                    style={styles.goBackBtnText}
-                    onPress={() => router.replace('/home')}
-                >
+                <Text style={styles.goBackBtnText} onPress={() => router.replace('/home')}>
                     Go Back
                 </Text>
             </TouchableOpacity>

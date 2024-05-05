@@ -38,9 +38,7 @@ export default function GameOptions() {
                     <GameOptionsCard
                         bg={MathScrambleBG}
                         title={'Math Scramble'}
-                        handlePress={() =>
-                            router.push('/games/math-scramble/game-lobby')
-                        }
+                        handlePress={() => router.push('/games/math-scramble/game-lobby')}
                     />
                 </View>
             </View>

@@ -1,12 +1,6 @@
 import React from 'react';
 import { router } from 'expo-router';
-import {
-    Image,
-    ImageBackground,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -18,13 +12,7 @@ import { User } from '../../assets/icons';
 import itemBGRed from '../../assets/bg/material-red.png';
 import { COLORS, SHADOWS } from '../../constants/theme';
 
-export default function LearningMaterialsCard({
-    topicId,
-    topicName,
-    itemCount,
-    creator,
-    version
-}) {
+export default function LearningMaterialsCard({ topicId, topicName, itemCount, creator, version }) {
     const { data, cacheData } = useCache('recent-topics', []);
     const addToRecentView = async () => {
         try {

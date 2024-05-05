@@ -1,10 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {
-    BORDER_RADIUS,
-    COLORS,
-    FONT,
-    SIZES
-} from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 const styles = StyleSheet.create({
     offlineCardContainer: {

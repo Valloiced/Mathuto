@@ -11,9 +11,7 @@ const reducer = (state, action) => {
     switch (action.type) {
         case 'SETUP': {
             // Generate position indices for level terms
-            const posIndices = new Array(action.data.length)
-                .fill(0)
-                .map((_, i) => i);
+            const posIndices = new Array(action.data.length).fill(0).map((_, i) => i);
             const shuffleIndices = shufflePos(posIndices);
 
             /** Terms will be based on rounds */
@@ -28,14 +26,9 @@ const reducer = (state, action) => {
             const longestWord = findLongestWord(scrambleTerm);
 
             // Measure the width of the longest word temporary for font size
-            const wordWidth = longestWord.reduce(
-                (acc, char) => acc + char.length,
-                0
-            );
+            const wordWidth = longestWord.reduce((acc, char) => acc + char.length, 0);
 
-            const termFontSize = Math.floor(
-                determineFontSize(longestWord.length, wordWidth)
-            );
+            const termFontSize = Math.floor(determineFontSize(longestWord.length, wordWidth));
 
             return {
                 ...state,
@@ -62,14 +55,9 @@ const reducer = (state, action) => {
             const longestWord = findLongestWord(scrambleTerm);
 
             // Measure the width of the longest word temporary for font size
-            const wordWidth = longestWord.reduce(
-                (acc, char) => acc + char.length,
-                0
-            );
+            const wordWidth = longestWord.reduce((acc, char) => acc + char.length, 0);
 
-            const termFontSize = Math.floor(
-                determineFontSize(longestWord.length, wordWidth)
-            );
+            const termFontSize = Math.floor(determineFontSize(longestWord.length, wordWidth));
 
             return {
                 ...state,

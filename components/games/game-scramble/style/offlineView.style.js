@@ -1,11 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import {
-    BORDER_RADIUS,
-    COLORS,
-    SIZES,
-    FONT
-} from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, SIZES, FONT } from '../../../../constants/theme';
 
 const styles = StyleSheet.create({
     offlineViewContainer: {

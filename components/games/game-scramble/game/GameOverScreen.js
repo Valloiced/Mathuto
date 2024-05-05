@@ -9,13 +9,7 @@ import useNetStatus from '../../../../hooks/useNetStatus';
 
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
 
-import {
-    BORDER_RADIUS,
-    COLORS,
-    FONT,
-    SHADOWS,
-    SIZES
-} from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
 
 import { Restart, HomeSolid, Crown } from '../../../../assets/icons';
 import { MathScrambleIcon } from '../../../../assets/icons/math-scramble';
@@ -28,12 +22,7 @@ const Status = ({ message }) => (
     </View>
 );
 
-export default function GameOverScreen({
-    gameQuery,
-    totalPoints,
-    overallPoints,
-    isCompleted
-}) {
+export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, isCompleted }) {
     const { isConnected } = useNetStatus();
 
     const [showConfetti, setShowConfetti] = useState(true);
@@ -110,11 +99,7 @@ export default function GameOverScreen({
     const componentExit = BounceOut.delay(500).duration(850);
 
     return (
-        <Animated.View
-            style={styles.container}
-            entering={componentEnter}
-            exiting={componentExit}
-        >
+        <Animated.View style={styles.container} entering={componentEnter} exiting={componentExit}>
             <View style={[styles.gameOverContainer, SHADOWS.medium]}>
                 <View style={styles.gameIconWrapper}>
                     <Image
@@ -133,24 +118,14 @@ export default function GameOverScreen({
                     ) : !isError ? (
                         <View style={styles.totalScoreBoard}>
                             <View style={styles.totalScoreWrapper}>
-                                <Text style={styles.totalScoreHeader}>
-                                    TOTAL POINTS
-                                </Text>
-                                <Text style={styles.totalScore}>
-                                    {totalPoints}
-                                </Text>
+                                <Text style={styles.totalScoreHeader}>TOTAL POINTS</Text>
+                                <Text style={styles.totalScore}>{totalPoints}</Text>
                             </View>
                             <View style={styles.totalScoreWrapper}>
-                                <Text style={styles.totalScoreHeader}>
-                                    OVERALL POINTS
-                                </Text>
+                                <Text style={styles.totalScoreHeader}>OVERALL POINTS</Text>
                                 <View style={styles.overallPointsWrapper}>
-                                    <Text style={styles.totalScore}>
-                                        {overallPoints}
-                                    </Text>
-                                    <Text
-                                        style={styles.addedPoints}
-                                    >{`(+${totalPoints})`}</Text>
+                                    <Text style={styles.totalScore}>{overallPoints}</Text>
+                                    <Text style={styles.addedPoints}>{`(+${totalPoints})`}</Text>
                                 </View>
                             </View>
                         </View>
@@ -163,10 +138,7 @@ export default function GameOverScreen({
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         disabled={submitting}
-                        style={[
-                            styles.button('#66FF88', submitting),
-                            SHADOWS.medium
-                        ]}
+                        style={[styles.button('#66FF88', submitting), SHADOWS.medium]}
                         onPress={() => {
                             router.replace(`/home`);
                         }}
@@ -175,15 +147,8 @@ export default function GameOverScreen({
                     </TouchableOpacity>
                     <TouchableOpacity
                         disabled={submitting}
-                        style={[
-                            styles.button('#E34D4D', submitting),
-                            SHADOWS.medium
-                        ]}
-                        onPress={() =>
-                            router.replace(
-                                `/games/math-scramble/game/${gameQuery}`
-                            )
-                        }
+                        style={[styles.button('#E34D4D', submitting), SHADOWS.medium]}
+                        onPress={() => router.replace(`/games/math-scramble/game/${gameQuery}`)}
                     >
                         <Restart size={25} color={'#490000'} />
                     </TouchableOpacity>

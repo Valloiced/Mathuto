@@ -2,28 +2,15 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { WrongSolid, WrongCloseSolid } from '../../../../assets/icons';
-import {
-    BORDER_RADIUS,
-    COLORS,
-    FONT,
-    SIZES
-} from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 import { GameTheme } from './utils/theme.utils';
 
-export default function GameHeader({
-    points,
-    remainingLives,
-    lessonsAnswered,
-    noOfLessons
-}) {
+export default function GameHeader({ points, remainingLives, lessonsAnswered, noOfLessons }) {
     const remainingAttempts = new Array(3)
         .fill(0)
         .map((val, index) =>
             remainingLives > index ? (
-                <WrongCloseSolid
-                    key={val + index}
-                    style={styles.failedAttempt}
-                />
+                <WrongCloseSolid key={val + index} style={styles.failedAttempt} />
             ) : (
                 <WrongSolid key={val + index} style={styles.failedAttempt} />
             )
@@ -32,9 +19,7 @@ export default function GameHeader({
     return (
         <View style={styles.headerContainer}>
             <View style={styles.gameTrackerWrapper}>
-                <Text style={styles.gameTracker}>
-                    {`${lessonsAnswered}/${noOfLessons}`}
-                </Text>
+                <Text style={styles.gameTracker}>{`${lessonsAnswered}/${noOfLessons}`}</Text>
             </View>
             <View style={styles.pointsWrapper}>
                 <Text style={styles.pointsHeader}>POINTS</Text>

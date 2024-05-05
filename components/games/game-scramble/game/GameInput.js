@@ -11,12 +11,7 @@ import {
 import Animated, { BounceIn } from 'react-native-reanimated';
 
 import { Shuffle } from '../../../../assets/icons';
-import {
-    BORDER_RADIUS,
-    COLORS,
-    FONT,
-    SIZES
-} from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 import { findLongestWord } from './utils/game.utils';
 
@@ -32,10 +27,7 @@ export default function GameInput({
     dispatch
 }) {
     const id = useId();
-    const termLength = scrambledTerm.reduce(
-        (acc, word) => (acc += word.length),
-        0
-    );
+    const termLength = scrambledTerm.reduce((acc, word) => (acc += word.length), 0);
 
     // Create empty two dimensional array that resembles the scrambled term
     const answerArray = Array.from({ length: scrambledTerm.length }, (_, i) => {
@@ -79,8 +71,7 @@ export default function GameInput({
             }
 
             const textBoxHeight = charFontSize * 2;
-            const textBoxWidth =
-                (remainingSpaces * 0.9) / wordLength + charFontSize; // Get 90 of remaining spaces for width
+            const textBoxWidth = (remainingSpaces * 0.9) / wordLength + charFontSize; // Get 90 of remaining spaces for width
 
             // Use the remaining spaces for gaps
             remainingSpaces = remainingSpaces - textBoxWidth * wordLength;
@@ -93,8 +84,7 @@ export default function GameInput({
 
         /** Determine text box layout */
         const longestWord = findLongestWord(scrambledTerm);
-        const [textBoxHeight, textBoxWidth, textBoxGap] =
-            getTextBoxDimensions(longestWord);
+        const [textBoxHeight, textBoxWidth, textBoxGap] = getTextBoxDimensions(longestWord);
 
         const textStyle = {
             fontSize: fontSize / 1.5,
@@ -126,9 +116,7 @@ export default function GameInput({
 
             return (
                 <View key={id + i + word} style={styles.textBoxWrapper}>
-                    {word.map((char, j) =>
-                        attachTextBox(char, prevWordLength + i, j)
-                    )}
+                    {word.map((char, j) => attachTextBox(char, prevWordLength + i, j))}
                 </View>
             );
         });
@@ -161,9 +149,7 @@ export default function GameInput({
                 <TextInput
                     style={styles.hiddenInput}
                     value={answerInput}
-                    onChangeText={(text) =>
-                        dispatch({ type: 'ANSWERING', answer: text })
-                    }
+                    onChangeText={(text) => dispatch({ type: 'ANSWERING', answer: text })}
                     maxLength={termLength}
                 />
             </View>
@@ -229,9 +215,7 @@ const styles = StyleSheet.create({
         bottom: SIZES.large,
         alignSelf: 'center',
         width: '70%',
-        backgroundColor: isDisabled
-            ? GameTheme.textColor + 'BF'
-            : GameTheme.secondaryBgColor,
+        backgroundColor: isDisabled ? GameTheme.textColor + 'BF' : GameTheme.secondaryBgColor,
         borderRadius: BORDER_RADIUS.small
     }),
     gameInputBtnText: {

@@ -19,9 +19,7 @@ export default function SelectionCard({
         >
             <View style={styles.headerWrapper}>
                 <Text style={styles.selectionTitle}>{section.name}</Text>
-                <Text style={styles.selectionItemCount}>
-                    {section.noOfItems} terms
-                </Text>
+                <Text style={styles.selectionItemCount}>{section.noOfItems} terms</Text>
             </View>
             <View style={styles.chevronWrapper}>
                 <TouchableOpacity onPress={updateSections}>

@@ -80,11 +80,7 @@ export default function GameLobby() {
     };
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="light-content"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
             <Stack.Screen
                 options={{
                     headerShadowVisible: true,
@@ -93,17 +89,13 @@ export default function GameLobby() {
                     headerLeft: ReturnHeaderBtn,
                     headerTitle: () => (
                         <View style={{ marginLeft: SIZES.medium }}>
-                            <Text style={styles.headerTitle}>
-                                CHOOSE TOPICS
-                            </Text>
+                            <Text style={styles.headerTitle}>CHOOSE TOPICS</Text>
                         </View>
                     ),
                     headerStyle: {
                         backgroundColor: COLORS.white
                     },
-                    headerRight: () => (
-                        <SelectionLabel selectedCount={choosenTopics.length} />
-                    ),
+                    headerRight: () => <SelectionLabel selectedCount={choosenTopics.length} />,
                     headerTitleAlign: 'left'
                 }}
             />

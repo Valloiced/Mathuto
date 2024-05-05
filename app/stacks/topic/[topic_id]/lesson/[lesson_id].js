@@ -60,9 +60,7 @@ export default function Lesson() {
     useEffect(() => {
         const updateData = () => {
             const { topic_id, lesson_id } = params;
-            const cachedMaterial = data.find(
-                (material) => material.details?.id === topic_id
-            );
+            const cachedMaterial = data.find((material) => material.details?.id === topic_id);
 
             const cachedLesson = cachedMaterial.lessons.find(
                 (lessonItem) => lessonItem.lessonNo === Number(lesson_id)
@@ -91,17 +89,11 @@ export default function Lesson() {
             />
             <ScrollView style={styles.lessonContainer}>
                 <Header lessonId={params.lesson_id} lessonName={lesson.name} />
-                <LessonTabs
-                    currentTab={currentTab}
-                    setCurrentTab={setCurrentTab}
-                />
+                <LessonTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
                 {loading ? (
                     <ActivityIndicator color={COLORS.primary} size="large" />
                 ) : (
-                    <Content
-                        content={lesson.content[currentTab]}
-                        currentTab={currentTab}
-                    />
+                    <Content content={lesson.content[currentTab]} currentTab={currentTab} />
                 )}
             </ScrollView>
             <PaginationButtons topicId={params.topic_id} currentPage={params.lesson_id} />

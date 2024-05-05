@@ -89,10 +89,7 @@ export default function SelectionContainer({
                         />
                     )}
                     renderContent={(section, key, isActive) => (
-                        <SelectionCollapsedView
-                            section={section}
-                            isCollapsed={isActive}
-                        />
+                        <SelectionCollapsedView section={section} isCollapsed={isActive} />
                     )}
                     onChange={updateSections}
                     touchableComponent={TouchableOpacity}

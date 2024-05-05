@@ -19,8 +19,7 @@ const Status = ({ message }) => (
 );
 
 export default function GameOverScreen({ modalVisible, scoreDetails }) {
-    const { earnedPoints, difficulty, multiplier, totalPoints, overallPoints } =
-        scoreDetails;
+    const { earnedPoints, difficulty, multiplier, totalPoints, overallPoints } = scoreDetails;
     const { isConnected } = useNetStatus();
 
     const [showConfetti, setShowConfetti] = useState(true);

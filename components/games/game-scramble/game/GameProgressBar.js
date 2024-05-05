@@ -12,12 +12,7 @@ import Animated, {
 import { BORDER_RADIUS, SHADOWS, SIZES } from '../../../../constants/theme';
 import { GameTheme } from './utils/theme.utils';
 
-export default function GameProgressBar({
-    levelTheme,
-    levelDuration,
-    reset,
-    isCancelled
-}) {
+export default function GameProgressBar({ levelTheme, levelDuration, reset, isCancelled }) {
     const progressBarWidth = useSharedValue(100);
 
     useEffect(() => {
@@ -45,9 +40,7 @@ export default function GameProgressBar({
 
     return (
         <View style={[styles.timerBarContainer, SHADOWS.medium]}>
-            <Animated.View
-                style={[styles.timerBar(levelTheme), progressBarAnimation]}
-            />
+            <Animated.View style={[styles.timerBar(levelTheme), progressBarAnimation]} />
         </View>
     );
 }

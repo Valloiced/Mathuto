@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-    getFirestore,
-    collection,
-    onSnapshot,
-    query,
-    where
-} from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, query, where } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import useNetStatus from './useNetStatus';

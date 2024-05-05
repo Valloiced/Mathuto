@@ -15,8 +15,8 @@ export default function OfflineCard() {
             <View style={styles.offlineWrapper}>
                 <Text style={styles.cardHeader}>You are playing offline</Text>
                 <Text style={styles.cardDetails}>
-                    You are currently offline. Score submission is disabled.
-                    Please check your network connection to submit scores.
+                    You are currently offline. Score submission is disabled. Please check your
+                    network connection to submit scores.
                 </Text>
             </View>
         </View>

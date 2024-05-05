@@ -37,13 +37,9 @@ export default function MathScrableGame() {
         // Extract topic ids from the params
         const topicIds = params.topics.split(',');
 
-        const findTopics = data.filter(
-            (topic) => topicIds.indexOf(topic.details?.id) !== -1
-        );
+        const findTopics = data.filter((topic) => topicIds.indexOf(topic.details?.id) !== -1);
 
-        const extractedLessons = findTopics.map((topics) =>
-            filterPlayableTerms(topics.lessons)
-        );
+        const extractedLessons = findTopics.map((topics) => filterPlayableTerms(topics.lessons));
 
         if (findTopics) {
             return extractedLessons;
@@ -94,30 +90,17 @@ export default function MathScrableGame() {
                 setLoading(false);
             }
         }
-    }, [
-        params,
-        loading,
-        isConnected,
-        isFetching,
-        loadingCache,
-        fetchDataFromCache
-    ]);
+    }, [params, loading, isConnected, isFetching, loadingCache, fetchDataFromCache]);
 
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="light-content"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
             <Stack.Screen
                 options={{
                     headerShown: false
                 }}
             />
-            <SafeAreaView
-                style={styles.gameContainer(loading || !animationLoaded)}
-            >
+            <SafeAreaView style={styles.gameContainer(loading || !animationLoaded)}>
                 {(loading || !animationLoaded) && (
                     <GameLoading
                         animationLoaded={animationLoaded}

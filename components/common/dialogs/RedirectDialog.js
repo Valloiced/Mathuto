@@ -22,32 +22,21 @@ export default function RedirectDialog({
     };
 
     return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            statusBarTranslucent
-        >
+        <Modal animationType="slide" transparent={true} visible={modalVisible} statusBarTranslucent>
             <View style={styles.modalContainer}>
                 <View style={styles.dialogContainer}>
                     <View style={styles.dialogText}>
                         <Text style={styles.dialogHeader}>EXITING APP</Text>
                         <Text style={styles.dialogDescription}>
-                            You are about to leave this application and visit an
-                            external website. Do you want to continue?
+                            You are about to leave this application and visit an external website.
+                            Do you want to continue?
                         </Text>
                     </View>
                     <View style={styles.confirmationWrapper}>
-                        <TouchableOpacity
-                            style={styles.cancelButton}
-                            onPress={handleCancel}
-                        >
+                        <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
                             <Text style={styles.cancelBtnText}>Cancel</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.confirmButton}
-                            onPress={handleConfirm}
-                        >
+                        <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
                             <Text style={styles.confirmBtnText}>Continue</Text>
                         </TouchableOpacity>
                     </View>

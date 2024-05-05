@@ -52,9 +52,7 @@ export default function PaginationButtons({ topicId, currentPage }) {
         //     }
         // };
         const checkNextPage = () => {
-            const cachedMaterial = data.find(
-                (material) => material.details?.id === topicId
-            );
+            const cachedMaterial = data.find((material) => material.details?.id === topicId);
 
             const cachedLesson = cachedMaterial.lessons.find(
                 (lessonItem) => lessonItem.lessonNo === Number(currentPage) + 1

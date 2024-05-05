@@ -9,10 +9,7 @@ import styles from './style/content.style';
 
 function LinkCard({ link, handleRedirect }) {
     return (
-        <TouchableOpacity
-            style={styles.linkCard}
-            onPress={() => handleRedirect(link)}
-        >
+        <TouchableOpacity style={styles.linkCard} onPress={() => handleRedirect(link)}>
             <View style={styles.iconWrapper}>
                 <Link style={styles.icon} />
             </View>
@@ -47,11 +44,7 @@ export default function Description({ content, currentTab }) {
     const links =
         currentTab === 'links' &&
         content.map((link, index) => (
-            <LinkCard
-                key={link + index}
-                link={link}
-                handleRedirect={handleRedirect}
-            />
+            <LinkCard key={link + index} link={link} handleRedirect={handleRedirect} />
         ));
 
     return (
@@ -65,9 +58,7 @@ export default function Description({ content, currentTab }) {
                     ) : (
                         <View style={styles.linkCardContainer}>
                             {!links || links.length === 0 ? (
-                                <Text style={styles.linkStatus}>
-                                    No External Links Available
-                                </Text>
+                                <Text style={styles.linkStatus}>No External Links Available</Text>
                             ) : (
                                 links
                             )}

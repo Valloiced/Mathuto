@@ -32,10 +32,7 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
     /** Timer Tracker */
     useEffect(() => {
         if (timer > 0 && !gameStatus.isGameOver) {
-            timerInterval.current = setInterval(
-                () => setTimer((prev) => prev - 1),
-                1000
-            );
+            timerInterval.current = setInterval(() => setTimer((prev) => prev - 1), 1000);
         }
 
         if (timer <= 0 && timerInterval.current) {
@@ -63,13 +60,7 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
             setIsCancelled(false);
             dispatch({ type: 'NEXT_LEVEL', data: gameData });
         }
-    }, [
-        gameData,
-        showBanner,
-        answerStatus,
-        setAnswerStatus,
-        gameStatus.isGameOver
-    ]);
+    }, [gameData, showBanner, answerStatus, setAnswerStatus, gameStatus.isGameOver]);
 
     /** End of Game Tracker */
     useEffect(() => {
@@ -110,14 +101,9 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
     const handleSubmit = () => {
         let isCorrect;
         let answer = state.answerInput.toLowerCase();
-        let correctAnswer = state.currentTerm.term
-            .toLowerCase()
-            .replace(/\s/g, ''); // Remove spaces too
+        let correctAnswer = state.currentTerm.term.toLowerCase().replace(/\s/g, ''); // Remove spaces too
 
-        if (
-            state.answerInput === '' ||
-            correctAnswer.length !== answer.length
-        ) {
+        if (state.answerInput === '' || correctAnswer.length !== answer.length) {
             return; // do not proceed for no input
         }
 

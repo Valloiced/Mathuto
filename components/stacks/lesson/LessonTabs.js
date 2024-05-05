@@ -14,25 +14,19 @@ export default function LessonTabs({ currentTab, setCurrentTab }) {
                 style={styles.lessonTab(currentTab === 'summary')}
                 onPress={() => setCurrentTab('summary')}
             >
-                <Text style={styles.lessonTabText(currentTab === 'summary')}>
-                    Brief Summary
-                </Text>
+                <Text style={styles.lessonTabText(currentTab === 'summary')}>Brief Summary</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.lessonTab(currentTab === 'full')}
                 onPress={() => setCurrentTab('full')}
             >
-                <Text style={styles.lessonTabText(currentTab === 'full')}>
-                    Full Definition
-                </Text>
+                <Text style={styles.lessonTabText(currentTab === 'full')}>Full Definition</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.lessonTab(currentTab === 'links')}
                 onPress={() => setCurrentTab('links')}
             >
-                <Text style={styles.lessonTabText(currentTab === 'links')}>
-                    External Links
-                </Text>
+                <Text style={styles.lessonTabText(currentTab === 'links')}>External Links</Text>
             </TouchableOpacity>
         </ScrollView>
     );

@@ -104,9 +104,7 @@ export default function Topics() {
     useEffect(() => {
         const updateData = async () => {
             const { topic_id } = params;
-            const cachedMaterial = data.find(
-                (material) => material.details?.id === topic_id
-            );
+            const cachedMaterial = data.find((material) => material.details?.id === topic_id);
 
             // If there's a cached material, proceed using the cache
             if (cachedMaterial && !loadingCache) {
@@ -124,15 +122,7 @@ export default function Topics() {
         if (!isUpdated && !lessons.length) {
             updateData();
         }
-    }, [
-        params,
-        lessons,
-        loadingCache,
-        validateCache,
-        isUpdated,
-        data,
-        fetchData
-    ]);
+    }, [params, lessons, loadingCache, validateCache, isUpdated, data, fetchData]);
 
     return (
         <>

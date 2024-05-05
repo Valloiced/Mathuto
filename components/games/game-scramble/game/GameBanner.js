@@ -1,10 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import Animated, {
-    LightSpeedInRight,
-    LightSpeedOutLeft,
-    runOnJS
-} from 'react-native-reanimated';
+import Animated, { LightSpeedInRight, LightSpeedOutLeft, runOnJS } from 'react-native-reanimated';
 
 import { FONT, SIZES } from '../../../../constants/theme';
 import { GameTheme } from './utils/theme.utils';
@@ -16,9 +12,7 @@ export default function GameBanner({ answerStatus, term, setShowBanner }) {
         setTimeout(() => setShowBanner(false), 2000);
     };
 
-    const enterAnimation = LightSpeedInRight.withCallback(() =>
-        runOnJS(closeBanner)()
-    );
+    const enterAnimation = LightSpeedInRight.withCallback(() => runOnJS(closeBanner)());
 
     return (
         <Animated.View
@@ -46,26 +40,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: SIZES.xxSmall,
-        backgroundColor: isCorrectAnswer
-            ? GameTheme.correctBgColor
-            : GameTheme.wrongBgColor,
+        backgroundColor: isCorrectAnswer ? GameTheme.correctBgColor : GameTheme.wrongBgColor,
         borderWidth: 1,
-        borderColor: isCorrectAnswer
-            ? GameTheme.correctTextColor
-            : GameTheme.wrongTextColor
+        borderColor: isCorrectAnswer ? GameTheme.correctTextColor : GameTheme.wrongTextColor
     }),
     bannerSubtitle: (isCorrectAnswer) => ({
-        color: isCorrectAnswer
-            ? GameTheme.correctTextColor
-            : GameTheme.wrongTextColor,
+        color: isCorrectAnswer ? GameTheme.correctTextColor : GameTheme.wrongTextColor,
         fontFamily: FONT.PopRegular,
         fontSize: SIZES.small,
         letterSpacing: 1
     }),
     bannerStatus: (isCorrectAnswer) => ({
-        color: isCorrectAnswer
-            ? GameTheme.correctTextColor
-            : GameTheme.wrongTextColor,
+        color: isCorrectAnswer ? GameTheme.correctTextColor : GameTheme.wrongTextColor,
         fontFamily: FONT.MSBlack,
         fontSize: SIZES.large,
         textTransform: 'uppercase'

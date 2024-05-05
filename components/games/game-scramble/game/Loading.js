@@ -18,8 +18,7 @@ import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 import { IconLetterings } from '../../../../assets/icons/math-scramble';
 
 export default function GameLoading({ animationLoaded, setAnimationLoaded }) {
-    const { ScrambleIconM, ScrambleIconA, ScrambleIconT, ScrambleIconH } =
-        IconLetterings;
+    const { ScrambleIconM, ScrambleIconA, ScrambleIconT, ScrambleIconH } = IconLetterings;
 
     const startDelay = 500;
     const letterDelay = 100;
@@ -163,10 +162,7 @@ export default function GameLoading({ animationLoaded, setAnimationLoaded }) {
     }));
 
     const subtitleAnimation = useAnimatedStyle(() => ({
-        transform: [
-            { scale: subtitle.value.scale },
-            { translateX: subtitle.value.translateX }
-        ]
+        transform: [{ scale: subtitle.value.scale }, { translateX: subtitle.value.translateX }]
     }));
 
     const iconViewAnimation = useAnimatedStyle(() => ({
@@ -177,26 +173,12 @@ export default function GameLoading({ animationLoaded, setAnimationLoaded }) {
         <View style={styles.loadingContainer}>
             <Animated.View style={styles.loadingWrapper} exiting={BounceOut}>
                 <Animated.View style={[styles.iconWrapper, iconViewAnimation]}>
-                    <Animated.Image
-                        source={ScrambleIconT}
-                        style={[styles.icon, iconTAnimation]}
-                    />
-                    <Animated.Image
-                        source={ScrambleIconM}
-                        style={[styles.icon, iconMAnimation]}
-                    />
-                    <Animated.Image
-                        source={ScrambleIconH}
-                        style={[styles.icon, iconHAnimation]}
-                    />
-                    <Animated.Image
-                        source={ScrambleIconA}
-                        style={[styles.icon, iconAAnimation]}
-                    />
+                    <Animated.Image source={ScrambleIconT} style={[styles.icon, iconTAnimation]} />
+                    <Animated.Image source={ScrambleIconM} style={[styles.icon, iconMAnimation]} />
+                    <Animated.Image source={ScrambleIconH} style={[styles.icon, iconHAnimation]} />
+                    <Animated.Image source={ScrambleIconA} style={[styles.icon, iconAAnimation]} />
                 </Animated.View>
-                <Animated.Text style={[styles.subtitle, subtitleAnimation]}>
-                    SCRAMBLE
-                </Animated.Text>
+                <Animated.Text style={[styles.subtitle, subtitleAnimation]}>SCRAMBLE</Animated.Text>
                 {animationLoaded && (
                     <ActivityIndicator
                         style={styles.loadingIcon}

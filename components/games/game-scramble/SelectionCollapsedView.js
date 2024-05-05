@@ -45,9 +45,7 @@ export default function SelectionCollapsedView({ section, isCollapsed }) {
     }, [section]);
 
     const fetchDataFromCache = useCallback(() => {
-        const findTopic = data.find(
-            (topic) => topic.details?.id === section.id
-        );
+        const findTopic = data.find((topic) => topic.details?.id === section.id);
 
         if (findTopic) {
             return findTopic.lessons;
@@ -100,10 +98,7 @@ export default function SelectionCollapsedView({ section, isCollapsed }) {
             <View key={id + columnIndex} style={styles.termsColumn}>
                 {/* Items */}
                 {column.map((term, termIndex) => (
-                    <RenderBulletList
-                        key={term.term + termIndex}
-                        term={term.term}
-                    />
+                    <RenderBulletList key={term.term + termIndex} term={term.term} />
                 ))}
             </View>
         ));
@@ -117,13 +112,9 @@ export default function SelectionCollapsedView({ section, isCollapsed }) {
                     <ActivityIndicator />
                 ) : (
                     <>
-                        <View style={styles.termsContainer}>
-                            {renderColumn()}
-                        </View>
+                        <View style={styles.termsContainer}>{renderColumn()}</View>
                         {playableTerms.length > 6 && (
-                            <Text style={styles.termsIndicator}>
-                                And more...
-                            </Text>
+                            <Text style={styles.termsIndicator}>And more...</Text>
                         )}
                     </>
                 )}

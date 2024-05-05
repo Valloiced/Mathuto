@@ -64,8 +64,7 @@ const determineFontSize = (charCount, wordWidth) => {
     // Adjust scaling factor to ensure readability
     const scalingFactor = 0.8;
 
-    let fontSize =
-        (availableWidth / totalCharWidth) * wordWidth * scalingFactor;
+    let fontSize = (availableWidth / totalCharWidth) * wordWidth * scalingFactor;
 
     // Set a minimum and maximum font size, not so big, not so small
     const maxFontSize = 64;

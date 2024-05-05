@@ -22,9 +22,7 @@ export default function LearningMaterials() {
     const fetchMaterials = useCallback(async () => {
         try {
             setIsFetching(true);
-            const response = await axios.get(
-                `${process.env.EXPO_PUBLIC_SERVER}/api/materials`
-            );
+            const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER}/api/materials`);
             const topics = response.data.topics;
 
             setLearningMaterials(topics);

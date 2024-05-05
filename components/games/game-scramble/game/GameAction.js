@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, useCallback } from 'react';
-=======
-import React, { useEffect, useCallback } from 'react';
->>>>>>> 6279cec0e060d1ce3ec01074468f62929c883e0a
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Animated, {
     useSharedValue,
@@ -15,15 +11,10 @@ import { COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
 import { GameTheme } from './utils/theme.utils';
 
 import GameProgressBar from './GameProgressBar';
-<<<<<<< HEAD
 import GameBanner from './GameBanner';
 
 export default function GameAction({
     term,
-=======
-
-export default function GameAction({
->>>>>>> 6279cec0e060d1ce3ec01074468f62929c883e0a
     scrambledTerm,
     description,
     levelTheme,
@@ -31,14 +22,10 @@ export default function GameAction({
     shuffle,
     reset,
     levelDuration,
-<<<<<<< HEAD
     isCancelled,
     answerStatus,
     showBanner,
     setShowBanner
-=======
-    isCancelled
->>>>>>> 6279cec0e060d1ce3ec01074468f62929c883e0a
 }) {
     const charScale = useSharedValue(1);
 
@@ -95,15 +82,9 @@ export default function GameAction({
     return (
         <View style={styles.gameActionContainer}>
             {showBanner && (
-                <GameBanner
-                    answerStatus={answerStatus}
-                    term={term}
-                    setShowBanner={setShowBanner}
-                />
+                <GameBanner answerStatus={answerStatus} term={term} setShowBanner={setShowBanner} />
             )}
-            <View style={styles.scrambledWordWrapper}>
-                {generateScrambledWord()}
-            </View>
+            <View style={styles.scrambledWordWrapper}>{generateScrambledWord()}</View>
             <GameProgressBar
                 levelTheme={levelTheme}
                 levelDuration={levelDuration}
@@ -123,7 +104,6 @@ const styles = StyleSheet.create({
     gameActionContainer: {
         marginVertical: SIZES.xLarge
     },
-<<<<<<< HEAD
     gameActionBanner: {
         position: 'absolute',
         flexDirection: 'column',
@@ -148,8 +128,6 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSBlack,
         fontSize: SIZES.large
     },
-=======
->>>>>>> 6279cec0e060d1ce3ec01074468f62929c883e0a
     scrambledWordWrapper: {
         height: height * 0.2,
         flexDirection: 'column',
