@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
 import { ScrollView } from 'react-native';
 import Toast from 'react-native-toast-message';
 
+import useNetStatus from '../../../hooks/useNetStatus';
 import useProfile from '../../../hooks/useProfile';
 
 import ProfileContainer from '../../../components/home/ProfileContainer';
@@ -12,10 +12,10 @@ import styles from '../../../components/home/style/home.styles';
 
 export default function Home() {
     const user = useProfile();
-    const netinfo = useNetInfo();
+    const { isConnected } = useNetStatus();
 
     useEffect(() => {
-        if (netinfo.isConnected === false) {
+        if (isConnected === false) {
             Toast.show({
                 type: 'error',
                 text1: 'You are offline',
@@ -25,7 +25,7 @@ export default function Home() {
                 visibilityTime: 5000
             });
         }
-    }, [netinfo]);
+    }, [isConnected]);
 
     return (
         <>

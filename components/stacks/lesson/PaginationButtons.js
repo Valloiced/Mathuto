@@ -1,50 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { router } from 'expo-router';
+// import axios from 'axios';
 import { TouchableOpacity, Text, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 
-import { ArrowLeft, ArrowRight } from '../../../assets/icons';
+import useCache from '../../../hooks/useCache';
 
-import styles from './style/paginationButtons.style';
+import { ArrowLeft, ArrowRight } from '../../../assets/icons';
 import { COLORS, SHADOWS } from '../../../constants/theme';
-import { router } from 'expo-router';
+import styles from './style/paginationButtons.style';
 
 export default function PaginationButtons({ topicId, currentPage }) {
+    const { data, loadingCache } = useCache('topics', []);
+
     const [disabledNext, setDisabledNext] = useState(true);
     const [disabledPrev, setDisabledPrev] = useState(true);
 
     useEffect(() => {
-        const checkNextPage = async () => {
-            try {
-                const response = await axios.get(
-                    `${process.env.EXPO_PUBLIC_SERVER}/api/materials/${topicId}/lesson/${Number(currentPage) + 1}`
-                );
+        /** Using cached data for now */
+        // const checkNextPage = async () => {
+        //     try {
+        //         const response = await axios.get(
+        //             `${process.env.EXPO_PUBLIC_SERVER}/api/materials/${topicId}/lesson/${Number(currentPage) + 1}`
+        //         );
 
-                if (response.data) {
-                    setDisabledNext(false);
-                }
-            } catch (error) {
-                if (error.response.status === 404) {
-                    // Nahh, don't error
-                    console.warn(`The next page doesn't exist.`);
-                    Toast.show({
-                        type: 'info',
-                        text1: 'You reached the end of the lessons.',
-                        position: 'top',
-                        autoHide: true,
-                        visibilityTime: 5000
-                    });
-                } else {
-                    console.error(error);
-                    Toast.show({
-                        type: 'error',
-                        text1: 'Something went wrong.',
-                        text2: error.message,
-                        position: 'bottom',
-                        autoHide: true,
-                        visibilityTime: 5000
-                    });
-                }
+        //         if (response.data) {
+        //             setDisabledNext(false);
+        //         }
+        //     } catch (error) {
+        //         if (error.response.status === 404) {
+        //             // Nahh, don't error
+        //             console.warn(`The next page doesn't exist.`);
+        //             Toast.show({
+        //                 type: 'info',
+        //                 text1: 'You reached the end of the lessons.',
+        //                 position: 'top',
+        //                 autoHide: true,
+        //                 visibilityTime: 5000
+        //             });
+        //         } else {
+        //             console.error(error);
+        //             Toast.show({
+        //                 type: 'error',
+        //                 text1: 'Something went wrong.',
+        //                 text2: error.message,
+        //                 position: 'bottom',
+        //                 autoHide: true,
+        //                 visibilityTime: 5000
+        //             });
+        //         }
+        //     }
+        // };
+        const checkNextPage = () => {
+            const cachedMaterial = data.find(
+                (material) => material.details?.id === topicId
+            );
+
+            const cachedLesson = cachedMaterial.lessons.find(
+                (lessonItem) => lessonItem.lessonNo === Number(currentPage) + 1
+            );
+
+            if (cachedLesson) {
+                setDisabledNext(false);
+            } else {
+                Toast.show({
+                    type: 'info',
+                    text1: 'You reached the end of the lessons.',
+                    position: 'top',
+                    autoHide: true,
+                    visibilityTime: 5000
+                });
             }
         };
 
@@ -52,8 +77,10 @@ export default function PaginationButtons({ topicId, currentPage }) {
             setDisabledPrev(false);
         }
 
-        checkNextPage();
-    }, [currentPage, topicId]);
+        if (!loadingCache) {
+            checkNextPage();
+        }
+    }, [currentPage, topicId, data, loadingCache]);
 
     const handleNext = () => {
         // Ensure that it is not clickable if its disabled

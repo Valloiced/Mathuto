@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
 import { ScrollView } from 'react-native';
 import Toast from 'react-native-toast-message';
 
@@ -11,18 +10,20 @@ import ButtonContainer from '../../../components/settings/ButtonContainer';
 import AppInfo from '../../../components/settings/AppInfo';
 
 import useProfile from '../../../hooks/useProfile';
-import ConfirmChanges from '../../../components/settings/dialogs/ConfirmChanges';
+import useNetStatus from '../../../hooks/useNetStatus';
+
+import ConfirmationDialog from '../../../components/common/dialogs/ConfirmationDialog';
 
 export default function Settings() {
     const user = useProfile();
-    const netinfo = useNetInfo();
+    const { isConnected } = useNetStatus();
 
     /* Dialogs for profile update confirmation */
     const [modalVisible, setModalVisible] = useState(false);
     const [dialogCallback, setDialogCallback] = useState(() => () => {}); // Sheesh
 
     useEffect(() => {
-        if (netinfo.isConnected === false) {
+        if (isConnected === false) {
             Toast.show({
                 type: 'error',
                 text1: 'You are offline',
@@ -32,7 +33,7 @@ export default function Settings() {
                 visibilityTime: 5000
             });
         }
-    }, [netinfo]);
+    }, [isConnected]);
 
     return (
         <>
@@ -53,7 +54,7 @@ export default function Settings() {
                 <ButtonContainer />
                 <AppInfo />
             </ScrollView>
-            <ConfirmChanges
+            <ConfirmationDialog
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
                 dialogCallback={dialogCallback}

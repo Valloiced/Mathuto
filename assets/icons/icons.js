@@ -80,6 +80,30 @@ const Offline = ({ style, size, color }) => (
     <Ionicon name="cloud-offline-outline" style={style} size={size} color={color} />
 );
 
+const Shuffle = ({ style, size, color }) => (
+    <EntIcon name="shuffle" style={style} size={size} color={color} />
+);
+
+const Link = ({ style, size, color }) => (
+    <EntIcon name="link" style={style} size={size} color={color} />
+);
+
+const ChevronUp = ({ style, size, color }) => (
+    <Font5Icon name="chevron-up" style={style} size={size} color={color} />
+);
+
+const ChevronDown = ({ style, size, color }) => (
+    <Font5Icon name="chevron-down" style={style} size={size} color={color} />
+);
+
+const WrongSolid = ({ style, size, color }) => (
+    <AntIcon name="closesquareo" style={style} size={size} color={color} />
+);
+
+const WrongCloseSolid = ({ style, size, color }) => (
+    <AntIcon name="closesquare" style={style} size={size} color={color} />
+);
+
 const UserSolid = ({ style, size, color }) => (
     <FontIcon name="user" style={style} size={size} color={color} />
 );
@@ -127,6 +151,12 @@ module.exports = {
     ViewPassword,
     HidePassword,
     Offline,
+    Shuffle,
+    Link,
+    ChevronUp,
+    ChevronDown,
+    WrongSolid,
+    WrongCloseSolid,
     UserSolid,
     MailSolid,
     LockSolid,

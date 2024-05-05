@@ -16,6 +16,7 @@ const Layout = () => {
         MontExBold: require('../assets/fonts/Montserrat-ExtraBold.ttf'),
         MontMedium: require('../assets/fonts/Montserrat-Medium.ttf'),
         MontLight: require('../assets/fonts/Montserrat-Light.ttf'),
+        MontBlack: require('../assets/fonts/Montserrat-Black.ttf'),
         Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
         PoppinsSemiBold: require('../assets/fonts/Poppins-SemiBold.ttf'),
         PoppinsBold: require('../assets/fonts/Poppins-Bold.ttf'),

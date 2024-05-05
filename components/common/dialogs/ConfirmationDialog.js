@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, View, Text, TouchableOpacity } from 'react-native';
 
-import styles from '../style/confirmChanges.style';
+import styles from './dialogs.style';
 
-export default function ConfirmChanges({
+export default function ConfirmationDialog({
     modalVisible,
     setModalVisible,
     dialogCallback,

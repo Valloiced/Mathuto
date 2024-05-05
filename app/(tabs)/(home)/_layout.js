@@ -16,7 +16,7 @@ export default function HomeLayout() {
                 headerBackgroundContainerStyle: COLORS.lightWhite,
                 drawerActiveTintColor: COLORS.textTertiary,
                 drawerActiveBackgroundColor: COLORS.secondary + '80',
-                drawerInactiveTintColor: COLORS.textSecondary,
+                drawerInactiveTintColor: COLORS.textSecondary + 'BF',
                 drawerType: 'slide'
             }}
             drawerContent={(props) => <HomeDrawerContent {...props} />}
@@ -48,8 +48,7 @@ export default function HomeLayout() {
                     headerTitleStyle: {
                         color: COLORS.textPrimary,
                         fontFamily: FONT.PopSemiBold,
-                        fontSize: SIZES.medium,
-                        letterSpacing: 1
+                        fontSize: SIZES.medium
                     },
                     drawerIcon: ({ color }) => {
                         return <Settings size={20} color={color} />;

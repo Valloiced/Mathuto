@@ -15,14 +15,14 @@ export default function ReturnHeaderBtn({ backTo = '' }) {
 
     return (
         <TouchableOpacity style={styles.btnContainer} onPress={handleBack}>
-            <ArrowLeft size={25} color={'#FFF'} />
+            <ArrowLeft size={20} color={'#FFF'} />
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     btnContainer: {
-        padding: 8,
+        padding: 6,
         borderRadius: 50,
         backgroundColor: '#609CFF'
     }

@@ -23,6 +23,32 @@ const styles = StyleSheet.create({
         fontSize: SIZES.small,
         textAlign: 'left',
         lineHeight: SIZES.xLarge
+    },
+    linkCardContainer: {
+        flexDirection: 'column',
+        gap: SIZES.large,
+        paddingVertical: SIZES.medium
+    },
+    linkCard: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: SIZES.small
+    },
+    icon: {
+        fontSize: SIZES.xLarge,
+        color: COLORS.textTertiary
+    },
+    link: {
+        marginLeft: SIZES.large,
+        color: COLORS.textPrimary,
+        fontFamily: FONT.PopBold,
+        fontSize: SIZES.xSmall
+    },
+    linkStatus: {
+        alignSelf: 'center',
+        fontFamily: FONT.PopSemiBold,
+        fontSize: SIZES.small,
+        color: COLORS.textPrimary
     }
 });
 

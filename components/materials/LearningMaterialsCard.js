@@ -1,32 +1,46 @@
 import React from 'react';
 import { router } from 'expo-router';
-import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import {
+    Image,
+    ImageBackground,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LinearGradient } from 'expo-linear-gradient';
+
+import useCache from '../../hooks/useCache';
 
 import styles from './style/learningMaterials.style';
-
-import { LinearGradient } from 'expo-linear-gradient';
 
 import { User } from '../../assets/icons';
 import itemBGRed from '../../assets/bg/material-red.png';
 import { COLORS, SHADOWS } from '../../constants/theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LearningMaterialsCard({ topicId, topicName, itemCount, creator }) {
+export default function LearningMaterialsCard({
+    topicId,
+    topicName,
+    itemCount,
+    creator,
+    version
+}) {
+    const { data, cacheData } = useCache('recent-topics', []);
     const addToRecentView = async () => {
         try {
-            const response = await AsyncStorage.getItem('recent-topics');
-            const recentTopics = JSON.parse(response);
+            const recentTopics = data;
 
             const dataToAdd = {
                 id: topicId,
                 name: topicName,
                 noOfItems: itemCount,
-                creator: creator
+                creator: creator,
+                __v: version
             };
 
             // If no recent views have made up yet
             if (!recentTopics) {
-                await AsyncStorage.setItem('recent-topics', JSON.stringify([dataToAdd]));
+                cacheData([dataToAdd]);
                 return;
             }
 
@@ -34,7 +48,13 @@ export default function LearningMaterialsCard({ topicId, topicName, itemCount, c
 
             // If item already exists, move it to the start
             if (checkIfExists !== -1) {
-                const temp = recentTopics[checkIfExists];
+                let temp = recentTopics[checkIfExists];
+
+                // If the data was updated from the server, renew the saved recent
+                if (!temp.__v || temp?.__v !== version) {
+                    temp = dataToAdd;
+                }
+
                 recentTopics.splice(checkIfExists, 1);
                 recentTopics.unshift(temp);
             } else {
@@ -48,12 +68,7 @@ export default function LearningMaterialsCard({ topicId, topicName, itemCount, c
                 }
             }
 
-            // Clear the storage first
-            await AsyncStorage.removeItem('recent-topics');
-
-            // Reset the updated item
-            await AsyncStorage.setItem('recent-topics', JSON.stringify(recentTopics));
-            return;
+            cacheData(recentTopics);
         } catch (error) {
             console.error('Failed to save in recent views.');
             /* Does not need to show error */

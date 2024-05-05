@@ -1,17 +1,19 @@
 import React from 'react';
 import { router } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+
+import useCache from '../../../hooks/useCache';
 
 import styles from './style/lessonsContainer.style';
 import { COLORS, SHADOWS } from '../../../constants/theme';
 
 function LessonCard({ topicId, lessonNumber, lessonName }) {
-    /** Local Storage-based, however, make it database-based later */
+    /** Cache-based, however, make it database-based later */
+    const { data, cacheData } = useCache('recent-lessons', []);
+
     const addToRecentView = async () => {
         try {
-            const response = await AsyncStorage.getItem('recent-lessons');
-            const recentLessons = JSON.parse(response);
+            const recentLessons = data;
 
             const dataToAdd = {
                 topicId: topicId,
@@ -21,7 +23,7 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
 
             // If no recent views have made up yet
             if (!recentLessons) {
-                await AsyncStorage.setItem('recent-lessons', JSON.stringify([dataToAdd]));
+                cacheData([dataToAdd]);
                 return;
             }
 
@@ -45,13 +47,7 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
                 }
             }
 
-            // Clear the storage first
-            await AsyncStorage.removeItem('recent-lessons');
-
-            // Reset the updated item
-            await AsyncStorage.setItem('recent-lessons', JSON.stringify(recentLessons));
-
-            return;
+            cacheData(recentLessons);
         } catch (error) {
             console.error('Failed to save in recent views.');
             /* Does not need to show error */

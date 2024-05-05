@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
-import axios from 'axios';
+import React, { useEffect, useState, useCallback } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
+import axios from 'axios';
 import Toast from 'react-native-toast-message';
+
+import useCache from '../../hooks/useCache';
+import useNetStatus from '../../hooks/useNetStatus';
 
 import LearningMaterialsCard from './LearningMaterialsCard';
 
@@ -10,17 +12,23 @@ import styles from './style/learningMaterials.style';
 import { COLORS } from '../../constants/theme';
 
 export default function LearningMaterials() {
-    const netinfo = useNetInfo();
+    const { data, cacheData } = useCache('materials', []);
+    const { isConnected } = useNetStatus();
 
     const [learningMaterials, setLearningMaterials] = useState([]);
+    const [isFetching, setIsFetching] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const fetchMaterials = async () => {
+    const fetchMaterials = useCallback(async () => {
         try {
-            const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER}/api/materials`);
+            setIsFetching(true);
+            const response = await axios.get(
+                `${process.env.EXPO_PUBLIC_SERVER}/api/materials`
+            );
             const topics = response.data.topics;
 
             setLearningMaterials(topics);
+            cacheData(topics); // This would always cache data when there's network connection
         } catch (error) {
             console.error('Unable to fetch materials');
             Toast.show({
@@ -33,17 +41,21 @@ export default function LearningMaterials() {
             });
         } finally {
             setLoading(false);
+            setIsFetching(false);
         }
-    };
+    }, [cacheData]);
 
     useEffect(() => {
-        if (netinfo.isConnected) {
+        /** If online */
+        if (isConnected && !learningMaterials.length && !isFetching) {
             fetchMaterials();
-        } else {
-            // Netinfo would turn to null on dependency/network change and we need this line to prevent the message from showing up
-            // due to useEffect behavior
-            if (netinfo.isConnected !== false) {
-                return;
+        }
+
+        /** If offline */
+        if (isConnected === false) {
+            /** Use cached data if there is  */
+            if (data) {
+                setLearningMaterials(data);
             }
 
             Toast.show({
@@ -55,7 +67,7 @@ export default function LearningMaterials() {
                 visibilityTime: 5000
             });
         }
-    }, [netinfo]);
+    }, [data, isFetching, learningMaterials, fetchMaterials, isConnected]);
 
     const topicCards = learningMaterials.map((topic) => (
         <LearningMaterialsCard
@@ -64,6 +76,7 @@ export default function LearningMaterials() {
             topicName={topic.name}
             itemCount={topic.noOfItems}
             creator={topic.creator}
+            version={topic.__v}
         />
     ));
 

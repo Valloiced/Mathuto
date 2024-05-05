@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
 import { View, StatusBar, ScrollView, RefreshControl } from 'react-native';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
+
+import useNetStatus from '../../hooks/useNetStatus';
 
 import Banner from '../../components/leaderboard/Banner';
 import CategoryBar from '../../components/leaderboard/CategoryBar';
@@ -16,7 +17,7 @@ import useProfile from '../../hooks/useProfile';
 
 export default function Leaderboard() {
     const user = useProfile();
-    const netinfo = useNetInfo();
+    const { isConnected } = useNetStatus();
 
     const [currentCategory, setCurrentCategory] = useState('daily-scores');
     const [leaderboards, setLeaderboards] = useState({
@@ -29,7 +30,7 @@ export default function Leaderboard() {
 
     const fetchLeaderboardData = useCallback(async () => {
         try {
-            if (netinfo.isConnected === false) {
+            if (isConnected === false) {
                 Toast.show({
                     type: 'error',
                     text1: 'You are offline',
@@ -69,7 +70,7 @@ export default function Leaderboard() {
                 visibilityTime: 4000
             });
         }
-    }, [netinfo.isConnected]);
+    }, [isConnected]);
 
     /** Well, if user wants it, they could just refresh the leaderboard by themselves */
     const onRefresh = useCallback(async () => {

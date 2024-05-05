@@ -5,6 +5,7 @@ import Token from './token.png';
 import Blitz from './blitz-icon.png';
 import Heart from './heart.png';
 import HeartFull from './heart-full.png';
+import Crown from './crown.png';
 
 module.exports = {
     ...Icons,
@@ -13,5 +14,6 @@ module.exports = {
     Token,
     Blitz,
     Heart,
-    HeartFull
+    HeartFull,
+    Crown
 };

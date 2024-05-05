@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StatusBar, View, ScrollView } from 'react-native';
 
 import Banner from '../../components/videos/Banner';
