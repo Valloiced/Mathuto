@@ -21,17 +21,12 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
 
             // If no recent views have made up yet
             if (!recentLessons) {
-                await AsyncStorage.setItem(
-                    'recent-lessons',
-                    JSON.stringify([dataToAdd])
-                );
+                await AsyncStorage.setItem('recent-lessons', JSON.stringify([dataToAdd]));
                 return;
             }
 
             const checkIfExists = recentLessons.findIndex(
-                (lessonItem) =>
-                    lessonItem.id === lessonNumber &&
-                    lessonItem.topicId === topicId
+                (lessonItem) => lessonItem.id === lessonNumber && lessonItem.topicId === topicId
             );
 
             // If item already exists, move it to the start
@@ -54,10 +49,7 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
             await AsyncStorage.removeItem('recent-lessons');
 
             // Reset the updated item
-            await AsyncStorage.setItem(
-                'recent-lessons',
-                JSON.stringify(recentLessons)
-            );
+            await AsyncStorage.setItem('recent-lessons', JSON.stringify(recentLessons));
 
             return;
         } catch (error) {
@@ -73,22 +65,14 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
     };
 
     return (
-        <TouchableOpacity
-            style={[styles.lessonItem, SHADOWS.small]}
-            onPress={handlePress}
-        >
+        <TouchableOpacity style={[styles.lessonItem, SHADOWS.small]} onPress={handlePress}>
             <Text style={styles.lessonNumber}>{lessonNumber}</Text>
             <Text style={styles.lessonName}>{lessonName}</Text>
         </TouchableOpacity>
     );
 }
 
-export default function LessonsContainer({
-    loading,
-    topicId,
-    lessonCount,
-    lessons
-}) {
+export default function LessonsContainer({ loading, topicId, lessonCount, lessons }) {
     const lessonCards = lessons.map((lesson) => (
         <LessonCard
             key={lesson.id}

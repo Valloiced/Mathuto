@@ -9,12 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import itemBGYellow from '../../assets/bg/material-yellow.png';
 import { COLORS, SHADOWS } from '../../constants/theme';
 
-export default function RecentlyViewedCard({
-    id,
-    topicName,
-    itemCount,
-    creator
-}) {
+export default function RecentlyViewedCard({ id, topicName, itemCount, creator }) {
     const addToRecentView = async () => {
         try {
             const response = await AsyncStorage.getItem('recent-topics');
@@ -29,16 +24,11 @@ export default function RecentlyViewedCard({
 
             // If no recent views have made up yet
             if (!recentTopics) {
-                await AsyncStorage.setItem(
-                    'recent-topics',
-                    JSON.stringify([dataToAdd])
-                );
+                await AsyncStorage.setItem('recent-topics', JSON.stringify([dataToAdd]));
                 return;
             }
 
-            const checkIfExists = recentTopics.findIndex(
-                (topic) => topic.id === id
-            );
+            const checkIfExists = recentTopics.findIndex((topic) => topic.id === id);
 
             // If item already exists, move it to the start
             if (checkIfExists !== -1) {
@@ -60,10 +50,7 @@ export default function RecentlyViewedCard({
             await AsyncStorage.removeItem('recent-topics');
 
             // Reset the updated item
-            await AsyncStorage.setItem(
-                'recent-topics',
-                JSON.stringify(recentTopics)
-            );
+            await AsyncStorage.setItem('recent-topics', JSON.stringify(recentTopics));
             return;
         } catch (error) {
             console.error('Failed to save in recent views.');
@@ -91,10 +78,7 @@ export default function RecentlyViewedCard({
                         end={{ x: 1, y: 1 }}
                     >
                         <View style={styles.detailsWrapper}>
-                            <Text
-                                style={styles.materialTitle}
-                                numberOfLines={1}
-                            >
+                            <Text style={styles.materialTitle} numberOfLines={1}>
                                 {topicName}
                             </Text>
                             <Text

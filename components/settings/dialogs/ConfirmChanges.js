@@ -22,35 +22,21 @@ export default function ConfirmChanges({
     };
 
     return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            statusBarTranslucent
-        >
+        <Modal animationType="slide" transparent={true} visible={modalVisible} statusBarTranslucent>
             <View style={styles.modalContainer}>
                 <View style={styles.dialogContainer}>
                     <View style={styles.dialogText}>
                         <Text style={styles.dialogHeader}>CONFIRM CHANGES</Text>
                         <Text style={styles.dialogDescription}>
-                            Please verify and review your changes before
-                            proceeding.
+                            Please verify and review your changes before proceeding.
                         </Text>
                     </View>
                     <View style={styles.confirmationWrapper}>
-                        <TouchableOpacity
-                            style={styles.cancelButton}
-                            onPress={handleCancel}
-                        >
+                        <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
                             <Text style={styles.cancelBtnText}>Cancel</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.confirmButton}
-                            onPress={handleConfirm}
-                        >
-                            <Text style={styles.confirmBtnText}>
-                                Apply Changes
-                            </Text>
+                        <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
+                            <Text style={styles.confirmBtnText}>Apply Changes</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

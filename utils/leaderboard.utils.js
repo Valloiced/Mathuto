@@ -1,10 +1,4 @@
-import {
-    getFirestore,
-    collection,
-    getDocs,
-    query,
-    orderBy
-} from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { firebase } from './firebase.utils';
 
 const getRankings = async (uid, fields) => {

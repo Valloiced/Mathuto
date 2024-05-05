@@ -1,12 +1,6 @@
 import React from 'react';
 import { router } from 'expo-router';
-import {
-    Image,
-    ImageBackground,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 import styles from './style/learningMaterials.style';
 
@@ -17,12 +11,7 @@ import itemBGRed from '../../assets/bg/material-red.png';
 import { COLORS, SHADOWS } from '../../constants/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LearningMaterialsCard({
-    topicId,
-    topicName,
-    itemCount,
-    creator
-}) {
+export default function LearningMaterialsCard({ topicId, topicName, itemCount, creator }) {
     const addToRecentView = async () => {
         try {
             const response = await AsyncStorage.getItem('recent-topics');
@@ -37,16 +26,11 @@ export default function LearningMaterialsCard({
 
             // If no recent views have made up yet
             if (!recentTopics) {
-                await AsyncStorage.setItem(
-                    'recent-topics',
-                    JSON.stringify([dataToAdd])
-                );
+                await AsyncStorage.setItem('recent-topics', JSON.stringify([dataToAdd]));
                 return;
             }
 
-            const checkIfExists = recentTopics.findIndex(
-                (topic) => topic.id === topicId
-            );
+            const checkIfExists = recentTopics.findIndex((topic) => topic.id === topicId);
 
             // If item already exists, move it to the start
             if (checkIfExists !== -1) {
@@ -68,10 +52,7 @@ export default function LearningMaterialsCard({
             await AsyncStorage.removeItem('recent-topics');
 
             // Reset the updated item
-            await AsyncStorage.setItem(
-                'recent-topics',
-                JSON.stringify(recentTopics)
-            );
+            await AsyncStorage.setItem('recent-topics', JSON.stringify(recentTopics));
             return;
         } catch (error) {
             console.error('Failed to save in recent views.');
@@ -100,20 +81,13 @@ export default function LearningMaterialsCard({
                         end={{ x: 1, y: 1 }}
                     >
                         <View style={styles.detailsWrapper}>
-                            <Text
-                                style={styles.materialTitle}
-                                numberOfLines={1}
-                            >
+                            <Text style={styles.materialTitle} numberOfLines={1}>
                                 {topicName}
                             </Text>
-                            <Text
-                                style={styles.materialCount}
-                            >{`${itemCount} items`}</Text>
+                            <Text style={styles.materialCount}>{`${itemCount} items`}</Text>
                         </View>
                         <View style={styles.creatorWrapper}>
-                            <View
-                                style={[styles.imageContainer, SHADOWS.medium]}
-                            >
+                            <View style={[styles.imageContainer, SHADOWS.medium]}>
                                 <Image
                                     source={User}
                                     style={styles.creatorIcon(20)}

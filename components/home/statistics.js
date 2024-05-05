@@ -17,18 +17,12 @@ export default function Statistics({
                 <View style={styles.statisticsWrapper}>
                     <Fire size={25} color={'#FFA500'} />
                     <View style={styles.dataWrapper}>
-                        <Text style={styles.statisticsValue}>
-                            {dailyStreak}
-                        </Text>
+                        <Text style={styles.statisticsValue}>{dailyStreak}</Text>
                         <Text style={styles.statisticsLabel}>Day Streak</Text>
                     </View>
                 </View>
                 <View style={styles.statisticsWrapper}>
-                    <Image
-                        source={Badge}
-                        style={styles.statisticsIcon(25)}
-                        resizeMode="contain"
-                    />
+                    <Image source={Badge} style={styles.statisticsIcon(25)} resizeMode="contain" />
                     <View style={styles.dataWrapper}>
                         <Text style={styles.statisticsValue}>
                             {!overallRank ? '--' : overallRank}
@@ -39,28 +33,16 @@ export default function Statistics({
             </View>
             <View style={styles.row}>
                 <View style={styles.statisticsWrapper}>
-                    <Image
-                        source={Token}
-                        style={styles.statisticsIcon(25)}
-                        resizeMode="contain"
-                    />
+                    <Image source={Token} style={styles.statisticsIcon(25)} resizeMode="contain" />
                     <View style={styles.dataWrapper}>
-                        <Text style={styles.statisticsValue}>
-                            {totalPoints}
-                        </Text>
+                        <Text style={styles.statisticsValue}>{totalPoints}</Text>
                         <Text style={styles.statisticsLabel}>Total Points</Text>
                     </View>
                 </View>
                 <View style={styles.statisticsWrapper}>
-                    <Image
-                        source={Badge}
-                        style={styles.statisticsIcon(25)}
-                        resizeMode="contain"
-                    />
+                    <Image source={Badge} style={styles.statisticsIcon(25)} resizeMode="contain" />
                     <View style={styles.dataWrapper}>
-                        <Text style={styles.statisticsValue}>
-                            {!dailyRank ? '--' : dailyRank}
-                        </Text>
+                        <Text style={styles.statisticsValue}>{!dailyRank ? '--' : dailyRank}</Text>
                         <Text style={styles.statisticsLabel}>Daily Rank</Text>
                     </View>
                 </View>

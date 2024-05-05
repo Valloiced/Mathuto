@@ -25,8 +25,7 @@ export default function ArithmeticBlitzGame() {
 
     useEffect(() => {
         if (gameStatus.isGameOver && gameStatus.totalPoints == null) {
-            const totalPoints =
-                gameStatus.finalPoints * diffMultiplier(params.difficulty);
+            const totalPoints = gameStatus.finalPoints * diffMultiplier(params.difficulty);
 
             setGameStatus({
                 ...gameStatus,
@@ -37,11 +36,7 @@ export default function ArithmeticBlitzGame() {
 
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="dark-content"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
             <Stack.Screen
                 options={{
                     headerShown: false
@@ -52,10 +47,7 @@ export default function ArithmeticBlitzGame() {
                 {loading ? (
                     <Loading setLoading={setLoading} />
                 ) : (
-                    <GameField
-                        difficulty={params.difficulty}
-                        gameOver={setGameStatus}
-                    />
+                    <GameField difficulty={params.difficulty} gameOver={setGameStatus} />
                 )}
                 <GameOverScreen
                     modalVisible={gameStatus.isGameOver}

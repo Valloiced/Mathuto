@@ -17,10 +17,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: SIZES.small,
         borderRadius: BORDER_RADIUS.xxLarge,
-        backgroundColor:
-            category === activeCategory
-                ? COLORS.secondary + '80'
-                : 'transparent'
+        backgroundColor: category === activeCategory ? COLORS.secondary + '80' : 'transparent'
         // borderBottomWidth: 3,
         // borderBottomColor:
         //     category === activeCategory

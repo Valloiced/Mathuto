@@ -69,10 +69,7 @@ export default function Lesson() {
                     <Description content={lesson.content} />
                 )}
             </ScrollView>
-            <PaginationButtons
-                topicId={params.topic_id}
-                currentPage={params.lesson_id}
-            />
+            <PaginationButtons topicId={params.topic_id} currentPage={params.lesson_id} />
         </>
     );
 }

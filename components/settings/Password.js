@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    ActivityIndicator
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { router } from 'expo-router';
 import Toast from 'react-native-toast-message';
@@ -45,15 +39,13 @@ export default function Password({ uid, setModalVisible, setDialogCallback }) {
 
     const validateForm = async () => {
         try {
-            let { currentPassword, newPassword, confirmPassword } =
-                passwordForm;
+            let { currentPassword, newPassword, confirmPassword } = passwordForm;
 
             const user = await firebaseAuthService.getCurrentUser();
-            const passwordMatch =
-                await firebaseAuthService.reauthenticateWithPassword(
-                    user.email,
-                    currentPassword
-                );
+            const passwordMatch = await firebaseAuthService.reauthenticateWithPassword(
+                user.email,
+                currentPassword
+            );
 
             if (!currentPassword || !newPassword || !confirmPassword) {
                 Toast.show({
@@ -230,20 +222,14 @@ export default function Password({ uid, setModalVisible, setDialogCallback }) {
             <View style={layoutStyles.settingsWrapper}>
                 <View style={styles.formWrapper}>
                     <View style={layoutStyles.textInputWrapper}>
-                        <Text style={layoutStyles.textLabel}>
-                            Current Password
-                        </Text>
+                        <Text style={layoutStyles.textLabel}>Current Password</Text>
                         <TextInput
                             style={[
                                 layoutStyles.textInput,
-                                styles.textInput(
-                                    inputFailStatus.currentPassword
-                                )
+                                styles.textInput(inputFailStatus.currentPassword)
                             ]}
                             value={passwordForm.currentPassword}
-                            onChangeText={(text) =>
-                                handleCurrentPasswordInput(text)
-                            }
+                            onChangeText={(text) => handleCurrentPasswordInput(text)}
                             secureTextEntry={true}
                         />
                     </View>
@@ -257,44 +243,32 @@ export default function Password({ uid, setModalVisible, setDialogCallback }) {
                                 styles.textInput(inputFailStatus.newPassword)
                             ]}
                             value={passwordForm.newPassword}
-                            onChangeText={(text) =>
-                                handleNewPasswordInput(text)
-                            }
+                            onChangeText={(text) => handleNewPasswordInput(text)}
                             secureTextEntry={true}
                         />
                     </View>
                     <View style={layoutStyles.textInputWrapper}>
-                        <Text style={layoutStyles.textLabel}>
-                            Confirm Password
-                        </Text>
+                        <Text style={layoutStyles.textLabel}>Confirm Password</Text>
                         <TextInput
                             style={[
                                 layoutStyles.textInput,
-                                styles.textInput(
-                                    inputFailStatus.confirmPassword
-                                )
+                                styles.textInput(inputFailStatus.confirmPassword)
                             ]}
                             value={passwordForm.confirmPassword}
-                            onChangeText={(text) =>
-                                handleConfirmPasswordInput(text)
-                            }
+                            onChangeText={(text) => handleConfirmPasswordInput(text)}
                             secureTextEntry={true}
                         />
                     </View>
                 </View>
                 <View style={layoutStyles.submitContainer}>
                     <TouchableOpacity
-                        style={layoutStyles.submitButton(
-                            isBeingUpdated && !isSubmitting && uid
-                        )}
+                        style={layoutStyles.submitButton(isBeingUpdated && !isSubmitting && uid)}
                         // Button is clickable if there's pending updates, the form is submitting, or the user is not login
                         disabled={!isBeingUpdated || isSubmitting || !uid}
                         onPress={handlePress}
                     >
                         <View style={layoutStyles.submitLabel}>
-                            <Text style={layoutStyles.submitBtnText}>
-                                Update
-                            </Text>
+                            <Text style={layoutStyles.submitBtnText}>Update</Text>
                             <Checkmark style={layoutStyles.submitBtnIcon} />
                         </View>
                     </TouchableOpacity>
@@ -303,23 +277,14 @@ export default function Password({ uid, setModalVisible, setDialogCallback }) {
                         <View style={layoutStyles.formIndicator}>
                             {/* Add condition if updates failed */}
                             {isSubmitting ? (
-                                <ActivityIndicator
-                                    size="small"
-                                    color={COLORS.textPrimary}
-                                />
+                                <ActivityIndicator size="small" color={COLORS.textPrimary} />
                             ) : (
                                 <View style={layoutStyles.successMarkWrapper}>
-                                    <Checkmark
-                                        style={layoutStyles.successMark}
-                                    />
+                                    <Checkmark style={layoutStyles.successMark} />
                                 </View>
                             )}
 
-                            <Text
-                                style={layoutStyles.formIndicatorLabel(
-                                    isSubmitting
-                                )}
-                            >
+                            <Text style={layoutStyles.formIndicatorLabel(isSubmitting)}>
                                 {isSubmitting ? 'Updating...' : 'Updated'}
                             </Text>
                         </View>

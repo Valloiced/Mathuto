@@ -10,11 +10,7 @@ import { router } from 'expo-router';
 function GameOptionsCard({ bg, title, handlePress }) {
     return (
         <TouchableOpacity onPress={handlePress}>
-            <ImageBackground
-                source={bg}
-                style={styles.gameOption}
-                imageStyle={styles.gameOptionBg}
-            >
+            <ImageBackground source={bg} style={styles.gameOption} imageStyle={styles.gameOptionBg}>
                 <Text style={styles.gameOptionTitle}>{title}</Text>
             </ImageBackground>
         </TouchableOpacity>
@@ -31,9 +27,7 @@ export default function GameOptions() {
                     <GameOptionsCard
                         bg={ArithmeticBlitzBG}
                         title={'Arithmetic Blitz'}
-                        handlePress={() =>
-                            router.push('/games/arithmetic-blitz/game-lobby')
-                        }
+                        handlePress={() => router.push('/games/arithmetic-blitz/game-lobby')}
                     />
                 </View>
             </View>

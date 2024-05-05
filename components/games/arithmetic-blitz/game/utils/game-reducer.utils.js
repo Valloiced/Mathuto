@@ -42,19 +42,13 @@ const reducer = (state, action) => {
 
             // If the generated number is not divisible to the track value, it may generate
             // decimal values. This condition replaces the current operator with addition and subtraction operators
-            if (
-                generatedOper === '÷' &&
-                state.trackValue % generatedNum !== 0
-            ) {
+            if (generatedOper === '÷' && state.trackValue % generatedNum !== 0) {
                 generatedOper = boundaryOperator;
             }
 
             // If the generated operator is multiplication and the track value is already big enough,
             // replace the operator with minor operators such as addition and subtraction
-            if (
-                generatedOper === 'x' &&
-                state.trackValue.toString().length >= 3
-            ) {
+            if (generatedOper === 'x' && state.trackValue.toString().length >= 3) {
                 generatedOper = boundaryOperator;
             }
 
@@ -86,11 +80,7 @@ const reducer = (state, action) => {
                 ...state,
                 currentOper: generatedOper,
                 currentValue: generatedNum,
-                trackValue: evaluate(
-                    generatedOper,
-                    state.trackValue,
-                    generatedNum
-                ),
+                trackValue: evaluate(generatedOper, state.trackValue, generatedNum),
                 flip: state.flip ? 0 : 1,
                 numOfFlips: state.numOfFlips + 1
             };

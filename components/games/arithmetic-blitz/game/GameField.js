@@ -37,10 +37,7 @@ export default function GameField({ difficulty, gameOver }) {
 
         // Start loop
         const init = setTimeout(() => {
-            flipInterval.current = setInterval(
-                startGame,
-                diffInterval(difficulty)
-            );
+            flipInterval.current = setInterval(startGame, diffInterval(difficulty));
         }, diffInterval(difficulty));
 
         return () => {
@@ -63,10 +60,7 @@ export default function GameField({ difficulty, gameOver }) {
     // Timer tracker
     useEffect(() => {
         if (showGameInput) {
-            timerInterval.current = setInterval(
-                () => setTimer((prev) => prev - 1),
-                1500
-            );
+            timerInterval.current = setInterval(() => setTimer((prev) => prev - 1), 1500);
         }
 
         if (!timer && showGameInput) {

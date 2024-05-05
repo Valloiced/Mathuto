@@ -10,10 +10,7 @@ import Description from '../../../components/stacks/video/Description';
 import YTOfflineModal from '../../../components/stacks/video/YTOfflineModal';
 
 import styles from '../../../components/stacks/video/style/video.style';
-import {
-    getVideoDetails,
-    getChannelDetails
-} from '../../../utils/youtube.utils';
+import { getVideoDetails, getChannelDetails } from '../../../utils/youtube.utils';
 
 export default function Video() {
     // params: [videoType, videoId]
@@ -30,14 +27,9 @@ export default function Video() {
     useEffect(() => {
         const fetchVideoData = async () => {
             try {
-                const videoData = await getVideoDetails(
-                    videoId,
-                    'snippet,statistics,player'
-                );
+                const videoData = await getVideoDetails(videoId, 'snippet,statistics,player');
 
-                const channelData = await getChannelDetails(
-                    videoData.snippet.channelId
-                );
+                const channelData = await getChannelDetails(videoData.snippet.channelId);
 
                 setVideoDetails({
                     video: videoData,
@@ -73,11 +65,7 @@ export default function Video() {
 
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="transparent"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="transparent" />
             <Stack.Screen
                 options={{
                     headerShadowVisible: false,
@@ -90,31 +78,16 @@ export default function Video() {
                 <VideoPlayer
                     id={videoId}
                     embeddedPlayer={embeddedLink}
-                    title={
-                        videoDetails.video && videoDetails.video.snippet.title
-                    }
-                    viewCount={
-                        videoDetails.video &&
-                        videoDetails.video.statistics.viewCount
-                    }
-                    publishedAt={
-                        videoDetails.video &&
-                        videoDetails.video.snippet.publishedAt
-                    }
-                    channelName={
-                        videoDetails.channel &&
-                        videoDetails.channel.snippet.title
-                    }
+                    title={videoDetails.video && videoDetails.video.snippet.title}
+                    viewCount={videoDetails.video && videoDetails.video.statistics.viewCount}
+                    publishedAt={videoDetails.video && videoDetails.video.snippet.publishedAt}
+                    channelName={videoDetails.channel && videoDetails.channel.snippet.title}
                     channelImg={
-                        videoDetails.channel &&
-                        videoDetails.channel.snippet.thumbnails.high.url
+                        videoDetails.channel && videoDetails.channel.snippet.thumbnails.high.url
                     }
                 />
                 <Description
-                    description={
-                        videoDetails.video &&
-                        videoDetails.video.snippet.description
-                    }
+                    description={videoDetails.video && videoDetails.video.snippet.description}
                 />
             </ScrollView>
             <YTOfflineModal

@@ -9,10 +9,7 @@ const uploadProfileImg = async (destinationPath, uri, uid) => {
         const file = new File([blob], uid, { type: blob.type });
 
         // Upload the file to Firebase Storage
-        const status = await fireStorageService.uploadFile(
-            destinationPath,
-            file
-        );
+        const status = await fireStorageService.uploadFile(destinationPath, file);
 
         return status;
     } catch (error) {

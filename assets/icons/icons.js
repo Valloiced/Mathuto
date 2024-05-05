@@ -77,12 +77,7 @@ const HidePassword = ({ style, size, color }) => (
 );
 
 const Offline = ({ style, size, color }) => (
-    <Ionicon
-        name="cloud-offline-outline"
-        style={style}
-        size={size}
-        color={color}
-    />
+    <Ionicon name="cloud-offline-outline" style={style} size={size} color={color} />
 );
 
 const UserSolid = ({ style, size, color }) => (

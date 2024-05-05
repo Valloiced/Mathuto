@@ -13,10 +13,7 @@ export default function HomeHeaderLeft() {
     };
 
     return (
-        <TouchableOpacity
-            style={styles.btnContainer}
-            onPress={() => openDrawer()}
-        >
+        <TouchableOpacity style={styles.btnContainer} onPress={() => openDrawer()}>
             <NavBurger size={20} color={COLORS.textPrimary} />
         </TouchableOpacity>
     );

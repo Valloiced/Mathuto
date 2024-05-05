@@ -41,18 +41,9 @@ const Layout = () => {
         return (
             <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
                 <Stack>
-                    <Stack.Screen
-                        name="index"
-                        options={{ headerShown: false, title: 'Tabs' }}
-                    />
-                    <Stack.Screen
-                        name="(tabs)"
-                        options={{ headerShown: false, title: 'Tabs' }}
-                    />
-                    <Stack.Screen
-                        name="(auth)"
-                        options={{ headerShown: false }}
-                    />
+                    <Stack.Screen name="index" options={{ headerShown: false, title: 'Tabs' }} />
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false, title: 'Tabs' }} />
+                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 </Stack>
                 {/* Toast message adjusted to be positioned at the top of the tab bar */}
                 <Toast bottomOffset={SIZES.xxLarge * 2} />

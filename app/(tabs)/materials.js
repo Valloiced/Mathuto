@@ -11,11 +11,7 @@ import styles from '../../components/materials/style/material.style';
 export default function Materials() {
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="transparent"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="transparent" />
             <View style={styles.materialContainer}>
                 <ScrollView style={styles.scrollView}>
                     <Banner />

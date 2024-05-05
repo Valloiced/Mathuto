@@ -58,11 +58,7 @@ export default function Topics() {
 
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="transparent"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="transparent" />
             <Stack.Screen
                 options={{
                     headerTitle: '',
@@ -71,10 +67,7 @@ export default function Topics() {
                 }}
             />
             <ScrollView style={styles.topicContainer}>
-                <DetailsContainer
-                    name={topicDetails.name}
-                    creator={topicDetails.creator}
-                />
+                <DetailsContainer name={topicDetails.name} creator={topicDetails.creator} />
                 <LessonsContainer
                     loading={loading}
                     topicId={params.topic_id}

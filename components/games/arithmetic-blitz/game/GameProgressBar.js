@@ -36,9 +36,7 @@ export default function GameProgressBar({ reset, showProgressBar, duration }) {
         <>
             {showProgressBar && (
                 <View style={styles.flipIntervalContainer}>
-                    <Animated.View
-                        style={[styles.flipInterval, progressBarAnimation]}
-                    />
+                    <Animated.View style={[styles.flipInterval, progressBarAnimation]} />
                 </View>
             )}
         </>

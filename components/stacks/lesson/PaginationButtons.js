@@ -61,9 +61,7 @@ export default function PaginationButtons({ topicId, currentPage }) {
             return;
         }
 
-        router.replace(
-            `/stacks/topic/${topicId}/lesson/${Number(currentPage) + 1}`
-        );
+        router.replace(`/stacks/topic/${topicId}/lesson/${Number(currentPage) + 1}`);
     };
 
     const handlePrev = () => {
@@ -72,40 +70,26 @@ export default function PaginationButtons({ topicId, currentPage }) {
             return;
         }
 
-        router.replace(
-            `/stacks/topic/${topicId}/lesson/${Number(currentPage) - 1}`
-        );
+        router.replace(`/stacks/topic/${topicId}/lesson/${Number(currentPage) - 1}`);
     };
 
     return (
         <View style={styles.paginationContainer}>
             <TouchableOpacity
                 disabled={disabledPrev}
-                style={[
-                    styles.paginationButton,
-                    !disabledPrev && SHADOWS.medium
-                ]}
+                style={[styles.paginationButton, !disabledPrev && SHADOWS.medium]}
                 onPress={handlePrev}
             >
-                <ArrowLeft
-                    color={!disabledPrev ? COLORS.tertiary : COLORS.disabled}
-                    size={20}
-                />
+                <ArrowLeft color={!disabledPrev ? COLORS.tertiary : COLORS.disabled} size={20} />
                 <Text style={styles.paginationBtnText(disabledPrev)}>PREV</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 disabled={disabledNext}
-                style={[
-                    styles.paginationButton,
-                    !disabledNext && SHADOWS.medium
-                ]}
+                style={[styles.paginationButton, !disabledNext && SHADOWS.medium]}
                 onPress={handleNext}
             >
                 <Text style={styles.paginationBtnText(disabledNext)}>NEXT</Text>
-                <ArrowRight
-                    color={!disabledNext ? COLORS.tertiary : COLORS.disabled}
-                    size={20}
-                />
+                <ArrowRight color={!disabledNext ? COLORS.tertiary : COLORS.disabled} size={20} />
             </TouchableOpacity>
         </View>
     );

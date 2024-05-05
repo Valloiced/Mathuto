@@ -6,11 +6,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 
 import styles from './style/ytMaterials.style';
 import YTMaterialsCard from './YTMaterialsCard';
-import {
-    getChannelDetails,
-    getVideoDetails,
-    searchVideosList
-} from '../../utils/youtube.utils';
+import { getChannelDetails, getVideoDetails, searchVideosList } from '../../utils/youtube.utils';
 
 export default function YTMaterials() {
     const netinfo = useNetInfo();
@@ -58,8 +54,7 @@ export default function YTMaterials() {
             if (latestQueries.fetchDate) {
                 const currentTime = new Date();
                 const prevSearchTime = new Date(latestQueries.fetchDate);
-                const differenceInTime =
-                    currentTime.getTime() - prevSearchTime.getTime();
+                const differenceInTime = currentTime.getTime() - prevSearchTime.getTime();
 
                 const differenceInDays = differenceInTime / (1000 * 3600 * 24);
 
@@ -116,10 +111,7 @@ export default function YTMaterials() {
                 };
 
                 await AsyncStorage.removeItem('saved-yt-queries');
-                await AsyncStorage.setItem(
-                    'saved-yt-queries',
-                    JSON.stringify(latestQueries)
-                );
+                await AsyncStorage.setItem('saved-yt-queries', JSON.stringify(latestQueries));
             } else {
                 let response = await AsyncStorage.getItem('saved-yt-queries');
                 const storedVideoData = JSON.parse(response);
@@ -130,20 +122,12 @@ export default function YTMaterials() {
             let pickedVideos = getRandomVideos(videoList, 20);
 
             const fetchVideoDetails = pickedVideos.map(async (video) => {
-                const channelImg = await getChannelDetails(
-                    video.snippet.channelId,
-                    'snippet'
-                );
-                const videoDetails = await getVideoDetails(
-                    video.id.videoId,
-                    'snippet,statistics'
-                );
+                const channelImg = await getChannelDetails(video.snippet.channelId, 'snippet');
+                const videoDetails = await getVideoDetails(video.id.videoId, 'snippet,statistics');
 
                 return {
                     ...video,
-                    channelImg: channelImg
-                        ? channelImg.snippet.thumbnails.medium.url
-                        : null,
+                    channelImg: channelImg ? channelImg.snippet.thumbnails.medium.url : null,
                     viewCount: videoDetails.statistics.viewCount
                 };
             });
@@ -152,10 +136,7 @@ export default function YTMaterials() {
 
             // For offline use, cache
             await AsyncStorage.removeItem('recent-yt-data');
-            await AsyncStorage.setItem(
-                'recent-yt-data',
-                JSON.stringify(videoListDetails)
-            );
+            await AsyncStorage.setItem('recent-yt-data', JSON.stringify(videoListDetails));
 
             setSearchData(videoListDetails);
         } catch (error) {
@@ -223,12 +204,7 @@ export default function YTMaterials() {
                 data={searchData}
                 horizontal={true}
                 keyExtractor={(item) => item.id.videoId}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                    />
-                }
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 renderItem={({ item }) => (
                     <YTMaterialsCard
                         id={item.id.videoId}

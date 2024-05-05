@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    ImageBackground,
-    Image,
-    TouchableOpacity,
-    Linking
-} from 'react-native';
+import { View, Text, ImageBackground, Image, TouchableOpacity, Linking } from 'react-native';
 import WebView from 'react-native-webview';
 
 import { formatViews } from '../../../utils/youtube.utils';
@@ -61,27 +54,18 @@ export default function VideoPlayer({
                 <View style={styles.videoMainDetails}>
                     <Text style={styles.videoTitle}>{title}</Text>
                     <View style={styles.mainDetailsWrapper}>
-                        <Text
-                            style={styles.mainDetails}
-                        >{`${formatViews(viewCount)} Views`}</Text>
-                        <Text style={styles.mainDetails}>
-                            {formatDate(publishedAt)}
-                        </Text>
+                        <Text style={styles.mainDetails}>{`${formatViews(viewCount)} Views`}</Text>
+                        <Text style={styles.mainDetails}>{formatDate(publishedAt)}</Text>
                     </View>
                 </View>
                 <View style={styles.infoContainer}>
                     <View style={styles.channel}>
-                        <View
-                            style={[styles.channelImgWrapper, SHADOWS.medium]}
-                        >
+                        <View style={[styles.channelImgWrapper, SHADOWS.medium]}>
                             <Image src={channelImg} style={styles.channelImg} />
                         </View>
                         <Text style={styles.channelName}>{channelName}</Text>
                     </View>
-                    <TouchableOpacity
-                        style={styles.redirectButton}
-                        onPress={handleRedirect}
-                    >
+                    <TouchableOpacity style={styles.redirectButton} onPress={handleRedirect}>
                         <Text style={styles.redirectBtnText}>Watch in</Text>
                         <YouTube style={styles.ytIcon} />
                     </TouchableOpacity>

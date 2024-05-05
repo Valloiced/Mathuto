@@ -15,10 +15,9 @@ export default function Description() {
                 <View style={styles.description}>
                     <Text style={styles.header}>ABOUT THIS GAME</Text>
                     <Text style={styles.content}>
-                        Welcome to Arithmetic Blitz! Where learning math is a
-                        thrilling journey full of excitement and fun! Get ready
-                        to become a math hero by solving quick puzzles in this
-                        exciting game.
+                        Welcome to Arithmetic Blitz! Where learning math is a thrilling journey full
+                        of excitement and fun! Get ready to become a math hero by solving quick
+                        puzzles in this exciting game.
                     </Text>
                 </View>
                 <View style={styles.description}>
@@ -34,9 +33,7 @@ export default function Description() {
                         }
                     />
                     <RenderBulletList
-                        content={
-                            'You are only given 3 lives before you lose in the game.'
-                        }
+                        content={'You are only given 3 lives before you lose in the game.'}
                     />
                     <RenderBulletList
                         content={
@@ -44,9 +41,7 @@ export default function Description() {
                         }
                     />
                     <RenderBulletList
-                        content={
-                            'Earn higher points the more you progress in the game.'
-                        }
+                        content={'Earn higher points the more you progress in the game.'}
                     />
                     <RenderBulletList content={'Good luck and have fun!'} />
                 </View>

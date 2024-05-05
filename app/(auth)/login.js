@@ -135,11 +135,7 @@ export default function Login() {
 
     return (
         <View style={styles.loginContainer}>
-            <Image
-                source={MathtutoIcon}
-                style={styles.icon(160)}
-                resizeMode="contain"
-            />
+            <Image source={MathtutoIcon} style={styles.icon(160)} resizeMode="contain" />
             <View style={styles.formsWrapper}>
                 <Text style={[styles.loginHeader, SHADOWS.text]}>LOG IN</Text>
                 <FormsContainer
@@ -153,9 +149,7 @@ export default function Login() {
                 <SocialsContainer />
             </View>
             <View style={styles.signupWrapper}>
-                <Text style={styles.subtitle}>
-                    Don&#39;t have an account yet?
-                </Text>
+                <Text style={styles.subtitle}>Don&#39;t have an account yet?</Text>
                 <Link style={styles.highlight} href="/register">
                     Sign Up
                 </Link>

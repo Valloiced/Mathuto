@@ -8,11 +8,7 @@ import edgeBg from '../../../assets/bg/video-edge-bg.png';
 export default function Description({ description }) {
     return (
         <View style={styles.descriptionContainer}>
-            <ImageBackground
-                source={edgeBg}
-                style={styles.edgeBg}
-                imageStyle={styles.edgeBgImage}
-            >
+            <ImageBackground source={edgeBg} style={styles.edgeBg} imageStyle={styles.edgeBgImage}>
                 <Text style={styles.descriptionHeader}>Description</Text>
             </ImageBackground>
             <View style={styles.descriptionWrapper}>

@@ -17,9 +17,7 @@ export default function LearningMaterials() {
 
     const fetchMaterials = async () => {
         try {
-            const response = await axios.get(
-                `${process.env.EXPO_PUBLIC_SERVER}/api/materials`
-            );
+            const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER}/api/materials`);
             const topics = response.data.topics;
 
             setLearningMaterials(topics);
@@ -71,9 +69,7 @@ export default function LearningMaterials() {
 
     return (
         <View style={styles.learningMaterialsContainer}>
-            <Text style={styles.learningMaterialsHeader}>
-                Learning Materials
-            </Text>
+            <Text style={styles.learningMaterialsHeader}>Learning Materials</Text>
             {loading ? (
                 <ActivityIndicator size="large" color={COLORS.primary} />
             ) : (

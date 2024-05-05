@@ -57,10 +57,7 @@ class FirebaseAuthService {
     async reauthenticateWithPassword(email, password) {
         try {
             const user = this.auth.currentUser;
-            const credential = this.getEmailAuthProvider().credential(
-                email,
-                password
-            );
+            const credential = this.getEmailAuthProvider().credential(email, password);
             await reauthenticateWithCredential(user, credential);
 
             return true;
@@ -100,11 +97,7 @@ class FirebaseAuthService {
 
     async logIn(email, password) {
         try {
-            const userCredentials = await signInWithEmailAndPassword(
-                this.auth,
-                email,
-                password
-            );
+            const userCredentials = await signInWithEmailAndPassword(this.auth, email, password);
 
             const user = userCredentials.user;
 

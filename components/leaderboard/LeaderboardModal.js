@@ -42,15 +42,12 @@ export default function LeaderboardModal({ scores }) {
         <View style={styles.leaderboardModal}>
             {scores.length ? (
                 <>
-                    <Text style={styles.refreshNote}>
-                        Refreshes every 10 mins
-                    </Text>
+                    <Text style={styles.refreshNote}>Refreshes every 10 mins</Text>
                     {leaderboardModalCards}
                 </>
             ) : (
                 <Text style={styles.statusText}>
-                    No Players Available Yet. Leaderboard would later be
-                    updated.
+                    No Players Available Yet. Leaderboard would later be updated.
                 </Text>
             )}
         </View>

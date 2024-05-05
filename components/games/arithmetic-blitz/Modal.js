@@ -22,54 +22,25 @@ export default function GameModal({ modalVisible, setModalVisible }) {
             <View style={styles.modal}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalWrapper}>
-                        <Text style={styles.modalHeader}>
-                            SELECT DIFFICULTY
-                        </Text>
+                        <Text style={styles.modalHeader}>SELECT DIFFICULTY</Text>
                         <View style={styles.difficultiesWrapper}>
                             <TouchableOpacity
-                                style={[
-                                    styles.difficultyButton,
-                                    SHADOWS.medium
-                                ]}
-                                onPress={() =>
-                                    handlePress(
-                                        '/games/arithmetic-blitz/game/easy'
-                                    )
-                                }
+                                style={[styles.difficultyButton, SHADOWS.medium]}
+                                onPress={() => handlePress('/games/arithmetic-blitz/game/easy')}
                             >
-                                <Text style={styles.difficultyBtnText}>
-                                    EASY
-                                </Text>
+                                <Text style={styles.difficultyBtnText}>EASY</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[
-                                    styles.difficultyButton,
-                                    SHADOWS.medium
-                                ]}
-                                onPress={() =>
-                                    handlePress(
-                                        '/games/arithmetic-blitz/game/medium'
-                                    )
-                                }
+                                style={[styles.difficultyButton, SHADOWS.medium]}
+                                onPress={() => handlePress('/games/arithmetic-blitz/game/medium')}
                             >
-                                <Text style={styles.difficultyBtnText}>
-                                    MEDIUM
-                                </Text>
+                                <Text style={styles.difficultyBtnText}>MEDIUM</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[
-                                    styles.difficultyButton,
-                                    SHADOWS.medium
-                                ]}
-                                onPress={() =>
-                                    handlePress(
-                                        '/games/arithmetic-blitz/game/hard'
-                                    )
-                                }
+                                style={[styles.difficultyButton, SHADOWS.medium]}
+                                onPress={() => handlePress('/games/arithmetic-blitz/game/hard')}
                             >
-                                <Text style={styles.difficultyBtnText}>
-                                    HARD
-                                </Text>
+                                <Text style={styles.difficultyBtnText}>HARD</Text>
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.modalNote}>

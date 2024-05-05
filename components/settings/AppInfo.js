@@ -9,11 +9,7 @@ export default function AppInfo() {
     return (
         <View style={styles.appInfoContainer}>
             <View style={styles.logoContainer}>
-                <Image
-                    source={MathtutoIcon}
-                    style={styles.logo}
-                    resizeMode="contain"
-                />
+                <Image source={MathtutoIcon} style={styles.logo} resizeMode="contain" />
             </View>
             <Text style={styles.version}>1.0.0</Text>
         </View>

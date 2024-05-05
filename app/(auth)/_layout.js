@@ -7,11 +7,7 @@ import ReturnHeaderBtn from '../../components/headers/ReturnHeaderBtn';
 export default function AuthLayout() {
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="transparent"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="transparent" />
             <Stack
                 screenOptions={{
                     headerShown: false

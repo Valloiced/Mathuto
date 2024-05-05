@@ -1,10 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import {
-    BORDER_RADIUS,
-    COLORS,
-    FONT,
-    SIZES
-} from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 const { width, height } = Dimensions.get('window');
 

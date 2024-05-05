@@ -10,11 +10,7 @@ import styles from '../../components/materials/style/material.style';
 export default function Videos() {
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="transparent"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="transparent" />
             <View style={styles.videoContainer}>
                 <ScrollView>
                     <Banner />

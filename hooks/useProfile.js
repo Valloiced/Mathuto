@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
-import {
-    getFirestore,
-    collection,
-    onSnapshot,
-    query,
-    where
-} from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, query, where } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { firebase, firebaseAuthService } from '../utils/firebase.utils';
@@ -31,10 +25,7 @@ const useProfile = () => {
 
                     const db = getFirestore(firebase);
 
-                    const profileRef = query(
-                        collection(db, 'users'),
-                        where('uid', '==', user.uid)
-                    );
+                    const profileRef = query(collection(db, 'users'), where('uid', '==', user.uid));
 
                     // Retrieve real time data
                     observer = onSnapshot(profileRef, async (snapshot) => {

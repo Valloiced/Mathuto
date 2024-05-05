@@ -49,9 +49,7 @@ export default function Leaderboard() {
                 visibilityTime: 5000
             });
 
-            const response = await axios.get(
-                `${process.env.EXPO_PUBLIC_SERVER}/api/leaderboard`
-            );
+            const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER}/api/leaderboard`);
 
             const leaderboard = response.data;
 
@@ -98,18 +96,11 @@ export default function Leaderboard() {
 
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="transparent"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="transparent" />
             <View style={styles.leaderboardContainer}>
                 <ScrollView
                     refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={onRefresh}
-                        />
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
                     }
                 >
                     <Banner />
@@ -117,12 +108,8 @@ export default function Leaderboard() {
                         currentCategory={currentCategory}
                         setCurrentCategory={setCurrentCategory}
                     />
-                    <TopLeaderbord
-                        topScores={leaderboards[currentCategory].slice(0, 3)}
-                    />
-                    <LeaderboardModal
-                        scores={leaderboards[currentCategory].slice(3)}
-                    />
+                    <TopLeaderbord topScores={leaderboards[currentCategory].slice(0, 3)} />
+                    <LeaderboardModal scores={leaderboards[currentCategory].slice(3)} />
                 </ScrollView>
                 <UserRankCard
                     isLogin={Boolean(user.uid)}

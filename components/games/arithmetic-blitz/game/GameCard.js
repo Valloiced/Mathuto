@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Dimensions,
-    View,
-    Text,
-    StyleSheet,
-    ImageBackground
-} from 'react-native';
+import { Dimensions, View, Text, StyleSheet, ImageBackground } from 'react-native';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
@@ -18,13 +12,7 @@ import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 const { height } = Dimensions.get('window');
 
-export default function GameCard({
-    flip,
-    currentOper,
-    currentValue,
-    timer,
-    showTimer
-}) {
+export default function GameCard({ flip, currentOper, currentValue, timer, showTimer }) {
     const spin = useSharedValue(0);
     const [frontText, setFrontText] = useState('');
     const [backText, setBackText] = useState('');
@@ -36,10 +24,7 @@ export default function GameCard({
         spin.value = flip;
 
         if (flip === 0) {
-            setTimeout(
-                () => setFrontText(`${currentOper}${currentValue}`),
-                200
-            );
+            setTimeout(() => setFrontText(`${currentOper}${currentValue}`), 200);
         }
 
         if (flip === 1) {
@@ -72,9 +57,7 @@ export default function GameCard({
     return (
         <View style={styles.gameCardContainer}>
             <View style={styles.timerContainer}>
-                {showTimer && (
-                    <Text style={styles.timer(timer)}>{formatTimer}</Text>
-                )}
+                {showTimer && <Text style={styles.timer(timer)}>{formatTimer}</Text>}
             </View>
             <Animated.View style={[styles.gameCard, frontAnimatedStyle]}>
                 <ImageBackground

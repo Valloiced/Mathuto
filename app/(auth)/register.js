@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { router } from 'expo-router';
-import {
-    firebaseAuthService,
-    firebaseFirestoreService
-} from '../../utils/firebase.utils';
+import { firebaseAuthService, firebaseFirestoreService } from '../../utils/firebase.utils';
 import { View, Text } from 'react-native';
 import Toast from 'react-native-toast-message';
 

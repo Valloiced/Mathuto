@@ -1,10 +1,7 @@
 import React from 'react';
 import { router } from 'expo-router';
 import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import {
-    DrawerContentScrollView,
-    DrawerItemList
-} from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Toast from 'react-native-toast-message';
 
 import { firebaseAuthService } from '../../../utils/firebase.utils';
@@ -48,10 +45,7 @@ export default function HomeDrawerContent(props) {
                     </View>
                     <DrawerItemList {...props} />
                 </View>
-                <TouchableOpacity
-                    style={styles.signOut}
-                    onPress={handleSignOut}
-                >
+                <TouchableOpacity style={styles.signOut} onPress={handleSignOut}>
                     <View style={styles.signOutWrapper}>
                         <Text style={styles.signOutText}>SIGN OUT</Text>
                         <Logout style={styles.signOutIcon} />

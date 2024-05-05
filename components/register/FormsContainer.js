@@ -4,13 +4,7 @@ import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { COLORS, SHADOWS } from '../../constants/theme';
 import styles from './style/formsContainer.style';
 
-import {
-    UserSolid,
-    MailSolid,
-    LockSolid,
-    ViewPassword,
-    HidePassword
-} from '../../assets/icons';
+import { UserSolid, MailSolid, LockSolid, ViewPassword, HidePassword } from '../../assets/icons';
 
 export default function FormsContainer({
     isRegistering,
@@ -67,15 +61,9 @@ export default function FormsContainer({
                             onPress={togglePasswordVisibility}
                         >
                             {coverPassword ? (
-                                <ViewPassword
-                                    size={25}
-                                    color={COLORS.bgPrimary}
-                                />
+                                <ViewPassword size={25} color={COLORS.bgPrimary} />
                             ) : (
-                                <HidePassword
-                                    size={25}
-                                    color={COLORS.bgPrimary}
-                                />
+                                <HidePassword size={25} color={COLORS.bgPrimary} />
                             )}
                         </TouchableOpacity>
                     )}

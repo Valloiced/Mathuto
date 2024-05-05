@@ -17,11 +17,7 @@ export default function GameLobby() {
 
     return (
         <>
-            <StatusBar
-                translucent
-                backgroundColor="transparent"
-                barStyle="light-content"
-            />
+            <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
             {modalVisible && <View style={styles.overlay} />}
             <Stack.Screen
                 options={{
@@ -39,10 +35,7 @@ export default function GameLobby() {
                 <Description />
             </ScrollView>
             <StartButton setModalVisible={setModalVisible} />
-            <GameModal
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-            />
+            <GameModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
         </>
     );
 }

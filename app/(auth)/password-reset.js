@@ -38,12 +38,9 @@ export default function PasswordReset() {
 
     return (
         <View style={styles.passwordResetContainer}>
-            <Text style={[styles.passwordResetHeader, SHADOWS.text]}>
-                FORGOT PASSWORD?
-            </Text>
+            <Text style={[styles.passwordResetHeader, SHADOWS.text]}>FORGOT PASSWORD?</Text>
             <Text style={styles.description}>
-                Provide your account’s email for which you want to reset your
-                password
+                Provide your account’s email for which you want to reset your password
             </Text>
             <View style={styles.inputWrapper}>
                 <View style={styles.iconWrapper}>

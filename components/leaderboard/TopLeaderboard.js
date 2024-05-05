@@ -21,26 +21,16 @@ export default function TopLeaderbord({ topScores }) {
                     ]}
                 >
                     <Image
-                        source={
-                            !secondRank.profileImg
-                                ? User
-                                : { uri: secondRank.profileImg }
-                        }
+                        source={!secondRank.profileImg ? User : { uri: secondRank.profileImg }}
                         style={[styles.rankImg]}
                     />
                 </View>
                 <View style={styles.rankDetails}>
-                    <Text
-                        style={styles.ranker}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                    >
+                    <Text style={styles.ranker} numberOfLines={1} ellipsizeMode="tail">
                         {secondRank?.username || '--:--'}
                     </Text>
                     <View style={styles.pointsWrapper}>
-                        <Text style={styles.points()}>
-                            {secondRank?.score || '--'}
-                        </Text>
+                        <Text style={styles.points()}>{secondRank?.score || '--'}</Text>
                         <Text style={styles.pointsLabel}>pts</Text>
                     </View>
                 </View>
@@ -54,26 +44,16 @@ export default function TopLeaderbord({ topScores }) {
                     ]}
                 >
                     <Image
-                        source={
-                            !firstRank.profileImg
-                                ? User
-                                : { uri: firstRank.profileImg }
-                        }
+                        source={!firstRank.profileImg ? User : { uri: firstRank.profileImg }}
                         style={[styles.rankImg]}
                     />
                 </View>
                 <View style={styles.rankDetails}>
-                    <Text
-                        style={styles.ranker}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                    >
+                    <Text style={styles.ranker} numberOfLines={1} ellipsizeMode="tail">
                         {firstRank?.username || '--:--'}
                     </Text>
                     <View style={styles.pointsWrapper}>
-                        <Text style={styles.points('top')}>
-                            {firstRank?.score || '--'}
-                        </Text>
+                        <Text style={styles.points('top')}>{firstRank?.score || '--'}</Text>
                         <Text style={styles.pointsLabel}>pts</Text>
                     </View>
                 </View>
@@ -87,26 +67,16 @@ export default function TopLeaderbord({ topScores }) {
                     ]}
                 >
                     <Image
-                        source={
-                            !thirdRank.profileImg
-                                ? User
-                                : { uri: thirdRank.profileImg }
-                        }
+                        source={!thirdRank.profileImg ? User : { uri: thirdRank.profileImg }}
                         style={[styles.rankImg]}
                     />
                 </View>
                 <View style={styles.rankDetails}>
-                    <Text
-                        style={styles.ranker}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                    >
+                    <Text style={styles.ranker} numberOfLines={1} ellipsizeMode="tail">
                         {thirdRank?.username || '--:--'}
                     </Text>
                     <View style={styles.pointsWrapper}>
-                        <Text style={styles.points()}>
-                            {thirdRank?.score || '--'}
-                        </Text>
+                        <Text style={styles.points()}>{thirdRank?.score || '--'}</Text>
                         <Text style={styles.pointsLabel}>pts</Text>
                     </View>
                 </View>

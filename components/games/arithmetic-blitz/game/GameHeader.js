@@ -20,9 +20,7 @@ export default function GameHeader({ remainingLives, points, difficulty }) {
         <View style={styles.headerContainer}>
             <View style={styles.headerWrapper}>
                 <View style={styles.heartsContainer}>{remainingHearts}</View>
-                <Text
-                    style={styles.difficulty}
-                >{`Difficulty: ${difficulty}`}</Text>
+                <Text style={styles.difficulty}>{`Difficulty: ${difficulty}`}</Text>
             </View>
             <Text style={styles.points}>{`Points: ${points}`}</Text>
         </View>

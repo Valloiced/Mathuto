@@ -47,9 +47,7 @@ export default function Loading({ setLoading }) {
     return (
         <View style={styles.loadingContainer}>
             {/* Adjusted the countdown to not include the extra 1 second in the display */}
-            <Animated.Text
-                style={[styles.loadingText, { opacity: animatedValue }]}
-            >
+            <Animated.Text style={[styles.loadingText, { opacity: animatedValue }]}>
                 {countdown < 1 ? 'START!' : countdown}
             </Animated.Text>
         </View>

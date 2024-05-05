@@ -6,10 +6,7 @@ import styles from './style/profileContainer.style';
 import { User } from '../../assets/icons';
 import { SHADOWS } from '../../constants/theme';
 
-export default function ProfileContainer({
-    username = '--:--',
-    profileImg = ''
-}) {
+export default function ProfileContainer({ username = '--:--', profileImg = '' }) {
     return (
         <View style={styles.profileContainer}>
             <View style={[styles.imageContainer, SHADOWS.medium]}>

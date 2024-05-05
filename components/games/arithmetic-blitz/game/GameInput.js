@@ -7,22 +7,10 @@ import Animated, {
     withSequence,
     withTiming
 } from 'react-native-reanimated';
-import {
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Easing
-} from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, Easing } from 'react-native';
 import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 
-export default function GameInput({
-    answer,
-    answerStatus,
-    handleSubmit,
-    continueGame,
-    dispatch
-}) {
+export default function GameInput({ answer, answerStatus, handleSubmit, continueGame, dispatch }) {
     const shake = useSharedValue(0);
 
     const shakeAnimation = useAnimatedStyle(() => ({
@@ -63,24 +51,16 @@ export default function GameInput({
                 keyboardType="number-pad"
                 textAlign={'center'}
                 textAlignVertical={'center'}
-                onChangeText={(text) =>
-                    dispatch({ type: 'ANSWERING', answer: text })
-                }
+                onChangeText={(text) => dispatch({ type: 'ANSWERING', answer: text })}
                 editable={!answerStatus.isAnswered}
                 autoFocus={!answerStatus.isAnswered}
             />
             {answerStatus.isAnswered ? (
-                <TouchableOpacity
-                    style={styles.gameInputBtn}
-                    onPress={continueGame}
-                >
+                <TouchableOpacity style={styles.gameInputBtn} onPress={continueGame}>
                     <Text style={styles.gameInputBtnText}>CONTINUE</Text>
                 </TouchableOpacity>
             ) : (
-                <TouchableOpacity
-                    style={styles.gameInputBtn}
-                    onPress={handleSubmit}
-                >
+                <TouchableOpacity style={styles.gameInputBtn} onPress={handleSubmit}>
                     <Text style={styles.gameInputBtnText}>SUBMIT</Text>
                 </TouchableOpacity>
             )}

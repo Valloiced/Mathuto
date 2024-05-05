@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    Image,
-    TouchableOpacity,
-    ActivityIndicator
-} from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { router } from 'expo-router';
 import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
@@ -99,11 +92,7 @@ export default function PersonalInfo({
             });
 
             if (imagePath) {
-                const uploadStatus = await uploadProfileImg(
-                    'profile-image',
-                    imagePath,
-                    uid
-                );
+                const uploadStatus = await uploadProfileImg('profile-image', imagePath, uid);
 
                 /** Add toastify success message here */
                 if (uploadStatus.isUploaded) {
@@ -198,9 +187,7 @@ export default function PersonalInfo({
                                 !profileImg && !pendingUpdates.imagePath
                                     ? User
                                     : {
-                                          uri:
-                                              pendingUpdates.imagePath ||
-                                              profileImg
+                                          uri: pendingUpdates.imagePath || profileImg
                                       }
                             }
                         />
@@ -233,17 +220,13 @@ export default function PersonalInfo({
                 </View>
                 <View style={layoutStyles.submitContainer}>
                     <TouchableOpacity
-                        style={layoutStyles.submitButton(
-                            isBeingUpdated && !isSubmitting && uid
-                        )}
+                        style={layoutStyles.submitButton(isBeingUpdated && !isSubmitting && uid)}
                         // Button is clickable if there's pending updates, the form is submitting, or the user is not login
                         disabled={!isBeingUpdated || isSubmitting || !uid}
                         onPress={handlePress}
                     >
                         <View style={layoutStyles.submitLabel}>
-                            <Text style={layoutStyles.submitBtnText}>
-                                Update
-                            </Text>
+                            <Text style={layoutStyles.submitBtnText}>Update</Text>
                             <Checkmark style={layoutStyles.submitBtnIcon} />
                         </View>
                     </TouchableOpacity>
@@ -251,22 +234,13 @@ export default function PersonalInfo({
                     {showIndicator && (
                         <View style={layoutStyles.formIndicator}>
                             {isSubmitting ? (
-                                <ActivityIndicator
-                                    size="small"
-                                    color={COLORS.textPrimary}
-                                />
+                                <ActivityIndicator size="small" color={COLORS.textPrimary} />
                             ) : (
                                 <View style={layoutStyles.successMarkWrapper}>
-                                    <Checkmark
-                                        style={layoutStyles.successMark}
-                                    />
+                                    <Checkmark style={layoutStyles.successMark} />
                                 </View>
                             )}
-                            <Text
-                                style={layoutStyles.formIndicatorLabel(
-                                    isSubmitting
-                                )}
-                            >
+                            <Text style={layoutStyles.formIndicatorLabel(isSubmitting)}>
                                 {isSubmitting ? 'Updating...' : 'Updated'}
                             </Text>
                         </View>
