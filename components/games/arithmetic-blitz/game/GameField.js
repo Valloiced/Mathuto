@@ -110,8 +110,7 @@ export default function GameField({ difficulty, gameOver }) {
         const diffFlipMultiplier = 2 / diffInterval(difficulty) / 1000;
         return Math.max(
             2000,
-            diffInterval(difficulty) -
-                Math.floor(state.round * diffFlipMultiplier * 1000)
+            diffInterval(difficulty) - Math.floor(state.round * diffFlipMultiplier * 1000)
         );
     };
 

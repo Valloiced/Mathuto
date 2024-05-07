@@ -47,10 +47,7 @@ export default function ArithmeticBlitzGame() {
                 {loading ? (
                     <Loading setLoading={setLoading} />
                 ) : !gameStatus.isGameOver ? (
-                    <GameField
-                        difficulty={params.difficulty}
-                        gameOver={setGameStatus}
-                    />
+                    <GameField difficulty={params.difficulty} gameOver={setGameStatus} />
                 ) : (
                     <GameOverScreen
                         scoreDetails={{

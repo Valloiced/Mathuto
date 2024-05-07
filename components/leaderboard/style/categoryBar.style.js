@@ -12,24 +12,24 @@ const styles = StyleSheet.create({
         borderRadius: BORDER_RADIUS.xxLarge,
         overflow: 'hidden'
     },
-    category: (category, activeCategory) => ({
+    category: {
         flex: 1,
         alignItems: 'center',
-        paddingVertical: SIZES.small,
-        borderRadius: BORDER_RADIUS.xxLarge,
-        backgroundColor: category === activeCategory ? COLORS.secondary + '80' : 'transparent'
-        // borderBottomWidth: 3,
-        // borderBottomColor:
-        //     category === activeCategory
-        //         ? COLORS.secondary
-        //         : 'transparent'
-    }),
+        paddingVertical: SIZES.xSmall,
+        borderRadius: BORDER_RADIUS.xxLarge
+    },
     categoryHeader: {
         fontFamily: FONT.MSMedium,
-        fontSize: SIZES.medium,
-        // fontSize: SIZES.small,
+        fontSize: SIZES.small,
         color: COLORS.lightWhite
-    }
+    },
+    activeBar: (category, activeCategory) => ({
+        width: '60%',
+        height: 3,
+        position: 'absolute',
+        bottom: 0,
+        backgroundColor: category === activeCategory ? COLORS.lightWhite : 'transparent'
+    })
 });
 
 export default styles;

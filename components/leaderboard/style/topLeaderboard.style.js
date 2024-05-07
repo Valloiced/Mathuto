@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         height: height * 0.325,
-        marginHorizontal: SIZES.medium
+        marginHorizontal: SIZES.xSmall
     },
     firstRank: {
         width: '40%',
@@ -38,11 +38,12 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: BORDER_RADIUS.medium
     },
     rankDetails: {
+        marginTop: SIZES.xxSmall,
         flexDirection: 'column',
         gap: SIZES.small
     },
     ranker: {
-        fontSize: SIZES.medium,
+        fontSize: SIZES.small,
         fontFamily: FONT.TorBold,
         color: COLORS.textPrimary
     },
@@ -72,8 +73,24 @@ const styles = StyleSheet.create({
         height: size,
         backgroundColor: COLORS.white,
         borderRadius: size / 2,
-        borderWidth: 5,
+        borderWidth: 4,
         borderColor: borderColor ? borderColor : COLORS.bgPrimary
+    }),
+    rankIndicator: (color, isTop) => ({
+        position: 'absolute',
+        bottom: 30 * -0.5,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: color,
+        borderRadius: SIZES.large,
+        width: isTop ? 30 : 25,
+        height: isTop ? 30 : 25
+    }),
+    rank: (color, isTop) => ({
+        color: color,
+        fontSize: isTop ? SIZES.large : SIZES.medium,
+        fontFamily: FONT.TorBold
     }),
     rankImg: {
         width: '100%',

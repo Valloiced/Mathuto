@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: SIZES.medium
     },
     rank: {
-        fontSize: SIZES.xLarge,
+        fontSize: SIZES.large,
         color: COLORS.white
     },
     ranker: {

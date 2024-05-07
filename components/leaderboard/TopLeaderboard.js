@@ -24,6 +24,9 @@ export default function TopLeaderbord({ topScores }) {
                         source={!secondRank.profileImg ? User : { uri: secondRank.profileImg }}
                         style={[styles.rankImg]}
                     />
+                    <View style={styles.rankIndicator('#09E98B')}>
+                        <Text style={styles.rank('#004125')}>2</Text>
+                    </View>
                 </View>
                 <View style={styles.rankDetails}>
                     <Text style={styles.ranker} numberOfLines={1} ellipsizeMode="tail">
@@ -47,6 +50,9 @@ export default function TopLeaderbord({ topScores }) {
                         source={!firstRank.profileImg ? User : { uri: firstRank.profileImg }}
                         style={[styles.rankImg]}
                     />
+                    <View style={styles.rankIndicator('#FCD137', true)}>
+                        <Text style={styles.rank('#4D3C00', true)}>1</Text>
+                    </View>
                 </View>
                 <View style={styles.rankDetails}>
                     <Text style={styles.ranker} numberOfLines={1} ellipsizeMode="tail">
@@ -70,6 +76,9 @@ export default function TopLeaderbord({ topScores }) {
                         source={!thirdRank.profileImg ? User : { uri: thirdRank.profileImg }}
                         style={[styles.rankImg]}
                     />
+                    <View style={styles.rankIndicator('#48F4FF')}>
+                        <Text style={styles.rank('#00494E')}>3</Text>
+                    </View>
                 </View>
                 <View style={styles.rankDetails}>
                     <Text style={styles.ranker} numberOfLines={1} ellipsizeMode="tail">

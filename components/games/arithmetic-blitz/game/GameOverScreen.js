@@ -99,34 +99,20 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
 
     return (
         <>
-            <Animated.View
-                style={styles.container}
-                entering={BounceIn}
-                exiting={BounceOut}
-            >
+            <Animated.View style={styles.container} entering={BounceIn} exiting={BounceOut}>
                 <View style={styles.gameOverContainer}>
                     <View style={styles.gameIconWrapper}>
-                        <Image
-                            style={styles.gameIcon}
-                            source={Blitz}
-                            resizeMode="contain"
-                        />
+                        <Image style={styles.gameIcon} source={Blitz} resizeMode="contain" />
                     </View>
                     <Text style={styles.gameOverHeader}>GOOD JOB!</Text>
                     <View style={styles.scoreBoard}>
                         <View style={styles.scoreDetailsWrapper}>
-                            <Text style={styles.scoreDetails}>
-                                Earned Points
-                            </Text>
-                            <Text style={styles.scoreDetails}>
-                                {earnedPoints}
-                            </Text>
+                            <Text style={styles.scoreDetails}>Earned Points</Text>
+                            <Text style={styles.scoreDetails}>{earnedPoints}</Text>
                         </View>
                         <View style={styles.scoreDetailsWrapper}>
                             <Text style={styles.scoreDetails}>Difficulty</Text>
-                            <Text
-                                style={styles.scoreDetails}
-                            >{`x ${multiplier}`}</Text>
+                            <Text style={styles.scoreDetails}>{`x ${multiplier}`}</Text>
                         </View>
                     </View>
                     {/* If there is a network, continue submitting */}
@@ -136,21 +122,13 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                         ) : !isError ? (
                             <View style={styles.totalScoreBoard}>
                                 <View style={styles.totalScoreWrapper}>
-                                    <Text style={styles.totalScoreHeader}>
-                                        TOTAL POINTS
-                                    </Text>
-                                    <Text style={styles.totalScore}>
-                                        {totalPoints}
-                                    </Text>
+                                    <Text style={styles.totalScoreHeader}>TOTAL POINTS</Text>
+                                    <Text style={styles.totalScore}>{totalPoints}</Text>
                                 </View>
                                 <View style={styles.totalScoreWrapper}>
-                                    <Text style={styles.totalScoreHeader}>
-                                        OVERALL POINTS
-                                    </Text>
+                                    <Text style={styles.totalScoreHeader}>OVERALL POINTS</Text>
                                     <View style={styles.overallPointsWrapper}>
-                                        <Text style={styles.totalScore}>
-                                            {overallPoints}
-                                        </Text>
+                                        <Text style={styles.totalScore}>{overallPoints}</Text>
                                         <Text
                                             style={styles.addedPoints}
                                         >{`(+${totalPoints})`}</Text>
@@ -166,10 +144,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             disabled={submitting}
-                            style={[
-                                styles.button('#66FF88', submitting),
-                                SHADOWS.medium
-                            ]}
+                            style={[styles.button('#66FF88', submitting), SHADOWS.medium]}
                             onPress={() => {
                                 router.replace(`/home`);
                             }}
@@ -178,14 +153,9 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                         </TouchableOpacity>
                         <TouchableOpacity
                             disabled={submitting}
-                            style={[
-                                styles.button('#E34D4D', submitting),
-                                SHADOWS.medium
-                            ]}
+                            style={[styles.button('#E34D4D', submitting), SHADOWS.medium]}
                             onPress={() =>
-                                router.replace(
-                                    `/games/arithmetic-blitz/game/${difficulty}`
-                                )
+                                router.replace(`/games/arithmetic-blitz/game/${difficulty}`)
                             }
                         >
                             <Restart size={25} color={'#490000'} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, RefreshControl } from 'react-native';
+import { View, Text, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { useNetInfo } from '@react-native-community/netinfo';
@@ -7,12 +7,15 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import styles from './style/ytMaterials.style';
 import YTMaterialsCard from './YTMaterialsCard';
 import { getChannelDetails, getVideoDetails, searchVideosList } from '../../utils/youtube.utils';
+import { COLORS } from '../../constants/theme';
 
 export default function YTMaterials() {
     const netinfo = useNetInfo();
 
     const [searchData, setSearchData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const fetchRecentOpenedLessons = async () => {
         try {
@@ -141,6 +144,7 @@ export default function YTMaterials() {
             setSearchData(videoListDetails);
         } catch (error) {
             console.error(error.message);
+            setError('Cannot load videos yet.');
             Toast.show({
                 type: 'error',
                 text1: 'Cannot load videos yet',
@@ -149,6 +153,8 @@ export default function YTMaterials() {
                 autoHide: true,
                 visibilityTime: 5000
             });
+        } finally {
+            setLoading(false);
         }
     }, []);
 
@@ -170,6 +176,9 @@ export default function YTMaterials() {
             }
         } catch (error) {
             console.error(error);
+            setError('No videos saved yet');
+        } finally {
+            setLoading(false);
         }
     }, []);
 
@@ -200,22 +209,29 @@ export default function YTMaterials() {
             <View style={styles.ytHeaderWrapper}>
                 <Text style={styles.ytHeader}>RECOMMENDED FOR YOU</Text>
             </View>
-            <FlatList
-                data={searchData}
-                horizontal={true}
-                keyExtractor={(item) => item.id.videoId}
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-                renderItem={({ item }) => (
-                    <YTMaterialsCard
-                        id={item.id.videoId}
-                        title={item.snippet.title}
-                        thumbnail={item.snippet.thumbnails.medium.url}
-                        channelName={item.snippet.channelTitle}
-                        channelImg={item.channelImg}
-                        viewCount={item.viewCount}
-                    />
-                )}
-            />
+            {loading ? (
+                <ActivityIndicator size={'large'} color={COLORS.textTertiary} />
+            ) : (
+                <FlatList
+                    data={searchData}
+                    horizontal={true}
+                    keyExtractor={(item) => item.id.videoId}
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                    }
+                    renderItem={({ item }) => (
+                        <YTMaterialsCard
+                            id={item.id.videoId}
+                            title={item.snippet.title}
+                            thumbnail={item.snippet.thumbnails.medium.url}
+                            channelName={item.snippet.channelTitle}
+                            channelImg={item.channelImg}
+                            viewCount={item.viewCount}
+                        />
+                    )}
+                />
+            )}
+            { (!loading && error) && (<Text>{error}</Text>)}
         </View>
     );
 }
