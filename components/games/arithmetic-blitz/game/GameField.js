@@ -48,7 +48,9 @@ export default function GameField({ difficulty, gameOver }) {
 
     // Round tracker
     useEffect(() => {
-        const roundTotalFlipCount = state.round * 2; // Increases per round
+        // Increases per round
+        // Maximum of 10 flips
+        const roundTotalFlipCount = Math.min(state.round + 1, 10);
 
         if (state.numOfFlips === roundTotalFlipCount) {
             clearInterval(flipInterval.current);
@@ -98,7 +100,19 @@ export default function GameField({ difficulty, gameOver }) {
             isCorrectAnswer: false
         });
         dispatch({ type: 'RESET_ROUND' });
-        flipInterval.current = setInterval(startGame, diffInterval(difficulty));
+
+        flipInterval.current = setInterval(startGame, flipRoundInterval());
+    };
+
+    const flipRoundInterval = () => {
+        // Following rounds goes faster as the player progress
+        // Timer Boundary is only about 2 seconds.
+        const diffFlipMultiplier = 2 / diffInterval(difficulty) / 1000;
+        return Math.max(
+            2000,
+            diffInterval(difficulty) -
+                Math.floor(state.round * diffFlipMultiplier * 1000)
+        );
     };
 
     const handleSubmit = () => {
@@ -137,13 +151,14 @@ export default function GameField({ difficulty, gameOver }) {
                 flip={state.flip}
                 currentValue={state.currentValue}
                 currentOper={state.currentOper}
+                round={state.round}
                 timer={timer}
                 showTimer={showGameInput} // Show timer with the game input
             />
             <GameProgressBar
                 reset={state.flip} // timer reset on flip change
                 showProgressBar={!showGameInput}
-                duration={diffInterval(difficulty)}
+                duration={flipRoundInterval()}
             />
             {showGameInput && (
                 <GameInput

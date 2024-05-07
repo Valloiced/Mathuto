@@ -46,19 +46,22 @@ export default function ArithmeticBlitzGame() {
             <SafeAreaView style={styles.gameContainer}>
                 {loading ? (
                     <Loading setLoading={setLoading} />
+                ) : !gameStatus.isGameOver ? (
+                    <GameField
+                        difficulty={params.difficulty}
+                        gameOver={setGameStatus}
+                    />
                 ) : (
-                    <GameField difficulty={params.difficulty} gameOver={setGameStatus} />
+                    <GameOverScreen
+                        scoreDetails={{
+                            ...gameStatus,
+                            overallPoints: user.totalPoints,
+                            difficulty: params.difficulty,
+                            multiplier: diffMultiplier(params.difficulty),
+                            earnedPoints: gameStatus.finalPoints
+                        }}
+                    />
                 )}
-                <GameOverScreen
-                    modalVisible={gameStatus.isGameOver}
-                    scoreDetails={{
-                        ...gameStatus,
-                        overallPoints: user.totalPoints,
-                        difficulty: params.difficulty,
-                        multiplier: diffMultiplier(params.difficulty),
-                        earnedPoints: gameStatus.finalPoints
-                    }}
-                />
             </SafeAreaView>
         </>
     );
