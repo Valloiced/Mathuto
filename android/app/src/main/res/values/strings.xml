@@ -2,4 +2,7 @@
   <string name="app_name">Mathuto</string>
   <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
   <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+  <string name="facebook_app_id">1182622889396822</string>
+  <string name="fb_login_protocol_scheme">fb1182622889396822</string>
+  <string name="facebook_client_token">fa66db7fb4b1f98d74dbf277561ed980</string>
 </resources>

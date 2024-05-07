@@ -8,9 +8,12 @@ import {
     signOut,
     onAuthStateChanged,
     EmailAuthProvider,
-    GoogleAuthProvider
+    GoogleAuthProvider,
+    FacebookAuthProvider
 } from 'firebase/auth';
 import { filterUserSession } from './auth.utils';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LoginManager } from 'react-native-fbsdk-next';
 
 class FirebaseAuthService {
     constructor(firebase, authState) {
@@ -52,6 +55,14 @@ class FirebaseAuthService {
         });
     }
 
+    /** Retrieve what auth provider does the app currently use */
+    async getCurrentProvider() {
+        const userData = this.auth.currentUser;
+        const provider = userData.providerData[0]?.providerId;
+
+        return provider;
+    }
+
     getEmailAuthProvider() {
         return EmailAuthProvider;
     }
@@ -60,12 +71,30 @@ class FirebaseAuthService {
         return GoogleAuthProvider;
     }
 
+    getFacebookAuthProvider() {
+        return FacebookAuthProvider;
+    }
+
     async authenticateWithGoogle(idToken) {
         try {
             const googleCredential =
                 this.getGoogleAuthProvider().credential(idToken);
 
             await signInWithCredential(this.auth, googleCredential);
+
+            return true;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async authenticateWithFacebook(accessToken) {
+        try {
+            const facebookCredential =
+                this.getFacebookAuthProvider().credential(accessToken);
+
+            await signInWithCredential(this.auth, facebookCredential);
 
             return true;
         } catch (error) {
@@ -130,6 +159,20 @@ class FirebaseAuthService {
 
     async logOut() {
         try {
+            const provider = await this.getCurrentProvider();
+
+            // Logout depending on what providers
+            switch (provider) {
+                case 'google.com':
+                    await GoogleSignin.signOut();
+                    break;
+                case 'facebook.com':
+                    LoginManager.logOut();
+                    break;
+                default:
+                    break;
+            }
+
             await signOut(this.auth);
 
             return { message: 'Signout successfully' };

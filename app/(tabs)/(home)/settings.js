@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import Toast from 'react-native-toast-message';
 
+import { firebaseAuthService } from '../../../utils/firebase.utils';
+
 import styles from '../../../components/settings/style/settings.style';
 
+import SocialIndicator from '../../../components/settings/SocialIndicator';
 import PersonalInfo from '../../../components/settings/PersonalInfo';
 import Password from '../../../components/settings/Password';
 import ButtonContainer from '../../../components/settings/ButtonContainer';
@@ -18,6 +21,11 @@ export default function Settings() {
     const user = useProfile();
     const { isConnected } = useNetStatus();
 
+    const [socialAuthInfo, setSocialAuthInfo] = useState({
+        isSocialAuthenticated: false,
+        socialAuthProvider: ''
+    });
+
     /* Dialogs for profile update confirmation */
     const [modalVisible, setModalVisible] = useState(false);
     const [dialogCallback, setDialogCallback] = useState(() => () => {}); // Sheesh
@@ -27,7 +35,7 @@ export default function Settings() {
             Toast.show({
                 type: 'error',
                 text1: 'You are offline',
-                text2: 'You need connection to update your profile',
+                text2: 'You need network connection to update your profile',
                 position: 'top',
                 autoHide: true,
                 visibilityTime: 5000
@@ -35,9 +43,30 @@ export default function Settings() {
         }
     }, [isConnected]);
 
+    useEffect(() => {
+        const getProvider = async () => {
+            const socialAuthProvider =
+                await firebaseAuthService.getCurrentProvider();
+
+            if (socialAuthProvider !== 'password') {
+                setSocialAuthInfo({
+                    isSocialAuthenticated: true,
+                    socialAuthProvider: socialAuthProvider
+                });
+            }
+        };
+
+        getProvider();
+    }, []);
+
     return (
         <>
             <ScrollView style={styles.settingsContainer}>
+                {socialAuthInfo.isSocialAuthenticated && (
+                    <SocialIndicator
+                        provider={socialAuthInfo.socialAuthProvider}
+                    />
+                )}
                 <PersonalInfo
                     uid={user.uid}
                     username={user.username}
@@ -46,11 +75,14 @@ export default function Settings() {
                     setModalVisible={setModalVisible}
                     setDialogCallback={setDialogCallback}
                 />
-                <Password
-                    uid={user.uid}
-                    setModalVisible={setModalVisible}
-                    setDialogCallback={setDialogCallback}
-                />
+                {!socialAuthInfo.isSocialAuthenticated && (
+                    <Password
+                        uid={user.uid}
+                        setModalVisible={setModalVisible}
+                        setDialogCallback={setDialogCallback}
+                    />
+                )}
+
                 <ButtonContainer />
                 <AppInfo />
             </ScrollView>

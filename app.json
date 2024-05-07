@@ -31,6 +31,15 @@
         "plugins": [
             "expo-router",
             "@react-native-google-signin/google-signin",
+            [
+                "react-native-fbsdk-next",
+                {
+                    "appID": "1182622889396822",
+                    "displayName": "Mathuto",
+                    "clientToken": "fa66db7fb4b1f98d74dbf277561ed980",
+                    "scheme": "fb1182622889396822"
+                }
+            ],
             "@react-native-firebase/app",
             "@react-native-firebase/auth",
             [
