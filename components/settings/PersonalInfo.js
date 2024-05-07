@@ -226,7 +226,7 @@ export default function PersonalInfo({
                             style={layoutStyles.textInput}
                             value={pendingUpdates.email}
                             placeholderTextColor={COLORS.textPrimary + '80'}
-                            placeholder={email}
+                            placeholder={uid && (email || 'Add Email')}
                             onChangeText={(text) => handleEmailInput(text)}
                         />
                     </View>

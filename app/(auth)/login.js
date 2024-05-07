@@ -150,7 +150,10 @@ export default function Login() {
                     handleLogin={handleLogin}
                 />
                 <Text style={styles.subtitle}>OR</Text>
-                <SocialsContainer />
+                <SocialsContainer
+                    isLoggingIn={isLoggingIn}
+                    setIsLoggingIn={setIsLoggingIn}
+                />
             </View>
             <View style={styles.signupWrapper}>
                 <Text style={styles.subtitle}>
