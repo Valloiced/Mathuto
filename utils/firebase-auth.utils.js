@@ -5,7 +5,6 @@ import {
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signInWithCredential,
-    signInWithCredential,
     signOut,
     onAuthStateChanged,
     EmailAuthProvider,
@@ -15,8 +14,6 @@ import {
     linkWithCredential
 } from 'firebase/auth';
 import { filterUserSession } from './auth.utils';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { LoginManager } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginManager } from 'react-native-fbsdk-next';
 

@@ -26,11 +26,6 @@ export default function Settings() {
         socialAuthProvider: ''
     });
 
-    const [socialAuthInfo, setSocialAuthInfo] = useState({
-        isSocialAuthenticated: false,
-        socialAuthProvider: ''
-    });
-
     /* Dialogs for profile update confirmation */
     const [modalVisible, setModalVisible] = useState(false);
     const [dialogCallback, setDialogCallback] = useState(() => () => {}); // Sheesh
