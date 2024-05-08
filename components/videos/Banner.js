@@ -8,7 +8,7 @@ import styles from './style/banner.style';
 export default function Banner() {
     return (
         <ImageBackground source={banner} style={styles.banner}>
-            <Text style={styles.bannerHeader}>VIDEO COURSES</Text>
+            <Text style={styles.bannerHeader}>{'VIDEO\nCOURSES'}</Text>
         </ImageBackground>
     );
 }

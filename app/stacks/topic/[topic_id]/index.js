@@ -12,6 +12,7 @@ import LessonsContainer from '../../../../components/stacks/topic/LessonsContain
 import GameButton from '../../../../components/stacks/topic/GameButton';
 
 import styles from '../../../../components/stacks/topic/style/topic.style';
+import ReturnHeaderBtn from '../../../../components/headers/ReturnHeaderBtn';
 
 export default function Topics() {
     const params = useGlobalSearchParams();
@@ -130,7 +131,9 @@ export default function Topics() {
             <Stack.Screen
                 options={{
                     headerTitle: '',
-                    headerShown: false,
+                    headerLeft: ReturnHeaderBtn,
+                    headerShown: true,
+                    headerTransparent: true,
                     headerShadowVisible: false
                 }}
             />
@@ -143,7 +146,7 @@ export default function Topics() {
                     lessons={lessons}
                 />
             </ScrollView>
-            <GameButton />
+            {/* <GameButton /> */}
         </>
     );
 }

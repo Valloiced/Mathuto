@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     bannerHeader: {
         fontFamily: FONT.MSExtraBold,
-        fontSize: SIZES.xxLarge + SIZES.xxSmall,
+        fontSize: SIZES.xxLarge,
         letterSpacing: 2,
         color: COLORS.white,
         textAlign: 'center'

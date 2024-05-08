@@ -16,7 +16,11 @@ export default function AuthLayout() {
                 <Stack.Screen
                     name="login"
                     options={{
-                        headerShown: false
+                        headerShown: true,
+                        headerTitle: '',
+                        headerTransparent: true,
+                        headerShadowVisible: false,
+                        headerLeft: ReturnHeaderBtn
                     }}
                 />
                 <Stack.Screen

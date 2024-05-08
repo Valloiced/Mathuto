@@ -6,7 +6,7 @@ const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
     profileContainer: {
         width: '100%',
-        height: height * 0.3,
+        paddingVertical: SIZES.xxSmall,
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: COLORS.bgTertiary,
@@ -41,6 +41,25 @@ const styles = StyleSheet.create({
     },
     profileDescription: {
         fontFamily: FONT.MSMedium
+    },
+    offlineView: {
+        gap: SIZES.small
+    },
+    signInToSync: {
+        color: COLORS.textPrimary,
+        fontFamily: FONT.MSBold,
+        fontSize: SIZES.small
+    },
+    signInBtn: {
+        paddingHorizontal: SIZES.xxLarge * 2,
+        paddingVertical: SIZES.xxSmall * 0.5,
+        backgroundColor: COLORS.tertiary,
+        borderRadius: BORDER_RADIUS.medium
+    },
+    signInBtnText: {
+        color: COLORS.lightWhite,
+        fontFamily: FONT.PopSemiBold,
+        fontSize: SIZES.small
     }
 });
 

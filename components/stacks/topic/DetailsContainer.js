@@ -1,8 +1,6 @@
 import React from 'react';
-import { StatusBar, ImageBackground, View, Text } from 'react-native';
+import { ImageBackground, View, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
-import ReturnHeaderBtn from '../../headers/ReturnHeaderBtn';
 
 import itemBGRed from '../../../assets/bg/material-red.png';
 
@@ -22,9 +20,6 @@ export default function DetailsContainer({ name, creator }) {
                 start={{ x: 0.3, y: 1 }}
                 end={{ x: 1, y: 1 }}
             >
-                <View style={styles.header(StatusBar.currentHeight)}>
-                    <ReturnHeaderBtn />
-                </View>
                 <View style={styles.detailsWrapper}>
                     <Text style={styles.topicTitle}>{name || '--:--'}</Text>
                     <Text style={styles.creator}>{creator || '--'}</Text>
