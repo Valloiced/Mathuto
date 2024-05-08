@@ -26,6 +26,11 @@ export default function Settings() {
         socialAuthProvider: ''
     });
 
+    const [socialAuthInfo, setSocialAuthInfo] = useState({
+        isSocialAuthenticated: false,
+        socialAuthProvider: ''
+    });
+
     /* Dialogs for profile update confirmation */
     const [modalVisible, setModalVisible] = useState(false);
     const [dialogCallback, setDialogCallback] = useState(() => () => {}); // Sheesh
@@ -50,6 +55,22 @@ export default function Settings() {
 
             console.log(socialAuthProvider);
             if (socialAuthProvider !== 'password' && socialAuthProvider !== 'phone') {
+                setSocialAuthInfo({
+                    isSocialAuthenticated: true,
+                    socialAuthProvider: socialAuthProvider
+                });
+            }
+        };
+
+        getProvider();
+    }, []);
+
+    useEffect(() => {
+        const getProvider = async () => {
+            const socialAuthProvider =
+                await firebaseAuthService.getCurrentProvider();
+
+            if (socialAuthProvider !== 'password') {
                 setSocialAuthInfo({
                     isSocialAuthenticated: true,
                     socialAuthProvider: socialAuthProvider

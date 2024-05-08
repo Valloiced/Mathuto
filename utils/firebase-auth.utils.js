@@ -5,6 +5,7 @@ import {
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signInWithCredential,
+    signInWithCredential,
     signOut,
     onAuthStateChanged,
     EmailAuthProvider,
@@ -14,6 +15,8 @@ import {
     linkWithCredential
 } from 'firebase/auth';
 import { filterUserSession } from './auth.utils';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LoginManager } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { LoginManager } from 'react-native-fbsdk-next';
 
@@ -55,6 +58,14 @@ class FirebaseAuthService {
                 }
             );
         });
+    }
+
+    /** Retrieve what auth provider does the app currently use */
+    async getCurrentProvider() {
+        const userData = this.auth.currentUser;
+        const provider = userData.providerData[0]?.providerId;
+
+        return provider;
     }
 
     /** Retrieve what auth provider does the app currently use */
