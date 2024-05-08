@@ -9,7 +9,9 @@ import {
     onAuthStateChanged,
     EmailAuthProvider,
     GoogleAuthProvider,
-    FacebookAuthProvider
+    FacebookAuthProvider,
+    PhoneAuthProvider,
+    linkWithCredential
 } from 'firebase/auth';
 import { filterUserSession } from './auth.utils';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -73,6 +75,23 @@ class FirebaseAuthService {
 
     getFacebookAuthProvider() {
         return FacebookAuthProvider;
+    }
+
+    getPhoneProvider() {
+        return PhoneAuthProvider;
+    }
+
+    async linkPhoneCredential(verifyId, code) {
+        try {
+            const phoneCredential = this.getPhoneProvider().credential(verifyId, code);
+            
+            await linkWithCredential(this.auth.currentUser, phoneCredential);
+        
+            return true;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
 
     async authenticateWithGoogle(idToken) {

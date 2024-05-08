@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+// import CountryPicker from 'react-native-country-picker-modal';
 
 import { COLORS, SHADOWS } from '../../constants/theme';
 import styles from './style/formsContainer.style';
@@ -74,7 +75,7 @@ export default function FormsContainer({
                 onPress={handleSubmit}
                 disabled={isRegistering}
             >
-                <Text style={styles.submitBtnText}>Sign Up</Text>
+                <Text style={styles.submitBtnText}>Continue</Text>
             </TouchableOpacity>
         </View>
     );

@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSRegular,
         color: COLORS.textPrimary
     },
+    phoneInput: {
+        marginHorizontal: SIZES.large
+    },
     iconWrapper: {
         width: '10%',
         justifyContent: 'center',

@@ -32,6 +32,18 @@ export default function AuthLayout() {
                     }}
                 />
                 <Stack.Screen
+                    name="phone-validate"
+                    options={{
+                        headerShadowVisible: false,
+                        headerShown: true,
+                        headerLeft: ReturnHeaderBtn,
+                        headerTitle: '',
+                        headerStyle: {
+                            backgroundColor: 'transparent'
+                        }
+                    }}
+                />
+                <Stack.Screen
                     name="password-reset"
                     options={{
                         headerShadowVisible: false,

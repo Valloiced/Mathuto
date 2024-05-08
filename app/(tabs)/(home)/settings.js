@@ -48,7 +48,8 @@ export default function Settings() {
             const socialAuthProvider =
                 await firebaseAuthService.getCurrentProvider();
 
-            if (socialAuthProvider !== 'password') {
+            console.log(socialAuthProvider);
+            if (socialAuthProvider !== 'password' && socialAuthProvider !== 'phone') {
                 setSocialAuthInfo({
                     isSocialAuthenticated: true,
                     socialAuthProvider: socialAuthProvider

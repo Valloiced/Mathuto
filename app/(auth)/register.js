@@ -16,12 +16,14 @@ export default function Register() {
     const [registerForm, setRegisterForm] = useState({
         username: '',
         email: '',
-        password: ''
+        password: '',
+        phoneNum: '',
+        phoneCountryCode: 'PH'
     });
 
     const [coverPassword, setCoverPassword] = useState(true);
 
-    const [isRegistering, setIsRegisteing] = useState(false);
+    const [isRegistering, setIsRegistering] = useState(false);
 
     const togglePasswordVisibility = () => {
         setCoverPassword((prevState) => !prevState);
@@ -38,6 +40,15 @@ export default function Register() {
     const handlePasswordInput = (text) => {
         setRegisterForm({ ...registerForm, password: text });
     };
+
+    const handlePhoneInput = (text) => {
+        setRegisterForm({ ...registerForm, phoneNum: text });
+    }
+
+    const handleChangeCountry = (details) => {
+        const countryCode = details.cca2;
+        setRegisterForm({ ...registerForm, phoneCountryCode: countryCode });
+    }
 
     const handleSubmit = async () => {
         const { username, email, password } = registerForm;
@@ -65,7 +76,7 @@ export default function Register() {
         }
 
         try {
-            setIsRegisteing(true);
+            setIsRegistering(true);
             const user = await firebaseAuthService.signUp(email, password);
 
             // Save user data to database
@@ -82,16 +93,7 @@ export default function Register() {
 
                 await firebaseFirestoreService.addDocument('users', userData);
 
-                Toast.show({
-                    type: 'success',
-                    text1: 'Registration Successfully',
-                    position: 'bottom',
-                    bottomOffset: SIZES.xxLarge * 1.8,
-                    autoHide: true,
-                    visibilityTime: 5000
-                });
-
-                router.replace('/home');
+                router.push('/phone-validate');
             }
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
@@ -123,7 +125,7 @@ export default function Register() {
                 });
             }
         } finally {
-            setIsRegisteing(false);
+            setIsRegistering(false);
         }
     };
 
@@ -136,6 +138,8 @@ export default function Register() {
                 handleUsernameInput={handleUsernameInput}
                 handleEmailInput={handleEmailInput}
                 handlePasswordInput={handlePasswordInput}
+                handlePhoneInput={handlePhoneInput}
+                handleChangeCountry={handleChangeCountry}
                 handleSubmit={handleSubmit}
                 coverPassword={coverPassword}
                 togglePasswordVisibility={togglePasswordVisibility}

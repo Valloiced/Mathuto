@@ -5,6 +5,7 @@ import Font5Icon from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import EntIcon from 'react-native-vector-icons/Entypo';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
+import MatComIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FonIcon from 'react-native-vector-icons/Fontisto';
 import FeatIcon from 'react-native-vector-icons/Feather';
 
@@ -96,6 +97,10 @@ const ChevronDown = ({ style, size, color }) => (
     <Font5Icon name="chevron-down" style={style} size={size} color={color} />
 );
 
+const PhoneCheck = ({ style, size, color }) => (
+    <MatComIcon name="cellphone-check" style={style} size={size} color={color} />
+);
+
 const WrongSolid = ({ style, size, color }) => (
     <AntIcon name="closesquareo" style={style} size={size} color={color} />
 );
@@ -155,6 +160,7 @@ module.exports = {
     Link,
     ChevronUp,
     ChevronDown,
+    PhoneCheck,
     WrongSolid,
     WrongCloseSolid,
     UserSolid,
