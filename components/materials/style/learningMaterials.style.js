@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
-        paddingVertical: SIZES.xLarge,
+        paddingVertical: SIZES.large,
         paddingHorizontal: SIZES.xxLarge,
         borderRadius: BORDER_RADIUS.medium,
         borderWidth: 1,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     materialTitle: {
         fontFamily: FONT.MSExtraBold,
-        fontSize: SIZES.xLarge,
+        fontSize: SIZES.large,
         letterSpacing: 1,
         textTransform: 'uppercase',
         color: COLORS.textPrimary,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     materialCount: {
         fontFamily: FONT.MSMedium,
-        fontSize: SIZES.medium
+        fontSize: SIZES.small
     },
     creatorWrapper: {
         flexDirection: 'row',
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     creator: {
         color: COLORS.textPrimary,
         fontFamily: FONT.PopSemiBold,
-        fontSize: SIZES.small + 2
+        fontSize: SIZES.small
     }
 });
 

@@ -4,12 +4,12 @@ import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme'
 const styles = StyleSheet.create({
     lessonContainer: {
         flex: 2,
-        padding: SIZES.medium,
+        padding: SIZES.small,
         backgroundColor: COLORS.lightWhite
     },
     lessonCount: {
         fontFamily: FONT.MSBold,
-        fontSize: SIZES.medium,
+        fontSize: SIZES.nediun,
         color: COLORS.textSecondary,
         marginBottom: SIZES.medium
     },

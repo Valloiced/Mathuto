@@ -18,21 +18,22 @@ export default function ProfileContainer({ username, profileImg = '' }) {
                 />
             </View>
 
-            {
-                !username ? (
-                    <View style={[styles.profileWrapper, styles.offlineView]}>
-                        <Text style={styles.signInToSync}>Sign in to Sync Data</Text>
-                        <TouchableOpacity style={styles.signInBtn} onPress={() => router.push('/login')}>
-                            <Text style={styles.signInBtnText}>Sign In</Text>
-                        </TouchableOpacity>
-                    </View>
-                ) : (
-                    <View style={styles.profileWrapper}>
-                        <Text style={styles.profileHeader}>{username ||  '--:--'}</Text>
-                        <Text style={styles.profileDescription}>Learner</Text>
-                    </View>
-                )
-            }
+            {!username ? (
+                <View style={[styles.profileWrapper, styles.offlineView]}>
+                    <Text style={styles.signInToSync}>Sign in to Sync Data</Text>
+                    <TouchableOpacity
+                        style={styles.signInBtn}
+                        onPress={() => router.push('/login')}
+                    >
+                        <Text style={styles.signInBtnText}>Sign In</Text>
+                    </TouchableOpacity>
+                </View>
+            ) : (
+                <View style={styles.profileWrapper}>
+                    <Text style={styles.profileHeader}>{username || '--:--'}</Text>
+                    <Text style={styles.profileDescription}>Learner</Text>
+                </View>
+            )}
         </View>
     );
 }

@@ -32,6 +32,24 @@ export default function Topics() {
     const [isUpdated, setIsUpdated] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    const categorizeBySubtopics = useCallback((alternativeCategory, uncategorizeLessons) => {
+        const categorizedLessons = [];
+
+        uncategorizeLessons.forEach((lesson) => {
+            const subtopic = lesson.subtopic || alternativeCategory;
+            let existingCategory = categorizedLessons.find(
+                (category) => category.subtopic === subtopic
+            );
+            if (!existingCategory) {
+                existingCategory = { subtopic, lessons: [] };
+                categorizedLessons.push(existingCategory);
+            }
+            existingCategory.lessons.push(lesson);
+        });
+
+        return categorizedLessons;
+    }, []);
+
     const fetchData = useCallback(async () => {
         try {
             const { topic_id } = params;
@@ -40,9 +58,15 @@ export default function Topics() {
                 `${process.env.EXPO_PUBLIC_SERVER}/api/materials/${topic_id}`
             );
 
-            setIsUpdated(true);
             setTopicDetails(response.data.details);
-            setLessons(response.data.lessons);
+            setIsUpdated(true);
+
+            const alternativeCategory = response.data.details.name;
+            const categorizedLessons = categorizeBySubtopics(
+                alternativeCategory,
+                response.data.lessons
+            );
+            setLessons(categorizedLessons);
 
             const newCache = () => {
                 let createNewCache = [...data];
@@ -74,7 +98,7 @@ export default function Topics() {
         } finally {
             setLoading(false);
         }
-    }, [params, data, cacheData]);
+    }, [params, data, cacheData, categorizeBySubtopics]);
 
     const validateCache = useCallback(
         async (cache) => {
@@ -110,7 +134,14 @@ export default function Topics() {
             // If there's a cached material, proceed using the cache
             if (cachedMaterial && !loadingCache) {
                 setTopicDetails(cachedMaterial.details);
-                setLessons(cachedMaterial.lessons);
+
+                const alternativeCategory = cachedMaterial.details.name;
+                const categorizedLessons = categorizeBySubtopics(
+                    alternativeCategory,
+                    cachedMaterial.lessons
+                );
+
+                setLessons(categorizedLessons);
                 setLoading(false);
                 setIsUpdated(true);
                 validateCache(cachedMaterial);
@@ -123,7 +154,16 @@ export default function Topics() {
         if (!isUpdated && !lessons.length) {
             updateData();
         }
-    }, [params, lessons, loadingCache, validateCache, isUpdated, data, fetchData]);
+    }, [
+        params,
+        lessons,
+        loadingCache,
+        validateCache,
+        isUpdated,
+        data,
+        fetchData,
+        categorizeBySubtopics
+    ]);
 
     return (
         <>

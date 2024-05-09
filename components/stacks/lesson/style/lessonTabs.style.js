@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: SIZES.xxSmall,
         paddingHorizontal: SIZES.large,
-        backgroundColor: isActive ? COLORS.textTertiary : COLORS.lightWhite,
+        backgroundColor: isActive ? COLORS.textTertiary : COLORS.white,
         borderRadius: BORDER_RADIUS.medium,
         borderWidth: 1,
         borderColor: COLORS.textSecondary + '40'

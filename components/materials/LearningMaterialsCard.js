@@ -1,7 +1,6 @@
 import React from 'react';
 import { router } from 'expo-router';
 import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import useCache from '../../hooks/useCache';
@@ -84,9 +83,7 @@ export default function LearningMaterialsCard({ topicId, topicName, itemCount, c
                         end={{ x: 1, y: 1 }}
                     >
                         <View style={styles.detailsWrapper}>
-                            <Text style={styles.materialTitle} numberOfLines={1}>
-                                {topicName}
-                            </Text>
+                            <Text style={styles.materialTitle}>{topicName}</Text>
                             <Text style={styles.materialCount}>{`${itemCount} items`}</Text>
                         </View>
                         <View style={styles.creatorWrapper}>

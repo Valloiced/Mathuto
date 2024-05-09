@@ -231,7 +231,7 @@ export default function YTMaterials() {
                     )}
                 />
             )}
-            { (!loading && error) && (<Text>{error}</Text>)}
+            {!loading && error && <Text>{error}</Text>}
         </View>
     );
 }
