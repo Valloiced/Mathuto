@@ -16,17 +16,12 @@ const styles = StyleSheet.create({
     gameButton: {
         flexDirection: 'row',
         gap: SIZES.small,
-        paddingHorizontal: SIZES.xxLarge * 1.5,
-        paddingVertical: SIZES.xSmall * 0.5,
+        paddingHorizontal: SIZES.xxLarge * 2,
+        paddingVertical: SIZES.xSmall,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: COLORS.lightWhite,
         borderRadius: BORDER_RADIUS.medium * 0.8
-    },
-    plusIcon: {
-        fontFamily: FONT.MSBold,
-        fontSize: SIZES.xLarge,
-        color: COLORS.tertiary
     },
     gameButtonText: {
         fontFamily: FONT.MSBold,

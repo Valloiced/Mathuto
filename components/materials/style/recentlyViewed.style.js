@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     },
     materialTitle: {
         fontFamily: FONT.MSExtraBold,
-        letterSpacing: 1,
         textTransform: 'uppercase',
         fontSize: SIZES.large,
         color: COLORS.textPrimary,

@@ -96,6 +96,18 @@ const ChevronDown = ({ style, size, color }) => (
     <Font5Icon name="chevron-down" style={style} size={size} color={color} />
 );
 
+const Play = ({ style, size, color }) => (
+    <Font5Icon name="play" style={style} size={size} color={color} />
+);
+
+const Clock = ({ style, size, color }) => (
+    <FeatIcon name="clock" style={style} size={size} color={color} />
+);
+
+const Trophy = ({ style, size, color }) => (
+    <FontIcon name="trophy" style={style} size={size} color={color} />
+);
+
 const WrongSolid = ({ style, size, color }) => (
     <AntIcon name="closesquareo" style={style} size={size} color={color} />
 );
@@ -155,6 +167,9 @@ module.exports = {
     Link,
     ChevronUp,
     ChevronDown,
+    Play,
+    Clock,
+    Trophy,
     WrongSolid,
     WrongCloseSolid,
     UserSolid,

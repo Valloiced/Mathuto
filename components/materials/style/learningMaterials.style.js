@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     materialTitle: {
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.large,
-        letterSpacing: 1,
         textTransform: 'uppercase',
         color: COLORS.textPrimary,
         marginBottom: SIZES.xxSmall * 0.2 * -1 // Minimize margin

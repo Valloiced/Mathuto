@@ -9,7 +9,7 @@ import useCache from '../../../../hooks/useCache';
 
 import DetailsContainer from '../../../../components/stacks/topic/DetailsContainer';
 import LessonsContainer from '../../../../components/stacks/topic/LessonsContainer';
-import GameButton from '../../../../components/stacks/topic/GameButton';
+import QuizButton from '../../../../components/stacks/topic/QuizButton';
 
 import styles from '../../../../components/stacks/topic/style/topic.style';
 import ReturnHeaderBtn from '../../../../components/headers/ReturnHeaderBtn';
@@ -186,7 +186,7 @@ export default function Topics() {
                     lessons={lessons}
                 />
             </ScrollView>
-            {/* <GameButton /> */}
+            <QuizButton topic_id={params.topic_id} />
         </>
     );
 }
