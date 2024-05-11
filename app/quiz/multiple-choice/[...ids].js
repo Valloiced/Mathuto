@@ -21,7 +21,7 @@ export default function MultipleChoiceQuiz() {
     const [quizData, setQuizData] = useState({});
     const [loading, setLoading] = useState(true);
     const [quizStatus, setQuizStatus] = useState({
-        isCompleted: false,
+        isCompleted: true,
         quizStats: {}
     });
 
@@ -86,7 +86,7 @@ export default function MultipleChoiceQuiz() {
                     />
                 ) : (
                     <QuizResult
-                        quizId={params.quiz_id}
+                        quizId={quiz_id}
                         quizDetails={quizData.details}
                         quizStats={quizStatus.quizStats}
                         handleRetake={handleRetake}

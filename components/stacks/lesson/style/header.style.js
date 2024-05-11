@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         marginBottom: SIZES.medium
     },
     headerTitle: {
+        marginRight: SIZES.large,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.xxLarge,
         color: COLORS.textPrimary

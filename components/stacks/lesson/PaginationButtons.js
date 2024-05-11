@@ -7,7 +7,7 @@ import Toast from 'react-native-toast-message';
 import useCache from '../../../hooks/useCache';
 
 import { ArrowLeft, ArrowRight } from '../../../assets/icons';
-import { COLORS, SHADOWS } from '../../../constants/theme';
+import { COLORS, SHADOWS, SIZES } from '../../../constants/theme';
 import styles from './style/paginationButtons.style';
 
 export default function PaginationButtons({ topicId, currentPage }) {
@@ -64,9 +64,9 @@ export default function PaginationButtons({ topicId, currentPage }) {
                 Toast.show({
                     type: 'info',
                     text1: 'You reached the end of the lessons.',
-                    position: 'top',
+                    position: 'bottom',
                     autoHide: true,
-                    visibilityTime: 5000
+                    visibilityTime: 2500
                 });
             }
         };

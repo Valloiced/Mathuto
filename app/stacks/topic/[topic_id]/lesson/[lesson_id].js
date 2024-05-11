@@ -75,12 +75,14 @@ export default function Lesson() {
         }
     }, [params, data, loadingCache, lesson]);
 
+    const trucateHeaderTitle =
+        lesson.name.length > 20 ? lesson.name.slice(0, 20) + '...' : lesson.name;
     return (
         <>
             <Stack.Screen
                 options={{
                     headerShadowVisible: false,
-                    headerTitle: lesson.name,
+                    headerTitle: trucateHeaderTitle,
                     headerStyle: styles.headerStyle,
                     headerTitleStyle: styles.headerTitleStyle,
                     headerTitleAlign: 'center',

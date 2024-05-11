@@ -28,9 +28,9 @@ export default function RetakeDialog({
                     <View style={styles.dialogText}>
                         <Text style={styles.dialogHeader}>RETAKE?</Text>
                         <Text style={styles.dialogDescription}>
-                            Retaking this quiz will replace your
-                            current score. Previous scores can not be swapped and retrieved. Your
-                            first score would be your original score to be seen by your teacher.
+                            Retaking this quiz will replace your current score. Previous scores can
+                            not be swapped and retrieved. Your first score would be your original
+                            score to be seen by your teacher.
                         </Text>
                     </View>
                     <View style={styles.confirmationWrapper}>

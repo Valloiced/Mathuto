@@ -5,6 +5,7 @@ import Animated, { BounceIn, BounceOut, Easing } from 'react-native-reanimated';
 import LottieView from 'lottie-react-native';
 import Toast from 'react-native-toast-message';
 
+import useProfile from '../../../../hooks/useProfile';
 import useNetStatus from '../../../../hooks/useNetStatus';
 
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
@@ -23,6 +24,7 @@ const Status = ({ message }) => (
 );
 
 export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, isCompleted }) {
+    const user = useProfile();
     const { isConnected } = useNetStatus();
 
     const [showConfetti, setShowConfetti] = useState(true);
@@ -66,7 +68,7 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
         let confettiTimeout;
 
         // If score is 0, then don't submit it, just wasting resources
-        if (isConnected && totalPoints) {
+        if (isConnected && totalPoints && user.uid) {
             submitScore();
         }
 
@@ -79,10 +81,33 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
             confettiTimeout = setTimeout(() => setShowConfetti(false), 3000);
         }
 
-        // Just display the score if score is 0 and no connection
+        // Just display the score if score is 0 or no connection
         if (totalPoints === 0 || !isConnected) {
             setSubmitting(false);
             setShowConfetti(false);
+        }
+
+        if (!isConnected) {
+            Toast.show({
+                type: 'error',
+                text1: 'You are offline.',
+                text2: 'Check your internet connection to submit score.',
+                position: 'bottom',
+                autoHide: true,
+                visibilityTime: 5000
+            });
+        }
+
+        if (!user.uid) {
+            Toast.show({
+                type: 'error',
+                text1: 'You are not logged in.',
+                text2: 'Please login to submit your scores.',
+                position: 'bottom',
+                bottomOffset: SIZES.xxLarge,
+                autoHide: true,
+                visibilityTime: 7000
+            });
         }
 
         // Timeout so that user would be redirected back to home page when they stayed
@@ -93,7 +118,7 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
             clearTimeout(confettiTimeout);
             clearTimeout(screenTimeout);
         };
-    }, [totalPoints, isCompleted, isConnected, confettiRef]);
+    }, [totalPoints, isCompleted, isConnected, confettiRef, user.uid]);
 
     const componentEnter = BounceIn.delay(500).duration(850);
     const componentExit = BounceOut.delay(500).duration(850);
@@ -124,7 +149,7 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
                             <View style={styles.totalScoreWrapper}>
                                 <Text style={styles.totalScoreHeader}>OVERALL POINTS</Text>
                                 <View style={styles.overallPointsWrapper}>
-                                    <Text style={styles.totalScore}>{overallPoints}</Text>
+                                    <Text style={styles.totalScore}>{overallPoints || 0}</Text>
                                     <Text style={styles.addedPoints}>{`(+${totalPoints})`}</Text>
                                 </View>
                             </View>

@@ -10,7 +10,7 @@ export default function UserRankCard({ isLogin, rank, score, profileImg = '' }) 
     return (
         <View style={[styles.userRankCard, layoutStyles.leaderboardCard]}>
             {!isLogin ? (
-                <Text style={styles.status}>You must be login to show your rank.</Text>
+                <Text style={styles.status}>You must be logged in to show your rank.</Text>
             ) : !rank ? (
                 <Text style={styles.status}>Play a game to be included in the leaderboard.</Text>
             ) : (
@@ -18,7 +18,7 @@ export default function UserRankCard({ isLogin, rank, score, profileImg = '' }) 
                     <Text style={[layoutStyles.rank, styles.rank]}>{rank}</Text>
                     <View style={[layoutStyles.leaderboardCardWrapper]}>
                         <View style={[layoutStyles.rankerWrapper]}>
-                            <View style={[layoutStyles.rankerImgWrapper]}>
+                            <View style={[layoutStyles.rankerImgWrapper, styles.rankImgWrapper]}>
                                 <Image
                                     source={!profileImg ? User : { uri: profileImg }}
                                     style={[layoutStyles.rankerImg]}

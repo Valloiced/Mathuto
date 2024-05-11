@@ -70,7 +70,7 @@ export default function GameInput({
                 scalingFactor = 0.5;
             }
 
-            const textBoxHeight = charFontSize * 2;
+            const textBoxHeight = charFontSize * 3;
             const textBoxWidth = (remainingSpaces * 0.9) / wordLength + charFontSize; // Get 90 of remaining spaces for width
 
             // Use the remaining spaces for gaps

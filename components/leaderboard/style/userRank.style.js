@@ -6,12 +6,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         left: 0,
-        backgroundColor: COLORS.textTertiary,
+        backgroundColor: COLORS.bgPrimary,
         paddingHorizontal: SIZES.medium
     },
     rank: {
         fontSize: SIZES.large,
         color: COLORS.white
+    },
+    rankImgWrapper: {
+        borderColor: COLORS.lightWhite
     },
     ranker: {
         fontSize: SIZES.medium,

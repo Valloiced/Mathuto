@@ -14,7 +14,7 @@ export default function QuizButton({ topic_id }) {
     const user = useProfile();
 
     const handlePress = () => {
-        if (isConnected) {
+        if (isConnected && user.uid) {
             router.push(`/stacks/quiz/${topic_id}`);
         } else if (!user.uid) {
             Toast.show({

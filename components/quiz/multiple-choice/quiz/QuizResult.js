@@ -70,7 +70,7 @@ export default function QuizResult({ quizId, quizDetails, quizStats, handleRetak
             try {
                 Toast.show({
                     type: 'info',
-                    text1: 'Submitting Test Score...',
+                    text1: 'Submitting Test Score',
                     text2: 'Please wait',
                     position: 'top',
                     autoHide: false,

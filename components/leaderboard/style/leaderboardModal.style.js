@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: SIZES.large,
         paddingVertical: SIZES.small,
         borderBottomWidth: 1,
         borderBottomColor: COLORS.textSecondary + '1A'
     },
     rank: {
+        width: '10%',
         fontFamily: FONT.MSBold,
         fontSize: SIZES.medium,
         color: COLORS.textSecondary + 'BF'

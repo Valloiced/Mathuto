@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     selectionTitle: {
         fontFamily: FONT.TorBold,
         color: COLORS.textPrimary,
-        fontSize: SIZES.xLarge,
-        textTransform: 'uppercase'
+        fontSize: SIZES.large,
+        textTransform: 'capitalize'
     },
     selectionItemCount: {
         fontFamily: FONT.PopSemiBold,
