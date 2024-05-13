@@ -43,4 +43,21 @@ const getRankings = async (uid, fields) => {
     }
 };
 
-module.exports = { getRankings };
+export const formatPoints = (points = '') => {
+    const pointsStr = points.toString();
+
+    const formattedPoints = [];
+
+    for (let i = pointsStr.length; i > 0; i -= 3) {
+        formattedPoints.unshift(pointsStr.slice(Math.max(0, i - 3), i));
+
+        if (i > 3) {
+            formattedPoints.unshift(',');
+        }
+    }
+
+    return formattedPoints.join('');
+};
+
+
+module.exports = { getRankings, formatPoints };

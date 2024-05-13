@@ -12,7 +12,7 @@ import { SHADOWS } from '../../../constants/theme';
 export default function QuizModal({ topicId, openedQuiz, modalVisible, setModalVisible }) {
     const handleStart = () => {
         setModalVisible(false);
-        router.replace(`/quiz/multiple-choice/${topicId}/${openedQuiz.id}`);
+        router.replace(`/quiz/${openedQuiz.type}/${topicId}/${openedQuiz.id}`);
     };
 
     return (

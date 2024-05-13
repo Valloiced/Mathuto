@@ -78,6 +78,7 @@ export default function QuizLobby() {
                 />
             </ScrollView>
             <QuizModal
+                topicId={params.topic_id}
                 openedQuiz={openedQuiz}
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}

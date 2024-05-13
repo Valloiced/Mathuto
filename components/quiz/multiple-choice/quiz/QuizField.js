@@ -4,8 +4,9 @@ import { StyleSheet, Dimensions, ImageBackground, View, Text } from 'react-nativ
 import reducer from './utils/quiz-reducer.utils';
 import initialState from './utils/quiz-state.utils';
 
-import QuizCard from './QuizCard';
 import MultipleChoiceBG from '../../../../assets/bg/multiple-choice-bg.png';
+
+import QuizCard from './QuizCard';
 import QuizChoices from './QuizChoices';
 import QuizTimer from './QuizTimer';
 
@@ -22,6 +23,7 @@ export default function QuizField({ quizData, quizStatus, setQuizStatus }) {
         isCorrect: false
     });
 
+    /* Setup */
     useEffect(() => {
         dispatch({ type: 'SETUP', data: quizData.questions });
 
@@ -99,9 +101,9 @@ export default function QuizField({ quizData, quizStatus, setQuizStatus }) {
                     <Text style={styles.quizTrackerText}>Question {state.questionNum + 1}</Text>
                 </View>
                 <QuizCard
-                    question={state.currentQuestion.question}
+                    question={state.currentQuestion?.question}
                     questionNum={state.questionNum}
-                    questionCount={quizData.details.numOfQuestions}
+                    questionCount={quizData.details?.numOfQuestions}
                     correctAnswers={state.correctAnswers}
                     incorrectAnswers={state.incorrectAnswers}
                 />

@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     signInBtnText: {
         color: COLORS.lightWhite,
         fontFamily: FONT.PopSemiBold,
-        fontSize: SIZES.small
+        fontSize: SIZES.medium
     }
 });
 

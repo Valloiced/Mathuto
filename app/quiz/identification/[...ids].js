@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Stack, router, useGlobalSearchParams } from 'expo-router';
 import { View, StatusBar } from 'react-native';
 import axios from 'axios';
-import Toast from 'react-native-toast-message';
 
-import styles from '../../../components/quiz/multiple-choice/style/quiz.style';
+import { sampleData, sampleStatus } from '../../../components/quiz/identification/test';
 
 import QuizHeaderLeft from '../../../components/headers/QuizHeaderLeft';
-import QuizField from '../../../components/quiz/multiple-choice/quiz/QuizField';
-import QuizResult from '../../../components/quiz/multiple-choice/quiz/QuizResult';
-import QuizLoading from '../../../components/quiz/multiple-choice/quiz/QuizLoading';
+import QuizLoading from '../../../components/quiz/identification/quiz/QuizLoading';
+import QuizField from '../../../components/quiz/identification/quiz/QuizField';
+import QuizResult from '../../../components/quiz/identification/quiz/QuizResult';
 import RetakeDialog from '../../../components/common/dialogs/RetakeDialog';
 
-export default function MultipleChoiceQuiz() {
+import styles from '../../../components/quiz/identification/style/quiz.style';
+
+export default function IdentificationQuiz() {
     const params = useGlobalSearchParams();
     const [topic_id, quiz_id] = params.ids;
 
@@ -25,6 +26,7 @@ export default function MultipleChoiceQuiz() {
         isCompleted: false,
         quizStats: {}
     });
+    // const [quizStatus, setQuizStatus] = useState(sampleStatus);
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -60,7 +62,7 @@ export default function MultipleChoiceQuiz() {
     const handleRetake = () => {
         const callback = (value) => {
             if (value) {
-                router.replace(`/quiz/${quizData.details.type}/${params.quiz_id}`);
+                router.replace(`/quiz/${quizData.details.type}/${topic_id}/${quiz_id}`);
             }
         };
 
@@ -84,7 +86,7 @@ export default function MultipleChoiceQuiz() {
                 {loading ? (
                     <QuizLoading />
                 ) : !quizStatus.isCompleted ? (
-                    <QuizField
+                    <QuizField 
                         quizData={quizData}
                         quizStatus={quizStatus}
                         setQuizStatus={setQuizStatus}
@@ -92,18 +94,19 @@ export default function MultipleChoiceQuiz() {
                 ) : (
                     <QuizResult
                         quizId={quiz_id}
-                        quizDetails={quizData.details}
                         quizStats={quizStatus.quizStats}
+                        quizDetails={quizData.details}
+                        quizQuestions={quizData.questions}
                         handleRetake={handleRetake}
                     />
                 )}
-                <RetakeDialog
-                    modalVisible={modalVisible}
-                    setModalVisible={setModalVisible}
-                    dialogCallback={dialogCallback}
-                    setDialogCallback={setDialogCallback}
-                />
             </View>
+            <RetakeDialog
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                dialogCallback={dialogCallback}
+                setDialogCallback={setDialogCallback}
+            />
         </>
     );
 }

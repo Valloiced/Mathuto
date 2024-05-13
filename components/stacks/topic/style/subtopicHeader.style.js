@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: SIZES.medium,
         paddingHorizontal: SIZES.small,
+        paddingBottom: SIZES.xLarge,
         backgroundColor: COLORS.white,
         borderWidth: 1,
         borderColor: COLORS.textSecondary + '1A',

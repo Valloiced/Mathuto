@@ -67,7 +67,7 @@ export default function Leaderboard() {
                 test2: error.message,
                 position: 'bottom',
                 autoHide: true,
-                visibilityTime: 4000
+                visibilityTime: 2000
             });
         }
     }, [isConnected]);

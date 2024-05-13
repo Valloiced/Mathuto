@@ -6,6 +6,7 @@ import Animated, { BounceIn, BounceOut, Easing } from 'react-native-reanimated';
 import LottieView from 'lottie-react-native';
 import Toast from 'react-native-toast-message';
 
+import useProfile from '../../../../hooks/useProfile';
 import useNetStatus from '../../../../hooks/useNetStatus';
 
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
@@ -19,12 +20,15 @@ const Status = ({ message }) => (
     </View>
 );
 
-export default function GameOverScreen({ modalVisible, scoreDetails }) {
-    const { earnedPoints, difficulty, multiplier, totalPoints, overallPoints } = scoreDetails;
+export default function GameOverScreen({ scoreDetails }) {
+    const { earnedPoints, difficulty, multiplier, overallPoints } = scoreDetails;
+    
     const { isConnected } = useNetStatus();
+    const user = useProfile();
 
     const [showConfetti, setShowConfetti] = useState(true);
     const [submitting, setSubmitting] = useState(true);
+    const [submitted, setSubmitted] = useState(false);
     const [isError, setIsError] = useState(false);
 
     const confettiRef = useRef(null);
@@ -35,10 +39,11 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
 
             // Add condition to score submission failure if no current user
 
+            console.log('submitting');
             try {
                 await axios.put(
                     `${process.env.EXPO_PUBLIC_SERVER}/api/score/submit`,
-                    { new_score: totalPoints },
+                    { new_score: overallPoints },
                     {
                         headers: {
                             Authorization: `Bearer ${uidToken}`
@@ -58,41 +63,65 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                 setIsError(true);
             } finally {
                 setSubmitting(false);
+                setSubmitted(true);
             }
         };
 
         let confettiTimeout;
 
         // If score is 0, then don't submit it, just wasting resources
-        if (isConnected && totalPoints) {
+        if (isConnected && overallPoints && user.uid && !submitted) {
             submitScore();
         }
 
         // Show confetti
         if (
             confettiRef.current && // if confetti is mounted
-            totalPoints !== 0 // if user earned a score
+            overallPoints !== 0 // if user earned a score
         ) {
             confettiRef.current.play(0);
             confettiTimeout = setTimeout(() => setShowConfetti(false), 3000);
         }
 
         // Just display the score if score is 0 and no connection
-        if (totalPoints === 0 || !isConnected) {
+        if (overallPoints === 0 || !isConnected) {
             setSubmitting(false);
             setShowConfetti(false);
         }
 
+        if (!isConnected) {
+            Toast.show({
+                type: 'error',
+                text1: 'You are offline.',
+                text2: 'Check your internet connection to submit score.',
+                position: 'bottom',
+                autoHide: true,
+                visibilityTime: 5000
+            });
+        }
+
+        if (!user.uid && !submitting) {
+            Toast.show({
+                type: 'error',
+                text1: 'You are not logged in.',
+                text2: 'Please login to submit your scores.',
+                position: 'bottom',
+                bottomOffset: SIZES.xxLarge,
+                autoHide: true,
+                visibilityTime: 7000
+            });
+        }
+
         // Timeout so that user would be redirected back to home page when they stayed
         // a bit long (don't know why)
-        // let screenTimeout;
-        // screenTimeout = setTimeout(() => router.replace('/home'), 20000);
+        let screenTimeout;
+        screenTimeout = !submitting && setTimeout(() => router.replace('/home'), 20000);
 
         return () => {
             clearTimeout(confettiTimeout);
-            // clearTimeout(screenTimeout);
+            clearTimeout(screenTimeout);
         };
-    }, [totalPoints, isConnected, confettiRef]);
+    }, [overallPoints, isConnected, confettiRef, user.uid, submitted]);
 
     BounceIn.delay(200).duration(500).easing(Easing.ease);
     BounceOut.delay(200).duration(500).easing(Easing.ease);
@@ -123,7 +152,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                             <View style={styles.totalScoreBoard}>
                                 <View style={styles.totalScoreWrapper}>
                                     <Text style={styles.totalScoreHeader}>TOTAL POINTS</Text>
-                                    <Text style={styles.totalScore}>{totalPoints}</Text>
+                                    <Text style={styles.totalScore}>{overallPoints}</Text>
                                 </View>
                                 <View style={styles.totalScoreWrapper}>
                                     <Text style={styles.totalScoreHeader}>OVERALL POINTS</Text>
@@ -131,7 +160,7 @@ export default function GameOverScreen({ modalVisible, scoreDetails }) {
                                         <Text style={styles.totalScore}>{overallPoints}</Text>
                                         <Text
                                             style={styles.addedPoints}
-                                        >{`(+${totalPoints})`}</Text>
+                                        >{`(+${overallPoints})`}</Text>
                                     </View>
                                 </View>
                             </View>

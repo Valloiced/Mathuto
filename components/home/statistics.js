@@ -3,6 +3,8 @@ import { View, Text, Image } from 'react-native';
 
 import styles from './style/statistics';
 
+import { formatPoints } from '../../utils/leaderboard.utils';
+
 import { Fire, Badge, Token } from '../../assets/icons';
 
 export default function Statistics({
@@ -35,7 +37,7 @@ export default function Statistics({
                 <View style={styles.statisticsWrapper}>
                     <Image source={Token} style={styles.statisticsIcon(25)} resizeMode="contain" />
                     <View style={styles.dataWrapper}>
-                        <Text style={styles.statisticsValue}>{totalPoints}</Text>
+                        <Text style={styles.statisticsValue}>{formatPoints(totalPoints)}</Text>
                         <Text style={styles.statisticsLabel}>Total Points</Text>
                     </View>
                 </View>

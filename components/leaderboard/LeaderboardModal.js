@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 
+import { formatPoints } from '../../utils/leaderboard.utils';
+
 import { User } from '../../assets/icons';
 
 import styles from './style/leaderboardModal.style';
@@ -19,7 +21,7 @@ function LeaderboardModalCard({ rank, username, profileImg = '', score }) {
                     </View>
                     <Text style={styles.ranker}>{username}</Text>
                 </View>
-                <Text style={styles.points}>{`${score} pts`}</Text>
+                <Text style={styles.points}>{`${formatPoints(score)} pts`}</Text>
             </View>
         </View>
     );

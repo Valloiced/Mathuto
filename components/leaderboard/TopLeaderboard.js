@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './style/topLeaderboard.style';
 
+import { formatPoints } from '../../utils/leaderboard.utils';
+
 import { User } from '../../assets/icons';
 import { SHADOWS } from '../../constants/theme';
 
@@ -33,7 +35,7 @@ export default function TopLeaderbord({ topScores }) {
                         {secondRank?.username || '--:--'}
                     </Text>
                     <View style={styles.pointsWrapper}>
-                        <Text style={styles.points()}>{secondRank?.score || '--'}</Text>
+                        <Text style={styles.points()}>{formatPoints(secondRank?.score) || '--'}</Text>
                         <Text style={styles.pointsLabel}>pts</Text>
                     </View>
                 </View>
@@ -59,7 +61,7 @@ export default function TopLeaderbord({ topScores }) {
                         {firstRank?.username || '--:--'}
                     </Text>
                     <View style={styles.pointsWrapper}>
-                        <Text style={styles.points('top')}>{firstRank?.score || '--'}</Text>
+                        <Text style={styles.points('top')}>{formatPoints(firstRank?.score) || '--'}</Text>
                         <Text style={styles.pointsLabel}>pts</Text>
                     </View>
                 </View>
@@ -85,7 +87,7 @@ export default function TopLeaderbord({ topScores }) {
                         {thirdRank?.username || '--:--'}
                     </Text>
                     <View style={styles.pointsWrapper}>
-                        <Text style={styles.points()}>{thirdRank?.score || '--'}</Text>
+                        <Text style={styles.points()}>{formatPoints(thirdRank?.score) || '--'}</Text>
                         <Text style={styles.pointsLabel}>pts</Text>
                     </View>
                 </View>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { router } from 'expo-router';
 import axios from 'axios';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import Animated, { BounceIn, BounceOut, Easing } from 'react-native-reanimated';
@@ -14,7 +15,6 @@ import { BORDER_RADIUS, COLORS, FONT, SHADOWS, SIZES } from '../../../../constan
 
 import { Restart, HomeSolid, Crown } from '../../../../assets/icons';
 import { MathScrambleIcon } from '../../../../assets/icons/math-scramble';
-import { router } from 'expo-router';
 import { GameTheme } from './utils/theme.utils';
 
 const Status = ({ message }) => (
@@ -29,6 +29,7 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
 
     const [showConfetti, setShowConfetti] = useState(true);
     const [submitting, setSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
     const [isError, setIsError] = useState(false);
 
     const confettiRef = useRef(null);
@@ -68,7 +69,7 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
         let confettiTimeout;
 
         // If score is 0, then don't submit it, just wasting resources
-        if (isConnected && totalPoints && user.uid) {
+        if (isConnected && totalPoints && user.uid && !submitted) {
             submitScore();
         }
 
@@ -98,7 +99,7 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
             });
         }
 
-        if (!user.uid) {
+        if (!user.uid && !submitting) {
             Toast.show({
                 type: 'error',
                 text1: 'You are not logged in.',
@@ -112,13 +113,13 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
 
         // Timeout so that user would be redirected back to home page when they stayed
         // a bit long (don't know why)
-        let screenTimeout = setTimeout(() => router.replace('/home'), 20000);
+        let screenTimeout = !submitting && setTimeout(() => router.replace('/home'), 20000);
 
         return () => {
             clearTimeout(confettiTimeout);
             clearTimeout(screenTimeout);
         };
-    }, [totalPoints, isCompleted, isConnected, confettiRef, user.uid]);
+    }, [totalPoints, isCompleted, isConnected, confettiRef, user.uid, submitted]);
 
     const componentEnter = BounceIn.delay(500).duration(850);
     const componentExit = BounceOut.delay(500).duration(850);

@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import {
     StyleSheet,
     Dimensions,
+    ScrollView,
     View,
     Text,
     ImageBackground,
@@ -22,9 +23,10 @@ import useNetStatus from '../../../../hooks/useNetStatus';
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
 import { formatTime } from './utils/quiz.utils';
 
-import { Trophy } from '../../../../assets/icons';
-import MultipleChoiceBG from '../../../../assets/bg/multiple-choice-bg.png';
+import QuizSummary from './QuizSummary';
 
+import IdentificationBG from '../../../../assets/bg/identification-bg.png';
+import { Trophy } from '../../../../assets/icons';
 import { BORDER_RADIUS, COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
 
 function AccuracyBar({ correctAnswers, questionCount }) {
@@ -57,7 +59,8 @@ function AccuracyBar({ correctAnswers, questionCount }) {
     );
 }
 
-export default function QuizResult({ quizId, quizDetails, quizStats, handleRetake }) {
+
+export default function QuizResult({ quizId, quizStats, quizDetails, quizQuestions, handleRetake }) {
     const { isConnected } = useNetStatus();
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
@@ -77,7 +80,7 @@ export default function QuizResult({ quizId, quizDetails, quizStats, handleRetak
                     autoHide: false,
                     swipeable: false
                 });
-                setSubmitting(true);
+                setSubmitting(true);    
                 await axios.put(
                     `${process.env.EXPO_PUBLIC_SERVER}/api/quiz/submit`,
                     { quizId, newScore: correctAnswers, timeTaken: timeTaken },
@@ -120,13 +123,13 @@ export default function QuizResult({ quizId, quizDetails, quizStats, handleRetak
     }, [quizStats, quizId, submitting, isSubmitted, isConnected]);
 
     return (
-        <>
+        <ScrollView style={styles.quizFieldContainer}>
             <ImageBackground
-                source={MultipleChoiceBG}
+                source={IdentificationBG}
                 style={styles.quizBackgroundWrapper}
                 imageStyle={styles.quizBackground}
             >
-                <Animated.View style={[styles.quizCard, SHADOWS.medium]} entering={FadeIn}>
+                <View style={[styles.quizCard, SHADOWS.medium]}>
                     <View style={styles.resultHeader}>
                         <Trophy style={styles.trophyIcon} />
                         <Text style={styles.resultHeaderTitle}>COMPLETED!</Text>
@@ -169,50 +172,58 @@ export default function QuizResult({ quizId, quizDetails, quizStats, handleRetak
                             </View>
                         </View>
                     </View>
-                </Animated.View>
+                    <View style={styles.navigationWrapper}>
+                        <TouchableOpacity
+                            style={styles.retakeBtn}
+                            disabled={submitting}
+                            onPress={handleRetake}
+                        >
+                            <Text style={styles.retakeBtnLabel}>Retake Quiz</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.goBackBtn}
+                            disabled={submitting}
+                            onPress={() => router.back()}
+                        >
+                            <Text style={styles.goBackBtnLabel}>Go Back</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             </ImageBackground>
-            <View style={styles.navigationWrapper}>
-                <TouchableOpacity
-                    style={styles.retakeBtn}
-                    disabled={submitting}
-                    onPress={handleRetake}
-                >
-                    <Text style={styles.retakeBtnLabel}>Retake Quiz</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.goBackBtn}
-                    disabled={submitting}
-                    onPress={() => router.back()}
-                >
-                    <Text style={styles.goBackBtnLabel}>Go Back</Text>
-                </TouchableOpacity>
+            <View style={[styles.quizCard, styles.summary, SHADOWS.medium]}>
+                <QuizSummary 
+                    quizQuestions={quizQuestions}
+                    answerSummary={quizStats.answers}
+                />
             </View>
-        </>
+        </ScrollView>
     );
 }
 
 const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+    quizFieldContainer: {
+        flex: 1,
+        flexDirection: 'column'
+    },
     quizBackgroundWrapper: {
         width: '100%',
-        height: height * 0.45,
+        height: height * 0.8,
         resizeMode: 'stretch',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
     },
     quizBackground: {
         width: '100%',
         height: '100%'
     },
     quizCard: {
-        width: '90%',
+        width: '95%',
         backgroundColor: COLORS.white,
         justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: -SIZES.xxLarge * 4,
-        paddingVertical: SIZES.xxSmall,
+        paddingVertical: SIZES.small,
         paddingHorizontal: SIZES.medium,
         borderRadius: BORDER_RADIUS.medium
     },
@@ -301,14 +312,46 @@ const styles = StyleSheet.create({
         fontSize: SIZES.medium
     }),
     navigationWrapper: {
-        flex: 1,
         marginTop: SIZES.xxLarge * 2,
         justifyContent: 'center',
         alignItems: 'center',
-        gap: SIZES.small
+        gap: SIZES.small,
+        backgroundColor: 'red'
     },
     retakeBtn: {
         width: '70%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingVertical: SIZES.large,
+        backgroundColor: COLORS.tertiary,
+        borderRadius: BORDER_RADIUS.medium
+    },
+    retakeBtnLabel: {
+        color: COLORS.white,
+        fontFamily: FONT.TorBold,
+        fontSize: SIZES.medium,
+        letterSpacing: 1
+    },
+    goBackBtn: {
+        width: '70%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingVertical: SIZES.xxSmall
+    },
+    goBackBtnLabel: {
+        color: COLORS.tertiary,
+        fontFamily: FONT.TorRegular,
+        fontSize: SIZES.medium
+    },
+    navigationWrapper: {
+        marginTop: SIZES.small,
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: SIZES.xxSmall,
+        marginVertical: SIZES.small,
+    },
+    retakeBtn: {
+        width: '80%',
         flexDirection: 'row',
         justifyContent: 'center',
         paddingVertical: SIZES.xSmall,
@@ -331,5 +374,9 @@ const styles = StyleSheet.create({
         color: COLORS.tertiary,
         fontFamily: FONT.TorRegular,
         fontSize: SIZES.medium
+    },
+    summary: {
+        alignSelf: 'center',
+        marginTop: SIZES.xxLarge
     }
 });

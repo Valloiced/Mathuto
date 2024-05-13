@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 
+import { formatPoints } from '../../utils/leaderboard.utils';
+
 import styles from './style/userRank.style';
 import layoutStyles from './style/leaderboardModal.style';
 
@@ -28,7 +30,7 @@ export default function UserRankCard({ isLogin, rank, score, profileImg = '' }) 
                                 You
                             </Text>
                         </View>
-                        <Text style={[layoutStyles.points, styles.points]}>{`${score} pts`}</Text>
+                        <Text style={[layoutStyles.points, styles.points]}>{`${formatPoints(score)} pts`}</Text>
                     </View>
                 </>
             )}

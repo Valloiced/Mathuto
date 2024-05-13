@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
     ranker: {
         fontSize: SIZES.small,
         fontFamily: FONT.TorBold,
-        color: COLORS.textPrimary
+        color: COLORS.textPrimary,
+        textAlign: 'center'
     },
     pointsWrapper: {
         flexDirection: 'column',
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         // Top ranking will have larger font size
         fontSize: level === 'top' ? SIZES.large : SIZES.small,
         fontFamily: FONT.TorBold,
-        color: COLORS.textPrimary
+        color: COLORS.textTertiary
     }),
     rankImgWrapper: (size, borderColor) => ({
         position: 'absolute',
