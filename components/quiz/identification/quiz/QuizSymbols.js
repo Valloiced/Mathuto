@@ -39,10 +39,10 @@ export default function QuizSymbols({ answer, availableSymbols, dispatch }) {
     const symbols = availableSymbols.map((symbol) => (
         <Symbols
             key={symbol}
-            symbol={symbol} 
-            handlePress={() => dispatch({ type: 'ANSWERING', answer: answer + symbol })} 
+            symbol={symbol}
+            handlePress={() => dispatch({ type: 'ANSWERING', answer: answer + symbol })}
         />
-    ))
+    ));
 
     return (
         <View style={styles.accessSymbolsContainer}>

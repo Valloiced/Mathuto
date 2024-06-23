@@ -22,12 +22,16 @@ function SummaryCard({ questionNum, category, question, correctAnswer, answerSum
                     <View style={styles.userAnswerLabel(answerSummary.isCorrect)}>
                         {answerSummary.isCorrect ? (
                             <Checkmark style={styles.correctAnswerLabelText} />
-                            ) : (
-                                <Text style={styles.userAnswerLabelText()}>X</Text>
-                            )}
-                        <Text style={styles.userAnswerLabelText(answerSummary.isCorrect)}>Your Answer</Text>
+                        ) : (
+                            <Text style={styles.userAnswerLabelText()}>X</Text>
+                        )}
+                        <Text style={styles.userAnswerLabelText(answerSummary.isCorrect)}>
+                            Your Answer
+                        </Text>
                     </View>
-                    <Text style={styles.userAnswer(answerSummary.isCorrect)}>{answerSummary.userAnswer}</Text>
+                    <Text style={styles.userAnswer(answerSummary.isCorrect)}>
+                        {answerSummary.userAnswer}
+                    </Text>
                 </View>
                 <View style={styles.correctAnswerWrapper(answerSummary.isCorrect)}>
                     <View style={styles.correctAnswerLabel}>
@@ -43,15 +47,15 @@ function SummaryCard({ questionNum, category, question, correctAnswer, answerSum
                 <Text style={[styles.userAnswerLabelText(), styles.summaryIndicator]}>X</Text>
             )}
         </View>
-    )
+    );
 }
 
 export default function QuizSummary({ quizQuestions, answerSummary }) {
     const summaries = answerSummary.map((summary, index) => {
         const { category, answer, question } = quizQuestions[summary.quizIndex];
-        
+
         return (
-            <SummaryCard 
+            <SummaryCard
                 key={index}
                 questionNum={index + 1}
                 category={category}
@@ -59,15 +63,15 @@ export default function QuizSummary({ quizQuestions, answerSummary }) {
                 correctAnswer={answer}
                 answerSummary={summary}
             />
-        )
+        );
     });
- 
+
     return (
         <View style={styles.summaryContainer}>
             <Text style={styles.summaryHeader}>YOUR SUMMARY</Text>
             {summaries}
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

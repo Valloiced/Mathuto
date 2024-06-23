@@ -13,6 +13,7 @@ import QuizButton from '../../../../components/stacks/topic/QuizButton';
 
 import styles from '../../../../components/stacks/topic/style/topic.style';
 import ReturnHeaderBtn from '../../../../components/headers/ReturnHeaderBtn';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Topics() {
     const params = useGlobalSearchParams();
@@ -34,8 +35,11 @@ export default function Topics() {
 
     const categorizeBySubtopics = useCallback((alternativeCategory, uncategorizeLessons) => {
         const categorizedLessons = [];
-
-        uncategorizeLessons.forEach((lesson) => {
+        let globalLessonNo = 1;
+    
+        const lessonsBySubtopic = [...uncategorizeLessons].sort((a, b) => a.subtopic.localeCompare(b.subtopic));
+    
+        lessonsBySubtopic.forEach((lesson) => {
             const subtopic = lesson.subtopic || alternativeCategory;
             let existingCategory = categorizedLessons.find(
                 (category) => category.subtopic === subtopic
@@ -44,11 +48,15 @@ export default function Topics() {
                 existingCategory = { subtopic, lessons: [] };
                 categorizedLessons.push(existingCategory);
             }
-            existingCategory.lessons.push(lesson);
+    
+            const { lessonNo, ...lessonData } = lesson;
+            existingCategory.lessons.push({ ...lessonData, lessonNo: globalLessonNo });
+            globalLessonNo++;
         });
-
+    
         return categorizedLessons;
     }, []);
+    
 
     const fetchData = useCallback(async () => {
         try {
@@ -66,20 +74,26 @@ export default function Topics() {
                 alternativeCategory,
                 response.data.lessons
             );
+
             setLessons(categorizedLessons);
 
             const newCache = () => {
                 let createNewCache = [...data];
 
-                const topics = createNewCache.map((topic) => topic.details.id);
-                const index = topics.indexOf(response.data.details.id);
+                const topics = createNewCache.map((topic) => topic?.details.id);
+                const index = topics.indexOf(response.data?.details.id);
 
                 // If a cache already exists, replace it with new one (for validateCache)
                 if (index !== -1) {
                     createNewCache.splice(index, 1);
                 }
 
-                createNewCache = [response.data, ...createNewCache];
+                const cacheData = {
+                    ...response.data,
+                    lessons: (categorizedLessons.map((category) => category.lessons)).flat(1) // Use this categorized numbering format
+                }
+
+                createNewCache = [cacheData, ...createNewCache];
 
                 return createNewCache;
             };

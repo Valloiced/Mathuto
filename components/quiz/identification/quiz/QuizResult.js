@@ -59,8 +59,13 @@ function AccuracyBar({ correctAnswers, questionCount }) {
     );
 }
 
-
-export default function QuizResult({ quizId, quizStats, quizDetails, quizQuestions, handleRetake }) {
+export default function QuizResult({
+    quizId,
+    quizStats,
+    quizDetails,
+    quizQuestions,
+    handleRetake
+}) {
     const { isConnected } = useNetStatus();
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
@@ -80,7 +85,7 @@ export default function QuizResult({ quizId, quizStats, quizDetails, quizQuestio
                     autoHide: false,
                     swipeable: false
                 });
-                setSubmitting(true);    
+                setSubmitting(true);
                 await axios.put(
                     `${process.env.EXPO_PUBLIC_SERVER}/api/quiz/submit`,
                     { quizId, newScore: correctAnswers, timeTaken: timeTaken },
@@ -191,10 +196,7 @@ export default function QuizResult({ quizId, quizStats, quizDetails, quizQuestio
                 </View>
             </ImageBackground>
             <View style={[styles.quizCard, styles.summary, SHADOWS.medium]}>
-                <QuizSummary 
-                    quizQuestions={quizQuestions}
-                    answerSummary={quizStats.answers}
-                />
+                <QuizSummary quizQuestions={quizQuestions} answerSummary={quizStats.answers} />
             </View>
         </ScrollView>
     );
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-end'
     },
     quizBackground: {
         width: '100%',
@@ -348,7 +350,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         gap: SIZES.xxSmall,
-        marginVertical: SIZES.small,
+        marginVertical: SIZES.small
     },
     retakeBtn: {
         width: '80%',

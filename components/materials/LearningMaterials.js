@@ -20,13 +20,13 @@ export default function LearningMaterials() {
     const [loading, setLoading] = useState(true);
 
     const fetchMaterials = useCallback(async () => {
+        setIsFetching(true);
         try {
-            setIsFetching(true);
             const response = await axios.get(`${process.env.EXPO_PUBLIC_SERVER}/api/materials`);
             const topics = response.data.topics;
 
             setLearningMaterials(topics);
-            cacheData(topics); // This would always cache data when there's network connection
+            cacheData(topics);
         } catch (error) {
             console.error('Unable to fetch materials');
             Toast.show({
@@ -44,14 +44,9 @@ export default function LearningMaterials() {
     }, [cacheData]);
 
     useEffect(() => {
-        /** If online */
-        if (isConnected && !learningMaterials.length && !isFetching) {
+        if (isConnected && loading && !isFetching) {
             fetchMaterials();
-        }
-
-        /** If offline */
-        if (isConnected === false) {
-            /** Use cached data if there is  */
+        } else if (!isConnected) {
             if (data) {
                 setLearningMaterials(data);
             }
@@ -65,7 +60,7 @@ export default function LearningMaterials() {
                 visibilityTime: 5000
             });
         }
-    }, [data, isFetching, learningMaterials, fetchMaterials, isConnected]);
+    }, [data, isFetching, loading, fetchMaterials, isConnected]);
 
     const topicCards = learningMaterials.map((topic) => (
         <LearningMaterialsCard

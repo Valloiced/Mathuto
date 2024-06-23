@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Linking } from 'react-native';
+import Markdown from 'react-native-markdown-display';
 
 import { Link } from '../../../assets/icons';
 
 import RedirectDialog from '../../common/dialogs/RedirectDialog';
 
 import styles from './style/content.style';
+import markdownStyles from './style/markdown.style';
 
 function LinkCard({ link, handleRedirect }) {
     return (
@@ -52,9 +54,14 @@ export default function Description({ content, currentTab }) {
             <View style={styles.descriptionContainer}>
                 <Text style={styles.descriptionLabel}>{descriptionHeader}</Text>
                 <View style={styles.contentContainer}>
-                    {/* Modify this in the future, make this adaptable */}
                     {currentTab !== 'links' ? (
-                        <Text style={styles.content}>{content}</Text>
+                        <Markdown 
+                            onLinkPress={handleRedirect} 
+                            style={markdownStyles}
+                        >
+                            {content}
+                        </Markdown>
+                        /* <Text style={styles.content}>{content}</Text> */
                     ) : (
                         <View style={styles.linkCardContainer}>
                             {!links || links.length === 0 ? (

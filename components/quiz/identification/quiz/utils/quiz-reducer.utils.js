@@ -18,7 +18,7 @@ const reducer = (state, action) => {
                 quizOrder: shuffleIndices
             };
         }
-        case 'NEXT_LEVEL': {            
+        case 'NEXT_LEVEL': {
             // Question will be based on the questionNum
             const nextQuestionNum = state.questionNum + 1;
             const nextQuestionIndex = state.quizOrder[nextQuestionNum];
@@ -44,7 +44,7 @@ const reducer = (state, action) => {
                 quizIndex: quizIndex,
                 isCorrect: true,
                 userAnswer: state.answer
-            }
+            };
 
             updateAnswers.push(newAnswer);
 
@@ -62,7 +62,7 @@ const reducer = (state, action) => {
                 quizIndex: quizIndex,
                 isCorrect: false,
                 userAnswer: state.answer
-            }
+            };
 
             updateAnswers.push(newAnswer);
 
@@ -72,11 +72,11 @@ const reducer = (state, action) => {
                 incorrectAnswers: state.incorrectAnswers + 1
             };
         }
-        case 'ANSWERING': 
+        case 'ANSWERING':
             return {
                 ...state,
                 answer: action.answer
-            }
+            };
         default:
             return state;
     }

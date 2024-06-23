@@ -16,9 +16,15 @@ import IdentificationInputBG from '../../../../assets/bg/identification-input-bg
 import { BORDER_RADIUS, COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
 import QuizSymbols from './QuizSymbols';
 
-export default function QuizInput({ answer, correctAnswer, handleAnswer, isLastQuestion, dispatch}) {
+export default function QuizInput({
+    answer,
+    correctAnswer,
+    handleAnswer,
+    isLastQuestion,
+    dispatch
+}) {
     const symbols = filterSymbols(correctAnswer || '');
-    
+
     return (
         <>
             <Image source={IdentificationInputBG} style={styles.inputBG} />
@@ -26,15 +32,9 @@ export default function QuizInput({ answer, correctAnswer, handleAnswer, isLastQ
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.quizInputContainer}
             >
-                {
-                    symbols.length > 0 && (
-                        <QuizSymbols 
-                            answer={answer} 
-                            availableSymbols={symbols}
-                            dispatch={dispatch} 
-                        />
-                    )
-                }
+                {symbols.length > 0 && (
+                    <QuizSymbols answer={answer} availableSymbols={symbols} dispatch={dispatch} />
+                )}
                 <TextInput
                     name="answer"
                     value={answer}
@@ -44,7 +44,10 @@ export default function QuizInput({ answer, correctAnswer, handleAnswer, isLastQ
                     textAlignVertical={'center'}
                     onChangeText={(text) => dispatch({ type: 'ANSWERING', answer: text })}
                 />
-                <TouchableOpacity style={[styles.quizInputBtn, SHADOWS.medium]} onPress={handleAnswer}>
+                <TouchableOpacity
+                    style={[styles.quizInputBtn, SHADOWS.medium]}
+                    onPress={handleAnswer}
+                >
                     <Text style={styles.quizInputBtnText}>
                         {isLastQuestion ? 'FINISH' : 'SUBMIT'}
                     </Text>

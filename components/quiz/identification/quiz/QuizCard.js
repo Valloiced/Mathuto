@@ -6,7 +6,6 @@ import QuizProgressBar from './QuizProgressBar';
 import { Search } from '../../../../assets/icons';
 import { BORDER_RADIUS, COLORS, FONT, SHADOWS, SIZES } from '../../../../constants/theme';
 
-
 export default function QuizCard({ category, question, questionNum, questionCount }) {
     return (
         <View style={[styles.quizCard, SHADOWS.medium]}>

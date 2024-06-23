@@ -6,7 +6,7 @@ import useCache from '../../../hooks/useCache';
 
 import styles from './style/subtopicBody.style';
 
-function LessonCard({ topicId, lessonNumber, lessonName }) {
+function LessonCard({ topicId, lessonId, lessonNo, lessonName }) {
     /** Cache-based, however, make it database-based later */
     const { data, cacheData } = useCache('recent-lessons', []);
 
@@ -16,7 +16,7 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
 
             const dataToAdd = {
                 topicId: topicId,
-                id: lessonNumber,
+                id: lessonId,
                 name: lessonName
             };
 
@@ -27,7 +27,7 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
             }
 
             const checkIfExists = recentLessons.findIndex(
-                (lessonItem) => lessonItem.id === lessonNumber && lessonItem.topicId === topicId
+                (lessonItem) => lessonItem.id === lessonId && lessonItem.topicId === topicId
             );
 
             // If item already exists, move it to the start
@@ -56,12 +56,12 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
     const handlePress = async () => {
         await addToRecentView();
 
-        router.push(`/stacks/topic/${topicId}/lesson/${lessonNumber}`);
+        router.push(`/stacks/topic/${topicId}/lesson/${lessonNo}`);
     };
 
     return (
         <TouchableOpacity style={styles.lessonItem} onPress={handlePress}>
-            <Text style={styles.lessonNumber}>{lessonNumber}</Text>
+            <Text style={styles.lessonNumber}>{lessonNo}</Text>
             <Text style={styles.lessonName}>{lessonName}</Text>
         </TouchableOpacity>
     );
@@ -69,9 +69,15 @@ function LessonCard({ topicId, lessonNumber, lessonName }) {
 
 export default function SubtopicBody({ topicId, section }) {
     const lessonCard = section.lessons.map((lesson, index) => {
-        const { id, lessonNo, name } = lesson;
+        const { id, name, lessonNo } = lesson;
 
-        return <LessonCard key={id} topicId={topicId} lessonNumber={lessonNo} lessonName={name} />;
+        return <LessonCard 
+            key={id} 
+            topicId={topicId} 
+            lessonId={id} 
+            lessonNo={lessonNo}
+            lessonName={name} 
+        />;
     });
 
     return <View style={styles.subtopicBodyWrapper}>{lessonCard}</View>;

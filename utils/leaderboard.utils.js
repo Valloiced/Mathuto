@@ -59,5 +59,4 @@ export const formatPoints = (points = '') => {
     return formattedPoints.join('');
 };
 
-
 module.exports = { getRankings, formatPoints };

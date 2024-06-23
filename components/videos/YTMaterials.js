@@ -71,16 +71,24 @@ export default function YTMaterials() {
     };
 
     const getRandomVideos = (queries, limit) => {
-        const videos = new Set();
-
-        while (videos.size < limit) {
-            const pickIndex = Math.floor(Math.random() * queries.length);
-            const pickVideo = queries[pickIndex];
-
-            videos.add(pickVideo);
+        if (limit > queries.length) {
+            limit = queries.length;
         }
 
-        return Array.from(videos);
+        const videos = [];
+        const usedIndices = [];
+
+        while (videos.length < limit) {
+            const pickIndex = Math.floor(Math.random() * queries.length);
+
+            if (usedIndices.indexOf(pickIndex) === -1) {
+                const pickVideo = queries[pickIndex];
+                videos.push(pickVideo);
+                usedIndices.push(pickIndex);
+            }
+        }
+
+        return videos;
     };
 
     const searchRecommendations = useCallback(async () => {

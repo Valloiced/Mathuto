@@ -30,7 +30,9 @@ export default function UserRankCard({ isLogin, rank, score, profileImg = '' }) 
                                 You
                             </Text>
                         </View>
-                        <Text style={[layoutStyles.points, styles.points]}>{`${formatPoints(score)} pts`}</Text>
+                        <Text
+                            style={[layoutStyles.points, styles.points]}
+                        >{`${formatPoints(score)} pts`}</Text>
                     </View>
                 </>
             )}

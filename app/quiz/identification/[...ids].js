@@ -86,7 +86,7 @@ export default function IdentificationQuiz() {
                 {loading ? (
                     <QuizLoading />
                 ) : !quizStatus.isCompleted ? (
-                    <QuizField 
+                    <QuizField
                         quizData={quizData}
                         quizStatus={quizStatus}
                         setQuizStatus={setQuizStatus}

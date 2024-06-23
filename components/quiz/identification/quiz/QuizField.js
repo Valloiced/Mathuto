@@ -45,11 +45,11 @@ export default function QuizField({ quizData, setQuizStatus }) {
         }
 
         if (state.questionNum === quizData.details.numOfQuestions - 1) {
-            return handleFinish()
+            return handleFinish();
         }
 
         dispatch({ type: 'NEXT_LEVEL', data: quizData.questions });
-    }
+    };
 
     const handleFinish = () => {
         clearInterval(timerInterval.current);
@@ -59,7 +59,7 @@ export default function QuizField({ quizData, setQuizStatus }) {
             isCompleted: true,
             quizStats: { ...state, timeTaken: timer }
         });
-    }
+    };
 
     return (
         <View style={styles.quizFieldContainer}>
@@ -69,14 +69,14 @@ export default function QuizField({ quizData, setQuizStatus }) {
                 imageStyle={styles.quizBackground}
             >
                 <QuizTimer timer={timer} />
-                <QuizCard 
+                <QuizCard
                     category={state.currentQuestion.category}
-                    question={state.currentQuestion.question} 
-                    questionNum={state.questionNum} 
-                    questionCount={quizData.details.numOfQuestions} 
+                    question={state.currentQuestion.question}
+                    questionNum={state.questionNum}
+                    questionCount={quizData.details.numOfQuestions}
                 />
             </ImageBackground>
-            <QuizInput 
+            <QuizInput
                 answer={state.answer}
                 correctAnswer={state.currentQuestion.answer}
                 handleAnswer={handleAnswer}

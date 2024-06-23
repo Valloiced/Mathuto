@@ -22,7 +22,7 @@ const Status = ({ message }) => (
 
 export default function GameOverScreen({ scoreDetails }) {
     const { earnedPoints, difficulty, multiplier, overallPoints } = scoreDetails;
-    
+
     const { isConnected } = useNetStatus();
     const user = useProfile();
 
