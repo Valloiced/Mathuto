@@ -4,15 +4,22 @@ import axios from 'axios';
 import { router } from 'expo-router';
 import Toast from 'react-native-toast-message';
 
+import useTheme from '../../hooks/useTheme';
+
 import { firebaseAuthService } from '../../utils/firebase.utils';
 
 import { Checkmark } from '../../assets/icons';
 
 import styles from './style/password.style';
-import layoutStyles from './style/settings.style';
+import getLayoutStyles from './style/settings.style';
+ 
 import { COLORS } from '../../constants/theme';
 
 export default function Password({ uid, setModalVisible, setDialogCallback }) {
+    const [theme, changeTheme] = useTheme();
+
+    const layoutStyles = getLayoutStyles(theme);
+    
     const [passwordForm, setPasswordForm] = useState({
         currentPassword: '',
         newPassword: '',

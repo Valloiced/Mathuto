@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     headerStyle: {
-        backgroundColor: COLORS.bgTertiary,
+        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF',
         gap: SIZES.medium
     },
     headerTitleStyle: {
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     },
     lessonContainer: {
         flex: 1,
-        backgroundColor: COLORS.bgTertiary
+        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF',
     }
 });
 

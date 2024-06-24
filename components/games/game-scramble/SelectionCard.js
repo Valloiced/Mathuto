@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-import styles from './style/selectionCard.style';
+import useTheme from '../../../hooks/useTheme';
+
+import getStyles from './style/selectionCard.style';
 
 import { ChevronUp, ChevronDown } from '../../../assets/icons';
 
@@ -12,6 +14,10 @@ export default function SelectionCard({
     updateSections,
     handleSelect
 }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+
     return (
         <TouchableOpacity
             style={styles.selectionCard(isSelected, isCollapsed)}

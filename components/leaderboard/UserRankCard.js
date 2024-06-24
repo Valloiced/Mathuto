@@ -3,12 +3,19 @@ import { View, Text, Image } from 'react-native';
 
 import { formatPoints } from '../../utils/leaderboard.utils';
 
-import styles from './style/userRank.style';
-import layoutStyles from './style/leaderboardModal.style';
+import getStyles from './style/userRank.style';
+import getLayoutStyles from './style/leaderboardModal.style';
+
+import useTheme from '../../hooks/useTheme';
 
 import { User } from '../../assets/icons';
 
 export default function UserRankCard({ isLogin, rank, score, profileImg = '' }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    const layoutStyles = getLayoutStyles(theme);
+
     return (
         <View style={[styles.userRankCard, layoutStyles.leaderboardCard]}>
             {!isLogin ? (

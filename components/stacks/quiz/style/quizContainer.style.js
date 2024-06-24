@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     quizContainer: {
         flexDirection: 'column',
         gap: SIZES.small,
         marginVertical: SIZES.medium
     },
     quizIndicator: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSSemiBold,
         fontSize: SIZES.small,
         letterSpacing: 1
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: SIZES.large,
         paddingVertical: SIZES.medium,
         paddingBottom: SIZES.xxLarge,
-        backgroundColor: COLORS.secondary,
+        backgroundColor: theme === 'default' ? COLORS.secondary : COLORS_RED.primaryLight,
         borderWidth: 1,
         borderColor: COLORS.textSecondary + '40',
         borderRadius: BORDER_RADIUS.small
     },
     quizCardTitle: {
-        color: COLORS.textPrimary,
+        color:  theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSBold,
         fontSize: SIZES.large,
         letterSpacing: 1
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.xSmall,
-        backgroundColor: COLORS.tertiary,
+        backgroundColor: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         paddingHorizontal: SIZES.xSmall,
         letterSpacing: 1,
         borderRadius: BORDER_RADIUS.medium

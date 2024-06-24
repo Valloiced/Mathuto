@@ -1,10 +1,18 @@
 import React from 'react';
 import { router } from 'expo-router';
 import { Modal, View, Text, TouchableOpacity } from 'react-native';
-import styles from './style/modal.style';
+
+import useTheme from '../../../hooks/useTheme';
+
+import getStyles from './style/modal.style';
+
 import { SHADOWS } from '../../../constants/theme';
 
 export default function GameModal({ modalVisible, setModalVisible }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+
     const handlePress = (route) => {
         // Set the visibility as false first or else modal would appear in different parts of app
         setModalVisible(false);

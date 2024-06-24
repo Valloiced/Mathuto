@@ -3,11 +3,13 @@ import { Link, router } from 'expo-router';
 import { Image, View, Text } from 'react-native';
 import Toast from 'react-native-toast-message';
 
+import useTheme from '../../hooks/useTheme';
 import useNetStatus from '../../hooks/useNetStatus';
 
 import { firebaseAuthService } from '../../utils/firebase.utils';
 
-import MathtutoIcon from '../../assets/icon.png';
+import LogoDefault from '../../assets/logo-default.png';
+import LogoRed from '../../assets/logo-red.png';
 
 import { SHADOWS, SIZES } from '../../constants/theme';
 import styles from '../../components/login/styles/login.style';
@@ -16,6 +18,7 @@ import FormsContainer from '../../components/login/FormsContainer';
 import SocialsContainer from '../../components/login/SocialsContainer';
 
 export default function Login() {
+    const [theme, changeTheme] = useTheme();
     const { isConnected } = useNetStatus();
 
     const [loginForm, setLoginForm] = useState({
@@ -136,7 +139,7 @@ export default function Login() {
 
     return (
         <View style={styles.loginContainer}>
-            <Image source={MathtutoIcon} style={styles.icon(160)} resizeMode="contain" />
+            <Image source={theme === 'default' ? LogoDefault : LogoRed} style={styles.icon(225)} resizeMode="contain" />
             <View style={styles.formsWrapper}>
                 <Text style={[styles.loginHeader, SHADOWS.text]}>LOG IN</Text>
                 <FormsContainer

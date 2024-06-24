@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     paginationContainer: {
         flexDirection: 'row',
         position: 'fixed',
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         padding: SIZES.xSmall,
-        backgroundColor: COLORS.tertiary,
+        backgroundColor: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         borderTopRightRadius: BORDER_RADIUS.medium * 1.2,
         borderTopLeftRadius: BORDER_RADIUS.medium * 1.2
     },
@@ -28,7 +28,12 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSBold,
         fontSize: SIZES.medium,
         letterSpacing: 1,
-        color: !disabled ? COLORS.tertiary : COLORS.disabled
+        color: !disabled ? (theme === 'default' 
+                ? COLORS.tertiary 
+                : COLORS_RED.tertiary) 
+            : (theme === 'default' 
+                ? COLORS.disabled
+                : COLORS_RED.disabled) 
     })
 });
 

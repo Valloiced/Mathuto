@@ -3,17 +3,21 @@ import { ActivityIndicator, Text, View } from 'react-native';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
 
+import useTheme from '../../hooks/useTheme';
 import useCache from '../../hooks/useCache';
 import useNetStatus from '../../hooks/useNetStatus';
 
 import LearningMaterialsCard from './LearningMaterialsCard';
 
-import styles from './style/learningMaterials.style';
+import getStyles from './style/learningMaterials.style';
 import { COLORS } from '../../constants/theme';
 
 export default function LearningMaterials() {
     const { data, cacheData } = useCache('materials', []);
     const { isConnected } = useNetStatus();
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const [learningMaterials, setLearningMaterials] = useState([]);
     const [isFetching, setIsFetching] = useState(false);

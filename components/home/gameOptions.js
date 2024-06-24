@@ -2,12 +2,20 @@ import React from 'react';
 import { router } from 'expo-router';
 import { TouchableOpacity, ImageBackground, View, Text } from 'react-native';
 
-import styles from './style/gameOptions.style';
+import useTheme from '../../hooks/useTheme';
 
-import ArithmeticBlitzBG from '../../assets/bg/arithmetic-blitz-bg.png';
-import MathScrambleBG from '../../assets/bg/math-scramble-bg.png';
+import getStyles from './style/gameOptions.style';
+
+import ArithmeticBlitzDefaultBg from '../../assets/bg/arithmetic-blitz-default-bg.png';
+import ArithmeticBlitzRedBg from '../../assets/bg/arithmetic-blitz-red-bg.png';
+import MathScrambleDefaultBg from '../../assets/bg/math-scramble-default-bg.png';
+import MathScrambleRedBg from '../../assets/bg/math-scramble-red-bg.png';
 
 function GameOptionsCard({ bg, title, handlePress }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+
     return (
         <TouchableOpacity onPress={handlePress}>
             <ImageBackground source={bg} style={styles.gameOption} imageStyle={styles.gameOptionBg}>
@@ -18,6 +26,10 @@ function GameOptionsCard({ bg, title, handlePress }) {
 }
 
 export default function GameOptions() {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     return (
         <View style={styles.optionsContainer}>
             <View style={styles.optionsWrapper}>
@@ -25,7 +37,7 @@ export default function GameOptions() {
 
                 <View style={styles.gameWrapper}>
                     <GameOptionsCard
-                        bg={ArithmeticBlitzBG}
+                        bg={theme === 'default' ? ArithmeticBlitzDefaultBg : ArithmeticBlitzRedBg}
                         title={'Arithmetic Blitz'}
                         handlePress={() => router.push('/games/arithmetic-blitz/game-lobby')}
                     />
@@ -36,7 +48,7 @@ export default function GameOptions() {
 
                 <View style={styles.gameWrapper}>
                     <GameOptionsCard
-                        bg={MathScrambleBG}
+                        bg={theme === 'default' ? MathScrambleDefaultBg : MathScrambleRedBg}
                         title={'Math Scramble'}
                         handlePress={() => router.push('/games/math-scramble/game-lobby')}
                     />

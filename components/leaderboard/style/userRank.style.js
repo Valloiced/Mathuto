@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') =>StyleSheet.create({
     userRankCard: {
         position: 'absolute',
         bottom: 0,
         left: 0,
-        backgroundColor: COLORS.bgPrimary,
+        backgroundColor: theme === 'default' ? COLORS.bgPrimary : COLORS_RED.tertiary,
         paddingHorizontal: SIZES.medium
     },
     rank: {

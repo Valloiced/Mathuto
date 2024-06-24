@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
-
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     modalContainer: {
         flex: 1,
         position: 'relative',
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
         gap: SIZES.xxSmall * 0.5
     },
     dialogHeader: {
-        color: COLORS.textTertiary,
+        color: theme === 'default' ? COLORS.textTertiary :  COLORS_RED.base,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.xLarge
     },
@@ -52,10 +51,10 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         borderRadius: BORDER_RADIUS.large,
         borderWidth: 1,
-        borderColor: COLORS.textTertiary
+        borderColor: theme === 'default' ? COLORS.textTertiary :  COLORS_RED.base
     },
     cancelBtnText: {
-        color: COLORS.textTertiary,
+        color: theme === 'default' ? COLORS.textTertiary :  COLORS_RED.base,
         fontSize: SIZES.small,
         fontFamily: FONT.PopBold
     },
@@ -64,10 +63,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: SIZES.xxSmall,
-        backgroundColor: COLORS.textTertiary,
+        backgroundColor: theme === 'default' ? COLORS.textTertiary :  COLORS_RED.base,
         borderRadius: BORDER_RADIUS.large,
         borderWidth: 1,
-        borderColor: COLORS.bgTertiary
+        borderColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.base
     },
     confirmBtnText: {
         color: COLORS.white,

@@ -3,7 +3,9 @@ import { router } from 'expo-router';
 import he from 'he';
 import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
 
-import styles from './style/ytMaterials.style';
+import getStyles  from './style/ytMaterials.style';
+
+import useTheme from '../../hooks/useTheme';
 
 import { User } from '../../assets/icons';
 import { SHADOWS } from '../../constants/theme';
@@ -18,6 +20,9 @@ export default function YTMaterialsCard({
     viewCount
 }) {
     const decodeTitle = he.decode(title);
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     return (
         <TouchableOpacity

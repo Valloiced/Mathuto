@@ -4,14 +4,20 @@ import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import Toast from 'react-native-toast-message';
 
+import useTheme from '../../../hooks/useTheme';
+
 import { firebaseAuthService } from '../../../utils/firebase.utils';
 
 import styles from './drawerContent.style';
 
-import MathtutoLogo from '../../../assets/logo.png';
+import LogoDefault from '../../../assets/logo-default.png';
+import LogoRed from '../../../assets/logo-red.png';
+
 import { Logout } from '../../../assets/icons';
 
 export default function HomeDrawerContent(props) {
+    const [theme, changeTheme] = useTheme();
+
     const handleSignOut = async () => {
         try {
             await firebaseAuthService.logOut();
@@ -38,7 +44,7 @@ export default function HomeDrawerContent(props) {
                 <View>
                     <View style={styles.logoContainer}>
                         <ImageBackground
-                            source={MathtutoLogo}
+                            source={theme === 'default' ? LogoDefault : LogoRed}
                             style={styles.logo}
                             imageStyle={styles.logoBg}
                         />

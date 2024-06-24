@@ -1,15 +1,21 @@
 import React from 'react';
 import { router } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import styles from './style/recentlyViewed.style';
-import { LinearGradient } from 'expo-linear-gradient';
+import useTheme from '../../hooks/useTheme';
+
+import getStyles  from './style/recentlyViewed.style';
 
 import itemBGYellow from '../../assets/bg/material-yellow.png';
 import { COLORS, SHADOWS } from '../../constants/theme';
 
 export default function RecentlyViewedCard({ id, topicName, itemCount, creator }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     const addToRecentView = async () => {
         try {
             const response = await AsyncStorage.getItem('recent-topics');

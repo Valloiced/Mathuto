@@ -4,13 +4,14 @@ import axios from 'axios';
 import Toast from 'react-native-toast-message';
 
 import useNetStatus from '../../hooks/useNetStatus';
+import useTheme from '../../hooks/useTheme';
 
 import Banner from '../../components/leaderboard/Banner';
 import CategoryBar from '../../components/leaderboard/CategoryBar';
 import TopLeaderbord from '../../components/leaderboard/TopLeaderboard';
 import LeaderboardModal from '../../components/leaderboard/LeaderboardModal';
 
-import styles from '../../components/leaderboard/style/leaderboard.style';
+import getStyles from '../../components/leaderboard/style/leaderboard.style';
 import UserRankCard from '../../components/leaderboard/UserRankCard';
 
 import useProfile from '../../hooks/useProfile';
@@ -18,6 +19,9 @@ import useProfile from '../../hooks/useProfile';
 export default function Leaderboard() {
     const user = useProfile();
     const { isConnected } = useNetStatus();
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const [currentCategory, setCurrentCategory] = useState('daily-scores');
     const [leaderboards, setLeaderboards] = useState({

@@ -3,21 +3,25 @@ import { View, StyleSheet } from 'react-native';
 import { Tabs } from 'expo-router';
 import { HomeSolid, QuizSolid, PlaySolid, Leaderboard } from '../../assets/icons';
 
-import { COLORS, SIZES } from '../../constants/theme';
+import useTheme from '../../hooks/useTheme';
+
+import { COLORS, COLORS_RED, SIZES } from '../../constants/theme';
 
 const TabItemWrapper = ({ children, color }) => {
     return <View style={[styles.tabItemWrapper, { backgroundColor: color }]}>{children}</View>;
 };
 
 export default function TabsLayout() {
+    const [theme, changeTheme] = useTheme();
+
     return (
         <Tabs
             screenOptions={{
                 headerShown: false,
                 tabBarActiveTintColor: COLORS.white,
                 tabBarInactiveTintColor: 'transparent',
-                tabBarActiveBackgroundColor: COLORS.primary,
-                tabBarInactiveBackgroundColor: COLORS.primary,
+                tabBarActiveBackgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
+                tabBarInactiveBackgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
                 tabBarShowLabel: false,
                 tabBarStyle: {
                     height: 55
@@ -29,7 +33,11 @@ export default function TabsLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <TabItemWrapper color={color}>
-                            <HomeSolid size={30} color={focused ? COLORS.primary : COLORS.white} />
+                            <HomeSolid size={30} color={focused ? (
+                                theme === 'default' 
+                                    ? COLORS.primary 
+                                    : COLORS_RED.primary
+                            ) : COLORS.white} />
                         </TabItemWrapper>
                     )
                 }}
@@ -39,7 +47,11 @@ export default function TabsLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <TabItemWrapper color={color}>
-                            <QuizSolid size={30} color={focused ? COLORS.primary : COLORS.white} />
+                            <QuizSolid size={30} color={focused ? (
+                                theme === 'default' 
+                                    ? COLORS.primary 
+                                    : COLORS_RED.primary
+                            ) : COLORS.white} />
                         </TabItemWrapper>
                     )
                 }}
@@ -49,7 +61,11 @@ export default function TabsLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <TabItemWrapper color={color}>
-                            <PlaySolid size={30} color={focused ? COLORS.primary : COLORS.white} />
+                            <PlaySolid size={30} color={focused ? (
+                                theme === 'default' 
+                                    ? COLORS.primary 
+                                    : COLORS_RED.primary
+                            ) : COLORS.white} />
                         </TabItemWrapper>
                     )
                 }}
@@ -61,8 +77,11 @@ export default function TabsLayout() {
                         <TabItemWrapper color={color}>
                             <Leaderboard
                                 size={30}
-                                color={focused ? COLORS.primary : COLORS.white}
-                            />
+                                color={focused ? (
+                                theme === 'default' 
+                                    ? COLORS.primary 
+                                :    COLORS_RED.primary
+                            ) : COLORS.white} />
                         </TabItemWrapper>
                     )
                 }}

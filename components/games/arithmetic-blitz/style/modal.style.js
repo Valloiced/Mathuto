@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, SIZES, FONT, BORDER_RADIUS } from '../../../../constants/theme';
+import { COLORS, COLORS_RED, SIZES, FONT, BORDER_RADIUS } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     modal: {
         flex: 1,
         backgroundColor: COLORS.textSecondary + '80'
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: '50%',
         marginTop: 'auto',
-        backgroundColor: COLORS.tertiary,
+        backgroundColor: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         borderTopLeftRadius: BORDER_RADIUS.large,
         borderTopRightRadius: BORDER_RADIUS.large
     },
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.large,
         letterSpacing: 2,
-        color: COLORS.tertiary
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
     },
     modalNote: {
         alignSelf: 'center',

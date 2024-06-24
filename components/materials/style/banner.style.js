@@ -1,9 +1,9 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
 const { height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     banner: {
         flex: 1,
         height: height * 0.35,
@@ -19,7 +19,15 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSBold,
         fontSize: SIZES.medium,
         letterSpacing: 1,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
+    },
+    logoWrapper: {
+        width: '100%',
+        height: 125
+    },
+    logo: {
+        width: '100%',
+        height: '100%'
     }
 });
 

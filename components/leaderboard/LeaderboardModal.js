@@ -5,9 +5,15 @@ import { formatPoints } from '../../utils/leaderboard.utils';
 
 import { User } from '../../assets/icons';
 
-import styles from './style/leaderboardModal.style';
+import getStyles from './style/leaderboardModal.style';
+
+import useTheme from '../../hooks/useTheme';
 
 function LeaderboardModalCard({ rank, username, profileImg = '', score }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     return (
         <View style={styles.leaderboardCard}>
             <Text style={styles.rank}>{rank}</Text>
@@ -28,6 +34,10 @@ function LeaderboardModalCard({ rank, username, profileImg = '', score }) {
 }
 
 export default function LeaderboardModal({ scores }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+
     const leaderboardModalCards = scores.map((score, index) => (
         <LeaderboardModalCard
             key={score.id}

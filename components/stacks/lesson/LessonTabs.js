@@ -1,9 +1,15 @@
 import React from 'react';
 import { Text, ScrollView, TouchableOpacity } from 'react-native';
 
-import styles from './style/lessonTabs.style';
+import useTheme from '../../../hooks/useTheme';
+
+import getStyles from './style/lessonTabs.style';
 
 export default function LessonTabs({ currentTab, setCurrentTab }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+
     return (
         <ScrollView
             contentContainerStyle={styles.lessonTabsContainer}

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 
-import { COLORS, SHADOWS } from '../../constants/theme';
+import useTheme from '../../hooks/useTheme';
+
+import { COLORS, COLORS_RED, SHADOWS } from '../../constants/theme';
 import styles from './style/formsContainer.style';
 
 import { UserSolid, MailSolid, LockSolid, ViewPassword, HidePassword } from '../../assets/icons';
@@ -16,41 +18,43 @@ export default function FormsContainer({
     coverPassword,
     togglePasswordVisibility
 }) {
+    const [theme, changeTheme] = useTheme();
+
     return (
         <View style={styles.formsContainer}>
             <View style={styles.inputContainer}>
                 <View style={styles.inputWrapper}>
                     <View style={styles.iconWrapper}>
-                        <UserSolid size={25} color={COLORS.bgPrimary} />
+                        <UserSolid size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
                     </View>
                     <TextInput
                         style={styles.registerInput}
                         placeholder="User Name"
-                        placeholderTextColor={COLORS.textPrimary}
+                        placeholderTextColor={theme === 'default' ? theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark : COLORS_RED.dark}
                         value={registerForm.username}
                         onChangeText={handleUsernameInput}
                     />
                 </View>
                 <View style={styles.inputWrapper}>
                     <View style={styles.iconWrapper}>
-                        <MailSolid size={25} color={COLORS.bgPrimary} />
+                        <MailSolid size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
                     </View>
                     <TextInput
                         style={styles.registerInput}
                         placeholder="Email Address"
-                        placeholderTextColor={COLORS.textPrimary}
+                        placeholderTextColor={theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark}
                         value={registerForm.email}
                         onChangeText={handleEmailInput}
                     />
                 </View>
                 <View style={styles.inputWrapper}>
                     <View style={styles.iconWrapper}>
-                        <LockSolid size={25} color={COLORS.bgPrimary} />
+                        <LockSolid size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
                     </View>
                     <TextInput
                         style={styles.registerInput}
                         placeholder="Password"
-                        placeholderTextColor={COLORS.textPrimary}
+                        placeholderTextColor={theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark}
                         value={registerForm.password}
                         onChangeText={handlePasswordInput}
                         secureTextEntry={coverPassword}
@@ -61,9 +65,9 @@ export default function FormsContainer({
                             onPress={togglePasswordVisibility}
                         >
                             {coverPassword ? (
-                                <ViewPassword size={25} color={COLORS.bgPrimary} />
+                                <ViewPassword size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
                             ) : (
-                                <HidePassword size={25} color={COLORS.bgPrimary} />
+                                <HidePassword size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
                             )}
                         </TouchableOpacity>
                     )}

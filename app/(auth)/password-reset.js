@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link, router } from 'expo-router';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import Toast from 'react-native-toast-message';
+
+import useTheme from '../../hooks/useTheme';
 
 import { firebaseAuthService } from '../../utils/firebase.utils';
 
@@ -8,10 +11,10 @@ import { MailSolid } from '../../assets/icons';
 
 import styles from '../../components/password-reset/style/password-reset.style';
 
-import { COLORS, SHADOWS } from '../../constants/theme';
-import Toast from 'react-native-toast-message';
+import { COLORS, COLORS_RED, SHADOWS } from '../../constants/theme';
 
 export default function PasswordReset() {
+    const [theme, changeTheme] = useTheme();
     const [recoveryEmail, setRecoveryEmail] = useState('');
 
     const handleEmailInput = (text) => {
@@ -44,12 +47,12 @@ export default function PasswordReset() {
             </Text>
             <View style={styles.inputWrapper}>
                 <View style={styles.iconWrapper}>
-                    <MailSolid size={25} color={COLORS.bgPrimary} />
+                    <MailSolid size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
                 </View>
                 <TextInput
                     style={styles.passwordResetInput}
                     placeholder="Email Address"
-                    placeholderTextColor={COLORS.textPrimary}
+                    placeholderTextColor={theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark}
                     value={recoveryEmail}
                     onChangeText={handleEmailInput}
                 />

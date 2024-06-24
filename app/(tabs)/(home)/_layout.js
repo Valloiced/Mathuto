@@ -1,22 +1,26 @@
 import React from 'react';
 import { Drawer } from 'expo-router/drawer';
 
+import useTheme from '../../../hooks/useTheme';
+
 import HomeDrawerContent from '../../../components/home/drawer/DrawerContent';
 import HomeHeaderLeft from '../../../components/headers/HomeHeaderLeft';
 
-import { COLORS, FONT, SIZES } from '../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
 import { HomeSolid, Settings } from '../../../assets/icons';
 
 export default function HomeLayout() {
+    const [theme, changeTheme] = useTheme();
+
     return (
         <Drawer
             screenOptions={{
                 headerShown: false,
                 headerBackgroundContainerStyle: COLORS.lightWhite,
-                drawerActiveTintColor: COLORS.textTertiary,
-                drawerActiveBackgroundColor: COLORS.secondary + '80',
-                drawerInactiveTintColor: COLORS.textSecondary + 'BF',
+                drawerActiveTintColor: theme === 'default' ? COLORS.textTertiary : COLORS_RED.dark,
+                drawerActiveBackgroundColor: theme === 'default' ? COLORS.secondary + '80' : COLORS_RED.primaryLight + '80',
+                drawerInactiveTintColor: theme === 'default' ? COLORS.textSecondary + 'BF' : COLORS_RED.base,
                 drawerType: 'slide'
             }}
             drawerContent={(props) => <HomeDrawerContent {...props} />}
@@ -30,7 +34,7 @@ export default function HomeLayout() {
                     headerTitle: '',
                     headerLeft: HomeHeaderLeft,
                     headerStyle: {
-                        backgroundColor: COLORS.bgTertiary
+                        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF'
                     },
                     drawerIcon: ({ color }) => {
                         return <HomeSolid size={20} color={color} />;
@@ -46,7 +50,7 @@ export default function HomeLayout() {
                     headerShadowVisible: true,
                     headerLeft: HomeHeaderLeft,
                     headerTitleStyle: {
-                        color: COLORS.textPrimary,
+                        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
                         fontFamily: FONT.PopSemiBold,
                         fontSize: SIZES.medium
                     },

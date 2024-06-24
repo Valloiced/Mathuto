@@ -8,12 +8,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: SIZES.medium,
-        marginTop: SIZES.xxLarge + SIZES.xxSmall,
         marginBottom: SIZES.small
     },
     logoContainer: {
-        width: 90,
-        height: 90
+        width: 200,
+        height: 200
     },
     logo: {
         width: '100%',
@@ -22,7 +21,8 @@ const styles = StyleSheet.create({
     version: {
         fontSize: SIZES.medium,
         fontFamily: FONT.PopRegular,
-        color: COLORS.textSecondary
+        color: COLORS.textSecondary,
+        marginTop: -SIZES.xxLarge * 1.75
     }
 });
 

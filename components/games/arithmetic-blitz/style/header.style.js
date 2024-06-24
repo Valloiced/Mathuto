@@ -1,10 +1,9 @@
 import { Dimensions, StyleSheet } from 'react-native';
-
-import { SIZES, FONT, COLORS } from '../../../../constants/theme';
+import { SIZES, FONT, COLORS, COLORS_RED } from '../../../../constants/theme';
 
 const { height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     headerContainer: {
         height: height * 0.35,
         flexDirection: 'column',
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.TorBold,
         fontSize: SIZES.xLarge,
         letterSpacing: 2,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     }
 });
 

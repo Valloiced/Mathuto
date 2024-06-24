@@ -1,5 +1,8 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
+import { getTheme } from '../../../../utils/theme.utils';
+
+const theme = getTheme();
 
 const { width, height } = Dimensions.get('window');
 
@@ -36,7 +39,7 @@ const styles = StyleSheet.create({
         height: height * 0.3,
         flex: 1,
         borderWidth: 1,
-        borderColor: COLORS.textPrimary + '40',
+        borderColor: theme === 'default' ? COLORS.textPrimary + '40' : COLORS_RED.dark + '40',
         overflow: 'hidden'
     },
     videoPlayer: {
@@ -53,7 +56,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start'
     },
     videoTitle: {
-        color: COLORS.textTertiary,
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         fontFamily: FONT.PopBold,
         letterSpacing: 1,
         fontSize: SIZES.large
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
         gap: SIZES.medium
     },
     mainDetails: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.PopBold,
         fontSize: SIZES.small
     },
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: BORDER_RADIUS.xxLarge * 2,
         borderWidth: 2,
-        borderColor: COLORS.primary
+        borderColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary
     },
     channelImg: {
         width: '100%',
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
     channelName: {
         width: width * 0.4,
         lineHeight: SIZES.large,
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.PopBold,
         fontSize: SIZES.medium,
         overflow: 'hidden'

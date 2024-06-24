@@ -1,7 +1,9 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity } from 'react-native';
 
-import styles from './dialogs.style';
+import useTheme from '../../../hooks/useTheme';
+
+import getStyles  from './dialogs.style';
 
 export default function RedirectDialog({
     modalVisible,
@@ -9,6 +11,10 @@ export default function RedirectDialog({
     dialogCallback,
     setDialogCallback
 }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     const handleCancel = () => {
         dialogCallback(false);
         setModalVisible(false);

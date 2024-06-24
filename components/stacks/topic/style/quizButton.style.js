@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     gameButtonContainer: {
         position: 'fixed',
         bottom: 0,
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: SIZES.xSmall,
-        backgroundColor: COLORS.tertiary,
+        backgroundColor: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         borderTopRightRadius: BORDER_RADIUS.medium * 1.2,
         borderTopLeftRadius: BORDER_RADIUS.medium * 1.2
     },
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSBold,
         fontSize: SIZES.medium,
         letterSpacing: 1,
-        color: COLORS.tertiary
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary
     }
 });
 

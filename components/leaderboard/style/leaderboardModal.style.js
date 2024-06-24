@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
 const { height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     leaderboardModal: {
         flex: 1,
         minHeight: height * 0.5,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     refreshNote: {
         fontFamily: FONT.TorBold,
         fontSize: SIZES.small,
-        color: COLORS.textTertiary,
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         letterSpacing: 1,
         marginVertical: SIZES.small
     },
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: FONT.TorRegular,
         fontSize: SIZES.medium,
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.textPrimary,
         textAlign: 'center',
         marginTop: SIZES.medium
     },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderWidth: 3,
-        borderColor: COLORS.primary,
+        borderColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         borderRadius: BORDER_RADIUS.xxLarge,
         backgroundColor: COLORS.white
     },
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.small,
-        color: COLORS.textTertiary
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base
     },
     leaderboardCardWrapper: {
         flex: 1,

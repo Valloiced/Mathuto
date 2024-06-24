@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     subtopicBodyWrapper: {
         flexDirection: 'column',
         backgroundColor: COLORS.lightWhite
@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
     lessonNumber: {
         fontFamily: FONT.MSSemiBold,
         fontSize: SIZES.medium,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     },
     lessonName: {
         width: '90%',
         fontFamily: FONT.PopRegular,
         fontSize: SIZES.medium,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     }
 });
 

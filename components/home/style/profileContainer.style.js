@@ -1,15 +1,13 @@
-import { Dimensions, StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import {  StyleSheet } from 'react-native';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
-const { height } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     profileContainer: {
         width: '100%',
         paddingVertical: SIZES.xxSmall,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: COLORS.bgTertiary,
+        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF',
         gap: SIZES.large
     },
     profileWrapper: {
@@ -25,7 +23,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     }),
     profileHeader: {
-        color: '#1E2142',
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.large,
         flexWrap: 'wrap',
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
         borderRadius: BORDER_RADIUS.xxLarge * 2,
         padding: 4,
         backgroundColor: '#FFF',
-        borderColor: '#48B2FF',
+        borderColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         borderWidth: 5,
         overflow: 'hidden'
     },
@@ -46,14 +44,14 @@ const styles = StyleSheet.create({
         gap: SIZES.small
     },
     signInToSync: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSBold,
         fontSize: SIZES.small
     },
     signInBtn: {
         paddingHorizontal: SIZES.xxLarge * 2,
         paddingVertical: SIZES.xxSmall * 0.5,
-        backgroundColor: COLORS.tertiary,
+        backgroundColor: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         borderRadius: BORDER_RADIUS.medium
     },
     signInBtnText: {

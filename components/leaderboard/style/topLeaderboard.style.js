@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
 const { height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     topLeaderboard: {
         flex: 1,
         flexDirection: 'row',
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         width: '30%',
         paddingVertical: SIZES.xLarge * 1.2,
         alignItems: 'center',
-        backgroundColor: COLORS.secondary,
+        backgroundColor: theme === 'default' ? COLORS.secondary : COLORS_RED.white,
         borderTopLeftRadius: BORDER_RADIUS.medium,
         borderBottomLeftRadius: BORDER_RADIUS.medium
     },
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         paddingVertical: SIZES.xLarge * 0.9,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.secondary,
+        backgroundColor: theme === 'default' ? COLORS.secondary : COLORS_RED.white,
         borderTopRightRadius: BORDER_RADIUS.medium,
         borderBottomRightRadius: BORDER_RADIUS.medium
     },
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     ranker: {
         fontSize: SIZES.small,
         fontFamily: FONT.TorBold,
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         textAlign: 'center'
     },
     pointsWrapper: {
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     pointsLabel: {
         fontSize: SIZES.small,
         fontFamily: FONT.TorRegular,
-        color: COLORS.textTertiary
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base
     },
     points: (level) => ({
         // Top ranking will have larger font size
         fontSize: level === 'top' ? SIZES.large : SIZES.small,
         fontFamily: FONT.TorBold,
-        color: COLORS.textTertiary
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base
     }),
     rankImgWrapper: (size, borderColor) => ({
         position: 'absolute',

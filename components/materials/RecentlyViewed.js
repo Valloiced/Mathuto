@@ -1,14 +1,18 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
+import useTheme from '../../hooks/useTheme';
 import useCache from '../../hooks/useCache';
 
-import styles from './style/recentlyViewed.style';
+import getStyles from './style/recentlyViewed.style';
 
 import RecentlyViewedCard from './RecentlyViewedCard';
 
 export default function RecentlyViewed() {
     const { data } = useCache('recent-topics', []);
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const recentlyViewedCards = data.map((recentTopic) => (
         <RecentlyViewedCard

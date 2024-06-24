@@ -1,16 +1,18 @@
 import { StyleSheet } from 'react-native';
+import { COLORS, COLORS_RED, SIZES, FONT } from '../../../constants/theme';
+import { getTheme } from '../../../utils/theme.utils';
 
-import { COLORS, SIZES, FONT } from '../../../constants/theme';
+const theme = getTheme();
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.bgTertiary
+        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF',
     },
     loginHeader: {
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.xxLarge,
-        color: '#1E2142',
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         marginBottom: SIZES.xLarge,
         letterSpacing: 3
     },
@@ -18,7 +20,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        backgroundColor: COLORS.bgTertiary,
+        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF',
         paddingVertical: SIZES.medium
     },
     formsWrapper: {
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     icon: (dimensions) => ({
         width: dimensions,
         height: dimensions,
-        margin: SIZES.xxLarge * 1.5
+        marginTop: SIZES.large
     }),
     signupWrapper: {
         flexDirection: 'row',
@@ -40,11 +42,11 @@ const styles = StyleSheet.create({
         gap: SIZES.xxSmall * 0.5
     },
     subtitle: {
-        color: COLORS.tertiary,
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         fontSize: SIZES.xSmall
     },
     highlight: {
-        color: COLORS.tertiary,
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         fontFamily: 'MontBold',
         fontSize: SIZES.small
     }

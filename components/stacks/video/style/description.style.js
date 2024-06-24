@@ -1,5 +1,8 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
+import { getTheme } from '../../../../utils/theme.utils';
+
+const theme = getTheme();
 
 const { width } = Dimensions.get('window');
 
@@ -28,12 +31,12 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         paddingHorizontal: SIZES.small,
         paddingVertical: SIZES.xSmall,
-        backgroundColor: COLORS.primary,
+        backgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         borderRadius: BORDER_RADIUS.medium
     },
     descriptionWrapper: {
         flex: 1,
-        backgroundColor: COLORS.primary + '40',
+        backgroundColor: theme === 'default' ? COLORS.primary + '40' : COLORS_RED.primary + '40',
         paddingBottom: SIZES.xxLarge
     },
     description: {
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
         paddingVertical: SIZES.xLarge
     },
     content: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         lineHeight: SIZES.large,
         fontFamily: SIZES.PopBold,
         fontSize: SIZES.small

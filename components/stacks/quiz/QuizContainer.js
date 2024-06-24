@@ -1,10 +1,17 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 
-import styles from './style/quizContainer.style';
+import useTheme from '../../../hooks/useTheme';
+
+import getStyles from './style/quizContainer.style';
+
 import { COLORS, SHADOWS } from '../../../constants/theme';
 
 export default function QuizContainer({ loading, quizzes, handleCardPress }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     const renderQuizzes = quizzes.map((quiz) => {
         var formatType = quiz.type
             .split('-')

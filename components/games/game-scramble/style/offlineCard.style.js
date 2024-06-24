@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     offlineCardContainer: {
         flex: 1,
         flexDirection: 'row',
@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: SIZES.xLarge,
         paddingRight: SIZES.medium,
         borderWidth: 1,
-        borderColor: COLORS.textTertiary,
+        borderColor: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         borderRadius: BORDER_RADIUS.medium
     },
     offlineIcon: {
-        color: COLORS.textTertiary,
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         fontSize: SIZES.xxLarge * 1.5
     },
     offlineWrapper: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         gap: SIZES.medium
     },
     cardHeader: {
-        color: COLORS.textTertiary,
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.medium,
         textTransform: 'uppercase'

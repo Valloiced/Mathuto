@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
 const { height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     bannerContainer: {
         width: '100%',
         flexDirection: 'column',
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: FONT.MSBlack,
         fontSize: SIZES.xxLarge,
-        color: COLORS.primary,
+        color: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         letterSpacing: 1
     },
     bannerImgWrapper: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderWidth: 1,
-        borderColor: COLORS.primary,
+        borderColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         borderRadius: BORDER_RADIUS.small
     }
 });

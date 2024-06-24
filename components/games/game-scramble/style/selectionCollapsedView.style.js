@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
-
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     selectionCardCollapse: {
         backgroundColor: COLORS.white,
         borderBottomLeftRadius: BORDER_RADIUS.small,
@@ -15,7 +14,7 @@ const styles = StyleSheet.create({
         gap: SIZES.xSmall
     },
     collapsibleHeader: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSSemiBold,
         fontSize: SIZES.xSmall
     },

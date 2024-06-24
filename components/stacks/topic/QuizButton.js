@@ -2,16 +2,21 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 
+import useTheme from '../../../hooks/useTheme';
 import useProfile from '../../../hooks/useProfile';
 import useNetStatus from '../../../hooks/useNetStatus';
 
-import styles from './style/quizButton.style';
+import getStyles from './style/quizButton.style';
+
 import { SHADOWS } from '../../../constants/theme';
 import { router } from 'expo-router';
 
 export default function QuizButton({ topic_id }) {
     const { isConnected } = useNetStatus();
     const user = useProfile();
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const handlePress = () => {
         if (isConnected && user.uid) {

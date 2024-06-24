@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { BORDER_RADIUS, COLORS, COLORS_RED, SIZES } from '../../../constants/theme';
 
-import { BORDER_RADIUS, COLORS, SIZES } from '../../../constants/theme';
-
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     avatarContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
         borderRadius: BORDER_RADIUS.xxLarge + 10, // Half the width and height
         backgroundColor: COLORS.white,
         borderWidth: 5,
-        borderColor: COLORS.primary
+        borderColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary
     },
     avatarImg: {
         width: '100%',
@@ -32,12 +31,12 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.secondary,
+        backgroundColor: theme === 'default' ? COLORS.secondary : COLORS_RED.primaryLight,
         borderRadius: BORDER_RADIUS.xxLarge
     },
     icon: {
         fontSize: 20,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     }
 });
 

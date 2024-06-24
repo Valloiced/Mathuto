@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { BORDER_RADIUS, COLORS, SIZES, FONT } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     offlineViewContainer: {
         flex: 1,
         flexDirection: 'column',
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     goBackBtn: {
         paddingVertical: SIZES.xxSmall * 0.5,
         paddingHorizontal: SIZES.xxLarge,
-        backgroundColor: COLORS.textTertiary,
+        backgroundColor: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         borderRadius: BORDER_RADIUS.large
     },
     goBackBtnText: {

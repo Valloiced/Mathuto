@@ -4,6 +4,7 @@ import { Stack, router } from 'expo-router';
 import { StatusBar, ScrollView, View, Text } from 'react-native';
 import Toast from 'react-native-toast-message';
 
+import useTheme from '../../../hooks/useTheme';
 import useCache from '../../../hooks/useCache';
 import useNetStatus from '../../../hooks/useNetStatus';
 
@@ -14,9 +15,14 @@ import OfflineCard from '../../../components/games/game-scramble/OfflineCard';
 import OfflineView from '../../../components/games/game-scramble/OfflineView';
 
 import { COLORS, SIZES } from '../../../constants/theme';
-import styles from '../../../components/games/game-scramble/style/game-lobby.style';
+import getStyles from '../../../components/games/game-scramble/style/game-lobby.style';
+
 
 function SelectionLabel({ selectedCount }) {
+    const [theme, changeTheme] = useTheme();
+
+const styles = getStyles(theme);
+
     return (
         <View style={styles.selectionLabelWrapper}>
             <Text style={styles.topicsSelectedCount}>{selectedCount}</Text>
@@ -28,6 +34,9 @@ function SelectionLabel({ selectedCount }) {
 export default function GameLobby() {
     const { data, loadingCache } = useCache('topics', []);
     const { isConnected } = useNetStatus();
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const [materials, setMaterials] = useState([]);
     const [choosenTopics, setChoosenTopics] = useState([]);

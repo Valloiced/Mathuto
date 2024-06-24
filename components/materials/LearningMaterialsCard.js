@@ -3,9 +3,10 @@ import { router } from 'expo-router';
 import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import useTheme from '../../hooks/useTheme';
 import useCache from '../../hooks/useCache';
 
-import styles from './style/learningMaterials.style';
+import getStyles  from './style/learningMaterials.style';
 
 import { User } from '../../assets/icons';
 import itemBGRed from '../../assets/bg/material-red.png';
@@ -13,6 +14,10 @@ import { COLORS, SHADOWS } from '../../constants/theme';
 
 export default function LearningMaterialsCard({ topicId, topicName, itemCount, creator, version }) {
     const { data, cacheData } = useCache('recent-topics', []);
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     const addToRecentView = async () => {
         try {
             const recentTopics = data;

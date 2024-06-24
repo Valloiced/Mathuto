@@ -2,25 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import Toast from 'react-native-toast-message';
 
-import styles from '../../../components/settings/style/settings.style';
+import getStyles from '../../../components/settings/style/settings.style';
 
+import Appearance from '../../../components/settings/Appearance';
 import PersonalInfo from '../../../components/settings/PersonalInfo';
 import Password from '../../../components/settings/Password';
 import ButtonContainer from '../../../components/settings/ButtonContainer';
 import AppInfo from '../../../components/settings/AppInfo';
 
+import useTheme from '../../../hooks/useTheme';
 import useProfile from '../../../hooks/useProfile';
 import useNetStatus from '../../../hooks/useNetStatus';
 
 import ConfirmationDialog from '../../../components/common/dialogs/ConfirmationDialog';
+import ChangeThemeDialog from '../../../components/common/dialogs/ChangeThemeDialog';
 
 export default function Settings() {
     const user = useProfile();
     const { isConnected } = useNetStatus();
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     /* Dialogs for profile update confirmation */
     const [modalVisible, setModalVisible] = useState(false);
     const [dialogCallback, setDialogCallback] = useState(() => () => {}); // Sheesh
+
+    /* Dialogs for changin theme */
+    const [themeModalVisible, setThemeModalVisible] = useState(false);
+    const [themeDialogCallback, setThemeDialogCallback] = useState(() => () => {}); // Sheesh talaga
 
     useEffect(() => {
         if (isConnected === false) {
@@ -38,6 +48,10 @@ export default function Settings() {
     return (
         <>
             <ScrollView style={styles.settingsContainer}>
+                <Appearance 
+                    setModalVisible={setThemeModalVisible}
+                    setDialogCallback={setThemeDialogCallback}
+                />
                 <PersonalInfo
                     uid={user.uid}
                     username={user.username}
@@ -59,6 +73,12 @@ export default function Settings() {
                 setModalVisible={setModalVisible}
                 dialogCallback={dialogCallback}
                 setDialogCallback={setDialogCallback}
+            />
+            <ChangeThemeDialog 
+                modalVisible={themeModalVisible}
+                setModalVisible={setThemeModalVisible}
+                dialogCallback={themeDialogCallback}
+                setDialogCallback={setThemeDialogCallback}
             />
         </>
     );

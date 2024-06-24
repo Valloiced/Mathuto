@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const headings = {
+const headings = (theme) => ({
     fontFamily: FONT.MSExtraBold,
-    color: COLORS.textTertiary
-}
+    color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base
+})
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     body: {
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.small,
@@ -15,18 +15,18 @@ const styles = StyleSheet.create({
         gap: SIZES.medium
     },
     heading1: { ...headings, lineHeight: SIZES.xxLarge * 1.25 },
-    heading2: headings,
-    heading3: headings,
-    heading4: headings,
-    heading5: headings,
-    heading6: headings,
+    heading2: headings(theme),
+    heading3: headings(theme),
+    heading4: headings(theme),
+    heading5: headings(theme),
+    heading6: headings(theme),
     hr: {
         backgroundColor: COLORS.textSecondary + '40'
     },
     blockquote: {
-        backgroundColor: COLORS.bgTertiary,
-        borderColor: COLORS.primary,
-        color: COLORS.textPrimary
+        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF',
+        borderColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base
     }
 })
 

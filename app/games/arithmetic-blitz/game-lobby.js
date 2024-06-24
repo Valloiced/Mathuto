@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { StatusBar, ScrollView, View } from 'react-native';
 import { Stack } from 'expo-router';
 
-import styles from '../../../components/games/arithmetic-blitz/style/game-lobby.style';
+import useTheme from '../../../hooks/useTheme';
+
+import getStyles from '../../../components/games/arithmetic-blitz/style/game-lobby.style';
 
 import ReturnHeaderBtn from '../../../components/headers/ReturnHeaderBtn';
 import Header from '../../../components/games/arithmetic-blitz/Header';
@@ -10,10 +12,13 @@ import Description from '../../../components/games/arithmetic-blitz/Description'
 import StartButton from '../../../components/games/arithmetic-blitz/StartButton';
 import GameModal from '../../../components/games/arithmetic-blitz/Modal';
 
-import { COLORS } from '../../../constants/theme';
+import { COLORS, COLORS_RED } from '../../../constants/theme';
 
 export default function GameLobby() {
+    const [theme, changeTheme] = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
+
+    const styles = getStyles(theme);
 
     return (
         <>
@@ -26,7 +31,7 @@ export default function GameLobby() {
                     headerLeft: ReturnHeaderBtn,
                     headerTitle: '',
                     headerStyle: {
-                        backgroundColor: COLORS.bgTertiary
+                        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + '80'
                     }
                 }}
             />

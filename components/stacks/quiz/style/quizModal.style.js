@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     modalContainer: {
         flex: 1,
         position: 'relative',
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
         gap: SIZES.xxSmall
     },
     quizTitle: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.xLarge
     },
     quizQuestions: {
         color: COLORS.white,
-        backgroundColor: COLORS.primary,
+        backgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.xSmall,
         letterSpacing: 1,
@@ -80,11 +80,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: SIZES.small,
         lineHeight: SIZES.medium,
         color: COLORS.white,
-        backgroundColor: COLORS.primary,
+        backgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.small,
         borderWidth: 1,
-        borderColor: COLORS.textTertiary + '40',
+        borderColor: (theme === 'default' ? COLORS.textTertiary : COLORS_RED.base) + '40',
         borderRadius: BORDER_RADIUS.medium
     },
     currentWrapper: {
@@ -93,12 +93,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     currentLabel: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.PopRegular,
         fontSize: SIZES.small
     },
     currentDetail: {
-        color: COLORS.textPrimary + 'BF',
+        color: (theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark) + 'BF',
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.small
     },

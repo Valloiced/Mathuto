@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
-import styles from './style/topLeaderboard.style';
+
+import getStyles from './style/topLeaderboard.style';
+
+import useTheme from '../../hooks/useTheme';
 
 import { formatPoints } from '../../utils/leaderboard.utils';
 
@@ -8,6 +11,10 @@ import { User } from '../../assets/icons';
 import { SHADOWS } from '../../constants/theme';
 
 export default function TopLeaderbord({ topScores }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+
     const firstRank = topScores[0] || {};
     const secondRank = topScores[1] || {};
     const thirdRank = topScores[2] || {};

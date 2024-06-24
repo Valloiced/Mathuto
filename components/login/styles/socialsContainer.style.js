@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
+import { getTheme } from '../../../utils/theme.utils';
+
+const theme = getTheme();
 
 const styles = StyleSheet.create({
     socialsContainer: {
@@ -9,7 +12,7 @@ const styles = StyleSheet.create({
         marginTop: SIZES.xxSmall * 0.5
     },
     socialSubtitle: {
-        color: COLORS.tertiary,
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         fontFamily: FONT.MSBold,
         fontSize: SIZES.small
     },

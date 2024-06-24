@@ -2,10 +2,15 @@ import React from 'react';
 import { View, Text, ImageBackground, Image, TouchableOpacity, Linking } from 'react-native';
 import WebView from 'react-native-webview';
 
+import useTheme from '../../../hooks/useTheme';
+
 import { formatViews } from '../../../utils/youtube.utils';
 
-import blob1 from '../../../assets/blob/blob1.png';
-import blob2 from '../../../assets/blob/blob2.png';
+import BlobDefault1 from '../../../assets/blob/blob-default-1.png';
+import BlobDefault2 from '../../../assets/blob/blob-default-2.png';
+
+import BlobRed1 from '../../../assets/blob/blob-red-1.png';
+import BlobRed2 from '../../../assets/blob/blob-red-2.png';
 
 import { YouTube } from '../../../assets/icons';
 
@@ -21,6 +26,8 @@ export default function VideoPlayer({
     channelName = '',
     channelImg = ''
 }) {
+    const [theme, changeTheme] = useTheme();
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -36,10 +43,10 @@ export default function VideoPlayer({
     return (
         <View style={styles.videoPlayerContainer}>
             <View style={styles.blob1Wrapper}>
-                <ImageBackground source={blob1} style={styles.blob} />
+                <ImageBackground source={theme === 'default' ? BlobDefault1 : BlobRed1} style={styles.blob} />
             </View>
             <View style={styles.blob2Wrapper}>
-                <ImageBackground source={blob2} style={styles.blob} />
+                <ImageBackground source={theme === 'default' ? BlobDefault2 : BlobRed2} style={styles.blob} />
             </View>
             <View style={styles.playerContainer}>
                 <WebView

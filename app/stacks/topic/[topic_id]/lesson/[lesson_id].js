@@ -4,9 +4,10 @@ import { Stack, useGlobalSearchParams } from 'expo-router';
 import { ScrollView, ActivityIndicator } from 'react-native';
 // import Toast from 'react-native-toast-message';
 
+import useTheme from '../../../../../hooks/useTheme';
 import useCache from '../../../../../hooks/useCache';
 
-import styles from '../../../../../components/stacks/lesson/style/lesson.style';
+import getStyles from '../../../../../components/stacks/lesson/style/lesson.style';
 
 import ReturnHeaderBtn from '../../../../../components/headers/ReturnHeaderBtn';
 import Header from '../../../../../components/stacks/lesson/Header';
@@ -18,6 +19,9 @@ import { COLORS } from '../../../../../constants/theme';
 
 export default function Lesson() {
     const { data, loadingCache } = useCache('topics', []);
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const params = useGlobalSearchParams();
 

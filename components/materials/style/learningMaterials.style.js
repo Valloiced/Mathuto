@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
-
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     learningMaterialsContainer: {
         flex: 1,
         gap: SIZES.xSmall
@@ -10,7 +9,7 @@ const styles = StyleSheet.create({
     learningMaterialsHeader: {
         fontFamily: FONT.MSBold,
         marginVertical: SIZES.small,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     },
     learningMaterialsItem: {
         flex: 1,
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: SIZES.xxLarge,
         borderRadius: BORDER_RADIUS.medium,
         borderWidth: 1,
-        borderColor: COLORS.primary
+        borderColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary
     },
     detailsWrapper: {
         marginBottom: SIZES.xLarge
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.large,
         textTransform: 'uppercase',
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         marginBottom: SIZES.xxSmall * 0.2 * -1 // Minimize margin
     },
     materialCount: {
@@ -61,11 +60,11 @@ const styles = StyleSheet.create({
         borderRadius: BORDER_RADIUS.xxLarge * 2,
         padding: 5,
         backgroundColor: '#FFF',
-        borderColor: '#48B2FF',
+        borderColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         borderWidth: 1
     },
     creator: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.small
     }

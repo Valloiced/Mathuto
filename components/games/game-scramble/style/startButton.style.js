@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { COLORS, COLORS_RED, SIZES, FONT, BORDER_RADIUS } from '../../../../constants/theme';
 
-import { COLORS, SIZES, FONT, BORDER_RADIUS } from '../../../../constants/theme';
-
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         position: 'fixed',
@@ -11,7 +10,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: SIZES.xSmall,
-        backgroundColor: COLORS.tertiary,
+        backgroundColor: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         borderTopRightRadius: BORDER_RADIUS.medium * 1.2,
         borderTopLeftRadius: BORDER_RADIUS.medium * 1.2
     },
@@ -29,7 +28,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.medium,
         letterSpacing: 2,
-        color: COLORS.tertiary
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary
     }
 });
 

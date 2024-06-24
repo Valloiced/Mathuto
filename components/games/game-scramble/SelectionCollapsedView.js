@@ -2,22 +2,26 @@ import React, { useId, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { View, Text, ActivityIndicator } from 'react-native';
 
+import useTheme from '../../../hooks/useTheme';
 import useCache from '../../../hooks/useCache';
+import useNetStatus from '../../../hooks/useNetStatus';
 
 import { filterPlayableTerms } from './game/utils/game.utils';
 
-import useNetStatus from '../../../hooks/useNetStatus';
-import styles from './style/selectionCollapsedView.style';
+import getStyles from './style/selectionCollapsedView.style';
 
 // For bullet lists
-function RenderBulletList({ term }) {
-    return <Text style={styles.termItem}>{`\u2022 ${term}`}</Text>;
+function RenderBulletList({ styles, term }) {
+    return <Text style={styles}>{`\u2022 ${term}`}</Text>;
 }
 
 export default function SelectionCollapsedView({ section, isCollapsed }) {
     const id = useId();
     const { isConnected } = useNetStatus();
     const { data, loadingCache } = useCache('topics', []);
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const [playableTerms, setPlayableTerms] = useState([]);
 
@@ -98,7 +102,11 @@ export default function SelectionCollapsedView({ section, isCollapsed }) {
             <View key={id + columnIndex} style={styles.termsColumn}>
                 {/* Items */}
                 {column.map((term, termIndex) => (
-                    <RenderBulletList key={term.term + termIndex} term={term.term} />
+                    <RenderBulletList
+                        styles={styles.termItem}
+                        key={term.term + termIndex} 
+                        term={term.term} 
+                    />
                 ))}
             </View>
         ));

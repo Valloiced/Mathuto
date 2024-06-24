@@ -18,6 +18,17 @@ const COLORS = {
     disabled: '#7D96C0'
 };
 
+const COLORS_RED = {
+    primary: '#F87662',
+    primaryLight: '#FFC7BE',
+    white: '#FFECE9',
+    secondary: '#FF6851',
+    tertiary: '#F86262',
+    dark: '#3A0800',
+    base: '#732C21',
+    disabled: '#C07D7D'
+};
+
 const FONT = {
     MSRegular: 'Mont',
     MSMedium: 'MontMedium',
@@ -82,5 +93,13 @@ const BORDER_RADIUS = {
     xLarge: 40,
     xxLarge: 50
 };
+    
 
-export { COLORS, FONT, SIZES, SHADOWS, BORDER_RADIUS };
+export { 
+    COLORS_RED, 
+    COLORS, 
+    FONT, 
+    SIZES, 
+    SHADOWS, 
+    BORDER_RADIUS
+};

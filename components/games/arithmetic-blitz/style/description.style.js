@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     descriptionContainer: {
         flex: 1
     },
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.medium,
         letterSpacing: 2,
-        color: COLORS.textTertiary
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base
     },
     content: {
         color: COLORS.textSecondary + 'BF', // 75% opacity

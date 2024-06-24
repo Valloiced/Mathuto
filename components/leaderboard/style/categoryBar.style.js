@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     leaderboardCategory: {
         flex: 1,
         flexDirection: 'row',
         marginHorizontal: SIZES.medium,
         alignContent: 'stretch',
         justifyContent: 'space-between',
-        backgroundColor: COLORS.textTertiary,
+        backgroundColor: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         borderRadius: BORDER_RADIUS.xxLarge,
         overflow: 'hidden'
     },

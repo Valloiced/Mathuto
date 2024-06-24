@@ -2,13 +2,17 @@ import React from 'react';
 import { router } from 'expo-router';
 import { View, Text, TouchableOpacity } from 'react-native';
 
+import useTheme from '../../../hooks/useTheme';
 import useCache from '../../../hooks/useCache';
 
-import styles from './style/subtopicBody.style';
+import getStyles from './style/subtopicBody.style';
 
 function LessonCard({ topicId, lessonId, lessonNo, lessonName }) {
     /** Cache-based, however, make it database-based later */
     const { data, cacheData } = useCache('recent-lessons', []);
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const addToRecentView = async () => {
         try {
@@ -68,6 +72,10 @@ function LessonCard({ topicId, lessonId, lessonNo, lessonName }) {
 }
 
 export default function SubtopicBody({ topicId, section }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     const lessonCard = section.lessons.map((lesson, index) => {
         const { id, name, lessonNo } = lesson;
 

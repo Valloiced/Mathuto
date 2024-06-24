@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     optionsContainer: {
         flex: 1,
         padding: SIZES.medium,
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         marginBottom: SIZES.xxLarge
     },
     categoryHeader: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.medium,
         letterSpacing: 1,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         paddingVertical: SIZES.medium,
         justifyContent: 'center',
         borderWidth: 1,
-        borderColor: COLORS.textTertiary,
+        borderColor: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         borderRadius: BORDER_RADIUS.small
     },
     gameOptionBg: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     gameOptionTitle: {
         marginLeft: SIZES.medium,
         fontFamily: FONT.TorBold,
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontSize: SIZES.large,
         letterSpacing: 1
     }

@@ -1,15 +1,22 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, COLORS_RED } from '../../../constants/theme';
 
 const { height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles =(theme = 'default') => StyleSheet.create({
     banner: {
         width: '100%',
         height: height * 0.25,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.primary
+        backgroundColor: theme === 'default' ? COLORS.primary :  COLORS_RED.primaryLight
+    },
+    bannerImgWrapper: {
+        width: '90%'
+    },
+    bannerImg: {
+        width: '100%',
+        height: '100%'
     }
 });
 

@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, COLORS_RED } from '../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     mainContainer: {
         flex: 1,
-        backgroundColor: COLORS.bgSecondary
+        backgroundColor: theme === 'default' ? COLORS.bgSecondary : COLORS_RED.white + '80'
     }
 });
 

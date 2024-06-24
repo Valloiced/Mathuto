@@ -1,13 +1,19 @@
 import React from 'react';
+import { router } from 'expo-router';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 
-import styles from './style/profileContainer.style';
+import useTheme from '../../hooks/useTheme';
+
+import getStyles from './style/profileContainer.style';
 
 import { User } from '../../assets/icons';
 import { SHADOWS } from '../../constants/theme';
-import { router } from 'expo-router';
 
 export default function ProfileContainer({ username, profileImg = '' }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     return (
         <View style={styles.profileContainer}>
             <View style={[styles.imageContainer, SHADOWS.medium]}>

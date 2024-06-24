@@ -1,9 +1,9 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
 const { width } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     detailsContainer: {
         position: 'relative',
         flex: 1
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     topicTitle: {
         fontFamily: FONT.MSBold,
         fontSize: SIZES.xxLarge,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     },
     creator: {
         fontFamily: FONT.PopRegular,

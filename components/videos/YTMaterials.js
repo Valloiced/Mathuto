@@ -4,13 +4,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { useNetInfo } from '@react-native-community/netinfo';
 
-import styles from './style/ytMaterials.style';
-import YTMaterialsCard from './YTMaterialsCard';
+import useTheme from '../../hooks/useTheme';
+
 import { getChannelDetails, getVideoDetails, searchVideosList } from '../../utils/youtube.utils';
+
+import getStyles  from './style/ytMaterials.style';
+
+import YTMaterialsCard from './YTMaterialsCard';
 import { COLORS } from '../../constants/theme';
 
 export default function YTMaterials() {
     const netinfo = useNetInfo();
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
 
     const [searchData, setSearchData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
@@ -50,7 +57,7 @@ export default function YTMaterials() {
             let response = await AsyncStorage.getItem('saved-yt-queries');
             let latestQueries = JSON.parse(response);
 
-            if (!latestQueries) {
+            if (!latestQueries || !latestQueries?.videoData.length) {
                 return true; // Fetch data if there is no queries saved yet
             }
 
@@ -115,6 +122,14 @@ export default function YTMaterials() {
                     defaultValues + (searchTerms ? ',' + searchTerms : ''),
                     200
                 );
+
+                // If videoList is empty, the query set must be deformed, let's refetch it
+                if (!videoList.length) {
+                    videoList = await searchVideosList(defaultValues, 200);
+                    
+                    // Reset cache
+                    await AsyncStorage.removeItem('recent-lessons');
+                }
 
                 const latestQueries = {
                     fetchDate: new Date(),

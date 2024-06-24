@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Linking } from 'react-native';
 import Markdown from 'react-native-markdown-display';
 
+import useTheme from '../../../hooks/useTheme';
+
 import { Link } from '../../../assets/icons';
 
 import RedirectDialog from '../../common/dialogs/RedirectDialog';
 
-import styles from './style/content.style';
-import markdownStyles from './style/markdown.style';
+import getStyles from './style/content.style';
+import getMarkdownStyles from './style/markdown.style';
 
 function LinkCard({ link, handleRedirect }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     return (
         <TouchableOpacity style={styles.linkCard} onPress={() => handleRedirect(link)}>
             <View style={styles.iconWrapper}>
@@ -21,6 +27,11 @@ function LinkCard({ link, handleRedirect }) {
 }
 
 export default function Description({ content, currentTab }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    const markdownStyles = getMarkdownStyles(theme);
+    
     const descriptionHeader =
         currentTab === 'summary'
             ? 'Brief Summary'

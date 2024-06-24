@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     descriptionContainer: {
         flex: 2,
         backgroundColor: COLORS.white,
@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
     },
     icon: {
         fontSize: SIZES.xLarge,
-        color: COLORS.textTertiary
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base
     },
     link: {
         marginLeft: SIZES.large,
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.PopBold,
         fontSize: SIZES.xSmall
     },
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontFamily: FONT.PopSemiBold,
         fontSize: SIZES.small,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     }
 });
 

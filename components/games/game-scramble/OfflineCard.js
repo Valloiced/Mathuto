@@ -1,12 +1,18 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 
+import useTheme from '../../../hooks/useTheme';
+
 import { Offline } from '../../../assets/icons';
 
-import styles from './style/offlineCard.style';
+import getStyles from './style/offlineCard.style';
+
 import { SHADOWS } from '../../../constants/theme';
 
 export default function OfflineCard() {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
     return (
         <View style={[styles.offlineCardContainer, SHADOWS.medium]}>
             <View style={styles.iconWrapper}>

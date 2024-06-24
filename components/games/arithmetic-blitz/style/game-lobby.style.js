@@ -1,12 +1,12 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { COLORS } from '../../../../constants/theme';
+import { COLORS, COLORS_RED } from '../../../../constants/theme';
 
 const { width, height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     gameLobbyContainer: {
         flex: 1,
-        backgroundColor: COLORS.bgTertiary
+        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + '80'
     },
     overlay: {
         position: 'absolute',

@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
+import { SIZES, COLORS, COLORS_RED, FONT, BORDER_RADIUS } from '../../../constants/theme';
+import { getTheme } from '../../../utils/theme.utils';
 
-import { SIZES, COLORS, FONT, BORDER_RADIUS } from '../../../constants/theme';
+const theme = getTheme();
 
 const styles = StyleSheet.create({
     passwordResetContainer: {
@@ -9,13 +11,13 @@ const styles = StyleSheet.create({
         padding: SIZES.xLarge
     },
     passwordResetHeader: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.xxLarge,
         letterSpacing: 2
     },
     description: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSLight,
         fontSize: SIZES.small,
         letterSpacing: 1
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
     inputWrapper: {
         flexDirection: 'row',
         width: '100%',
-        borderBottomColor: COLORS.textPrimary,
+        borderBottomColor: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         borderBottomWidth: 2,
         marginVertical: SIZES.xLarge,
         paddingVertical: SIZES.xxSmall,
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
     passwordResetInput: {
         flex: 1,
         fontFamily: FONT.MSRegular,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     },
     iconWrapper: {
         width: '10%',
@@ -49,11 +51,11 @@ const styles = StyleSheet.create({
         gap: SIZES.xxSmall * 0.5
     },
     subtitle: {
-        color: COLORS.tertiary,
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         fontSize: SIZES.xSmall
     },
     highlight: {
-        color: COLORS.tertiary,
+        color: theme === 'default' ? COLORS.tertiary: COLORS_RED.tertiary,
         fontFamily: 'MontBold',
         fontSize: SIZES.small
     },
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         color: '#FFF',
-        backgroundColor: COLORS.primary,
+        backgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         marginTop: SIZES.medium,
         paddingVertical: SIZES.small,
         borderRadius: BORDER_RADIUS.small

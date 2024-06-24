@@ -6,6 +6,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { manipulateAsync } from 'expo-image-manipulator';
 import Toast from 'react-native-toast-message';
 
+import useTheme from '../../hooks/useTheme';
+
 import { firebaseAuthService } from '../../utils/firebase.utils';
 import { uploadProfileImg } from '../../utils/upload.util';
 
@@ -13,8 +15,8 @@ import { User, Edit, Checkmark } from '../../assets/icons';
 
 import { COLORS, SHADOWS } from '../../constants/theme';
 
-import styles from './style/personalInfo.style';
-import layoutStyles from './style/settings.style';
+import getStyles from './style/personalInfo.style';
+import getLayoutStyles from './style/settings.style';
 
 export default function PersonalInfo({
     uid,
@@ -24,6 +26,11 @@ export default function PersonalInfo({
     setModalVisible,
     setDialogCallback
 }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    const layoutStyles = getLayoutStyles(theme);
+
     const [pendingUpdates, setPendingUpdates] = useState({
         newUsername: '',
         newEmail: '',

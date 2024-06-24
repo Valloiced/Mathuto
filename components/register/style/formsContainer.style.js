@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
+import { getTheme } from '../../../utils/theme.utils';
+
+const theme = getTheme();
 
 const styles = StyleSheet.create({
     formsContainer: {
@@ -14,7 +17,7 @@ const styles = StyleSheet.create({
     inputWrapper: {
         flexDirection: 'row',
         width: '90%',
-        borderBottomColor: COLORS.textPrimary,
+        borderBottomColor: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         borderBottomWidth: 2,
         paddingVertical: SIZES.xxSmall,
         alignItems: 'center'
@@ -22,7 +25,7 @@ const styles = StyleSheet.create({
     registerInput: {
         flex: 1,
         fontFamily: FONT.MSRegular,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     },
     iconWrapper: {
         width: '10%',
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         color: '#FFF',
-        backgroundColor: isRegistering ? COLORS.primary + '80' : COLORS.primary,
+        backgroundColor: (theme === 'default' ? COLORS.primary : COLORS_RED.primary) + (isRegistering ? '80' : ''),
         marginTop: SIZES.medium,
         paddingVertical: SIZES.small,
         borderRadius: BORDER_RADIUS.small

@@ -1,9 +1,15 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-import styles from './style/categoryBar.style';
+import getStyles  from './style/categoryBar.style';
+
+import useTheme from '../../hooks/useTheme';
 
 export default function CategoryBar({ currentCategory, setCurrentCategory }) {
+    const [theme, changeTheme] = useTheme();
+
+    const styles = getStyles(theme);
+    
     return (
         <View style={styles.leaderboardCategory}>
             <TouchableOpacity

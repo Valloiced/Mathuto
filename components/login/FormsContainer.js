@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'expo-router';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 
+import useTheme from '../../hooks/useTheme';
+
 import { Mail, Lock } from '../../assets/icons';
 
-import { COLORS, SHADOWS } from '../../constants/theme';
+import { COLORS, COLORS_RED, SHADOWS } from '../../constants/theme';
 import styles from './styles/formsContainer.style';
 
 export default function FormsContainer({
@@ -14,6 +16,7 @@ export default function FormsContainer({
     handlePasswordInput,
     handleLogin
 }) {
+    const [theme, changeTheme] = useTheme();
     return (
         <View style={styles.inputContainer}>
             <View style={[styles.inputWrapper, SHADOWS.small]}>
@@ -22,7 +25,7 @@ export default function FormsContainer({
                     name="email"
                     style={styles.loginInput}
                     placeholder="Email Address"
-                    placeholderTextColor={COLORS.tertiary}
+                    placeholderTextColor={theme === 'default' ? COLORS.tertiary: COLORS_RED.tertiary}
                     value={loginForm.email}
                     onChangeText={handleEmailInput}
                 />
@@ -33,7 +36,7 @@ export default function FormsContainer({
                     name="password"
                     style={styles.loginInput}
                     placeholder="Password"
-                    placeholderTextColor={COLORS.tertiary}
+                    placeholderTextColor={theme === 'default' ? COLORS.tertiary: COLORS_RED.tertiary}
                     value={loginForm.password}
                     onChangeText={handlePasswordInput}
                     secureTextEntry={true}

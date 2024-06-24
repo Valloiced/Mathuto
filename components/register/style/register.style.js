@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
+import { getTheme } from '../../../utils/theme.utils';
+
+const theme = getTheme();
 
 const styles = StyleSheet.create({
     registerContainer: {
@@ -9,7 +12,7 @@ const styles = StyleSheet.create({
         gap: SIZES.large
     },
     registerHeader: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.xxLarge,
         letterSpacing: 3
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
         fontSize: SIZES.small,
         fontFamily: FONT.MSBold,
         letterSpacing: 1,
-        color: COLORS.tertiary
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
     },
     subtitle: {
         fontFamily: FONT.PopBold,

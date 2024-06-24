@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
-
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     settingsContainer: {
         flex: 1,
         flexDirection: 'column',
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
     settingsHeader: {
         fontFamily: FONT.MSBold,
         fontSize: SIZES.medium,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
     },
     settingsWrapper: {
         flex: 1,
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
         paddingVertical: SIZES.xxSmall,
         paddingHorizontal: SIZES.large,
         borderRadius: BORDER_RADIUS.small,
-        backgroundColor: COLORS.textPrimary + '0D'
+        backgroundColor: theme === 'default' ? COLORS.textPrimary + '0D' : COLORS_RED.dark + '0D'
     },
     submitContainer: {
         flexDirection: 'row',
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: SIZES.xxSmall,
         paddingHorizontal: SIZES.large,
-        backgroundColor: COLORS.textTertiary + (isBeingUpdated ? 'BF' : '80'),
+        backgroundColor: (theme === 'default' ? COLORS.textTertiary : COLORS_RED.base) + (!isBeingUpdated ? '80' : ''),
         borderRadius: BORDER_RADIUS.medium
     }),
     submitLabel: {
@@ -88,7 +87,11 @@ const styles = StyleSheet.create({
     formIndicatorLabel: (isSubmitting) => ({
         fontSize: SIZES.small,
         fontFamily: FONT.PopRegular,
-        color: isSubmitting ? COLORS.textPrimary : '#1C9336'
+        color: isSubmitting 
+        ? (theme === 'default' 
+            ? COLORS.textPrimary 
+            : COLORS_RED.dark + '0D'
+        ) : '#1C9336'
     }),
     loginRequired: {
         color: '#B63D3D'

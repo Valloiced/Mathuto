@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     headerContainer: {
         flex: 1,
         flexDirection: 'column',
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         marginRight: SIZES.large,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.xxLarge,
-        color: COLORS.textPrimary
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
     }
 });
 

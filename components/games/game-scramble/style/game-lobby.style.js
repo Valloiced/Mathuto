@@ -1,16 +1,16 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { COLORS, FONT, SIZES } from '../../../../constants/theme';
+import { COLORS, COLORS_RED, FONT, SIZES } from '../../../../constants/theme';
 
 const { height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     headerTitle: {
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         fontFamily: FONT.TorBold,
         fontSize: SIZES.large
     },
     gameLobbyContainer: {
-        backgroundColor: COLORS.bgSecondary
+        backgroundColor: theme === 'default' ? COLORS.bgSecondary : COLORS_RED.white
     },
     selectionContainer: {
         flexDirection: 'column',
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         fontSize: SIZES.xSmall
     },
     topicsSelectedCount: {
-        color: COLORS.textTertiary,
+        color: theme === 'default' ? COLORS.textTertiary : COLORS_RED.base,
         fontFamily: FONT.MSExtraBold,
         fontSize: SIZES.large
     }

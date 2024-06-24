@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { BORDER_RADIUS, COLORS, COLORS_RED, FONT, SIZES } from '../../../constants/theme';
 
 const { width, height } = Dimensions.get('window');
 
-const styles = StyleSheet.create({
+const styles = (theme = 'default') => StyleSheet.create({
     ytMaterialContainer: {
         width: '100%',
         marginTop: SIZES.large,
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         gap: SIZES.medium
     },
     ytHeaderWrapper: {
-        backgroundColor: COLORS.primary,
+        backgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
         alignSelf: 'flex-start',
         paddingHorizontal: SIZES.medium,
         paddingVertical: SIZES.xSmall,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: BORDER_RADIUS.medium,
         borderBottomRightRadius: BORDER_RADIUS.medium,
         borderWidth: 2,
-        borderColor: COLORS.textPrimary + '40' // 25% opacity
+        borderColor: theme === 'default' ? COLORS.textPrimary + '40' : COLORS_RED.dark + '40' // 25% opacity
     },
     ytMaterialThumbnail: {
         width: '100%',
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     ytMaterialTitle: {
         fontSize: SIZES.medium,
         fontFamily: FONT.PopBold,
-        color: COLORS.textPrimary,
+        color: theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark,
         lineHeight: SIZES.large
     },
     ytInfoWrapper: {
