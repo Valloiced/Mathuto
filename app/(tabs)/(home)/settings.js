@@ -48,7 +48,7 @@ export default function Settings() {
     return (
         <>
             <ScrollView style={styles.settingsContainer}>
-                <Appearance 
+                <Appearance
                     setModalVisible={setThemeModalVisible}
                     setDialogCallback={setThemeDialogCallback}
                 />
@@ -74,7 +74,7 @@ export default function Settings() {
                 dialogCallback={dialogCallback}
                 setDialogCallback={setDialogCallback}
             />
-            <ChangeThemeDialog 
+            <ChangeThemeDialog
                 modalVisible={themeModalVisible}
                 setModalVisible={setThemeModalVisible}
                 dialogCallback={themeDialogCallback}

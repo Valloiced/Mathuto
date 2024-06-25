@@ -9,6 +9,8 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 
+import useSound from '../../../../hooks/useSound';
+
 import { filterSymbols } from './utils/quiz.utils';
 
 import IdentificationInputBG from '../../../../assets/bg/identification-input-bg.png';
@@ -23,6 +25,7 @@ export default function QuizInput({
     isLastQuestion,
     dispatch
 }) {
+    const { sounds, playSound } = useSound();
     const symbols = filterSymbols(correctAnswer || '');
 
     return (
@@ -46,7 +49,10 @@ export default function QuizInput({
                 />
                 <TouchableOpacity
                     style={[styles.quizInputBtn, SHADOWS.medium]}
-                    onPress={handleAnswer}
+                    onPress={() => {
+                        playSound(sounds.click);
+                        handleAnswer();
+                    }}
                 >
                     <Text style={styles.quizInputBtnText}>
                         {isLastQuestion ? 'FINISH' : 'SUBMIT'}

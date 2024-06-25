@@ -36,9 +36,11 @@ export default function Topics() {
     const categorizeBySubtopics = useCallback((alternativeCategory, uncategorizeLessons) => {
         const categorizedLessons = [];
         let globalLessonNo = 1;
-    
-        const lessonsBySubtopic = [...uncategorizeLessons].sort((a, b) => a.subtopic.localeCompare(b.subtopic));
-    
+
+        const lessonsBySubtopic = [...uncategorizeLessons].sort((a, b) =>
+            a.subtopic.localeCompare(b.subtopic)
+        );
+
         lessonsBySubtopic.forEach((lesson) => {
             const subtopic = lesson.subtopic || alternativeCategory;
             let existingCategory = categorizedLessons.find(
@@ -48,15 +50,14 @@ export default function Topics() {
                 existingCategory = { subtopic, lessons: [] };
                 categorizedLessons.push(existingCategory);
             }
-    
+
             const { lessonNo, ...lessonData } = lesson;
             existingCategory.lessons.push({ ...lessonData, lessonNo: globalLessonNo });
             globalLessonNo++;
         });
-    
+
         return categorizedLessons;
     }, []);
-    
 
     const fetchData = useCallback(async () => {
         try {
@@ -90,8 +91,8 @@ export default function Topics() {
 
                 const cacheData = {
                     ...response.data,
-                    lessons: (categorizedLessons.map((category) => category.lessons)).flat(1) // Use this categorized numbering format
-                }
+                    lessons: categorizedLessons.map((category) => category.lessons).flat(1) // Use this categorized numbering format
+                };
 
                 createNewCache = [cacheData, ...createNewCache];
 

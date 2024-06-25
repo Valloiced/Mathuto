@@ -6,6 +6,7 @@ import Animated, { BounceIn, BounceOut, Easing } from 'react-native-reanimated';
 import LottieView from 'lottie-react-native';
 import Toast from 'react-native-toast-message';
 
+import useSound from '../../../../hooks/useSound';
 import useProfile from '../../../../hooks/useProfile';
 import useNetStatus from '../../../../hooks/useNetStatus';
 
@@ -26,6 +27,7 @@ const Status = ({ message }) => (
 export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, isCompleted }) {
     const user = useProfile();
     const { isConnected } = useNetStatus();
+    const { sounds, playSound } = useSound();
 
     const [showConfetti, setShowConfetti] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -166,6 +168,7 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
                         disabled={submitting}
                         style={[styles.button('#66FF88', submitting), SHADOWS.medium]}
                         onPress={() => {
+                            playSound(sounds.click);
                             router.replace(`/home`);
                         }}
                     >
@@ -174,7 +177,10 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
                     <TouchableOpacity
                         disabled={submitting}
                         style={[styles.button('#E34D4D', submitting), SHADOWS.medium]}
-                        onPress={() => router.replace(`/games/math-scramble/game/${gameQuery}`)}
+                        onPress={() => {
+                            playSound(sounds.click);
+                            router.replace(`/games/math-scramble/game/${gameQuery}`);
+                        }}
                     >
                         <Restart size={25} color={'#490000'} />
                     </TouchableOpacity>

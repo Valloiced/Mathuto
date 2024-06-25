@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import Animated, { BounceIn } from 'react-native-reanimated';
 
+import useSound from '../../../../hooks/useSound';
+
 import { Shuffle } from '../../../../assets/icons';
 import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 
@@ -27,6 +29,7 @@ export default function GameInput({
     dispatch
 }) {
     const id = useId();
+    const { sounds, playSound } = useSound();
     const termLength = scrambledTerm.reduce((acc, word) => (acc += word.length), 0);
 
     // Create empty two dimensional array that resembles the scrambled term
@@ -123,10 +126,14 @@ export default function GameInput({
     }, [answerArray, answerInput, answerStatus, fontSize, id, scrambledTerm]);
 
     useEffect(() => {
-        if (answerStatus.isAnswered) {
-            toTextBoxes();
-        }
-    }, [answerStatus, toTextBoxes]);
+        const playWaveSound = () => {
+            for (let i = 0; i < termLength; i++) {
+                setTimeout(() => playSound(sounds.popup), i * 100);
+            }
+        };
+
+        playWaveSound();
+    }, [termLength]);
 
     const handleOnPress = () => {
         textInputRef?.current?.focus();
@@ -138,7 +145,10 @@ export default function GameInput({
         <View style={styles.gameInputContainer}>
             <View style={styles.shuffleWrapper}>
                 <TouchableOpacity
-                    onPress={() => dispatch({ type: 'SHUFFLE' })}
+                    onPress={() => {
+                        playSound(sounds.click);
+                        dispatch({ type: 'SHUFFLE' });
+                    }}
                     disabled={answerStatus.isAnswered}
                 >
                     <Shuffle style={styles.shuffleIcon(levelTheme)} />
@@ -155,7 +165,10 @@ export default function GameInput({
             </View>
             <TouchableOpacity
                 style={styles.gameInputBtn(answerStatus.isAnswered)}
-                onPress={handleSubmit}
+                onPress={() => {
+                    playSound(sounds.click);
+                    handleSubmit();
+                }}
                 disabled={answerStatus.isAnswered}
             >
                 <Text style={styles.gameInputBtnText}>SUBMIT</Text>

@@ -43,10 +43,16 @@ export default function VideoPlayer({
     return (
         <View style={styles.videoPlayerContainer}>
             <View style={styles.blob1Wrapper}>
-                <ImageBackground source={theme === 'default' ? BlobDefault1 : BlobRed1} style={styles.blob} />
+                <ImageBackground
+                    source={theme === 'default' ? BlobDefault1 : BlobRed1}
+                    style={styles.blob}
+                />
             </View>
             <View style={styles.blob2Wrapper}>
-                <ImageBackground source={theme === 'default' ? BlobDefault2 : BlobRed2} style={styles.blob} />
+                <ImageBackground
+                    source={theme === 'default' ? BlobDefault2 : BlobRed2}
+                    style={styles.blob}
+                />
             </View>
             <View style={styles.playerContainer}>
                 <WebView

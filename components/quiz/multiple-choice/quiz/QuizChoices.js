@@ -1,9 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 import Animated, { BounceInRight, FadeOut } from 'react-native-reanimated';
 
+import useSound from '../../../../hooks/useSound';
+
+import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
+
 export default function QuizChoices({ choosenAnswer, choices, handleAnswer, answerStatus }) {
+    const { sounds, playSound } = useSound();
+
     const renderChoices = choices.map((choice, index) => {
         const enterAnimation = BounceInRight.delay(index * 50);
         const exitAnimation = FadeOut.delay(index);
@@ -13,7 +18,10 @@ export default function QuizChoices({ choosenAnswer, choices, handleAnswer, answ
             <Animated.View key={choice} entering={enterAnimation} exiting={exitAnimation}>
                 <TouchableOpacity
                     style={styles.choiceWrapper(isChooseAnswer, answerStatus.isCorrect)}
-                    onPress={() => handleAnswer(choice)}
+                    onPress={() => {
+                        playSound(sounds.click);
+                        handleAnswer(choice);
+                    }}
                     disabled={answerStatus.isAnswered}
                 >
                     <Text style={styles.choiceText(isChooseAnswer, answerStatus.isCorrect)}>

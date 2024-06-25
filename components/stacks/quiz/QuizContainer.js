@@ -11,7 +11,7 @@ export default function QuizContainer({ loading, quizzes, handleCardPress }) {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     const renderQuizzes = quizzes.map((quiz) => {
         var formatType = quiz.type
             .split('-')
@@ -38,7 +38,7 @@ export default function QuizContainer({ loading, quizzes, handleCardPress }) {
                 {!quizzes.length ? (
                     <View style={styles.indicatorWrapper}>
                         {loading ? (
-                            <ActivityIndicator size="large" color={COLORS.primary} />
+                            <ActivityIndicator size="large" color={theme === 'default' ? COLORS.primary : COLORS_RED.primary} />
                         ) : (
                             <Text style={styles.noQuizIndicator}>No Available Quizzes Yet</Text>
                         )}

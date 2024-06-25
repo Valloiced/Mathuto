@@ -16,7 +16,7 @@ export const searchVideosList = async (query, limit = 10) => {
                 videoEmbeddable: true
             }
         });
-        
+
         return response.data.items;
     } catch (error) {
         console.error(error.message);

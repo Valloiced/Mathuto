@@ -3,7 +3,7 @@ import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native';
 
 import useTheme from '../../../hooks/useTheme';
 
-import getStyles  from './dialogs.style';
+import getStyles from './dialogs.style';
 
 import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
 
@@ -39,21 +39,25 @@ export default function ConfirmationDialog({
                         <Text style={styles.dialogHeader}>CHANGE THEME</Text>
                     </View>
                     <View style={themeStyles.radioThemeContainer}>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={themeStyles.radioTheme}
                             onPress={() => setPickedTheme('default')}
                         >
                             <View style={themeStyles.radioThemeIcon}>
-                                {pickedTheme === 'default' && <View style={themeStyles.radioThemeIconActive} />}
+                                {pickedTheme === 'default' && (
+                                    <View style={themeStyles.radioThemeIconActive} />
+                                )}
                             </View>
                             <Text style={themeStyles.radioThemeLabel}>Blue (Default)</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={themeStyles.radioTheme}
                             onPress={() => setPickedTheme('red')}
                         >
                             <View style={themeStyles.radioThemeIcon}>
-                                {pickedTheme === 'red' && <View style={themeStyles.radioThemeIconActive} />}
+                                {pickedTheme === 'red' && (
+                                    <View style={themeStyles.radioThemeIconActive} />
+                                )}
                             </View>
                             <Text style={themeStyles.radioThemeLabel}>Red</Text>
                         </TouchableOpacity>
@@ -79,7 +83,7 @@ const themeStyles = StyleSheet.create({
     },
     radioTheme: {
         flexDirection: 'row',
-        gap: SIZES.small  
+        gap: SIZES.small
     },
     radioThemeIcon: {
         flexDirection: 'row',

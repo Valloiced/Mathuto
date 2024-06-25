@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         fontSize: SIZES.xSmall
     },
     highlight: {
-        color: theme === 'default' ? COLORS.tertiary: COLORS_RED.tertiary,
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
         fontFamily: 'MontBold',
         fontSize: SIZES.small
     },

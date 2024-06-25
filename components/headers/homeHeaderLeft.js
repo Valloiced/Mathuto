@@ -18,7 +18,10 @@ export default function HomeHeaderLeft() {
 
     return (
         <TouchableOpacity style={styles.btnContainer} onPress={() => openDrawer()}>
-            <NavBurger size={20} color={theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark} />
+            <NavBurger
+                size={20}
+                color={theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark}
+            />
         </TouchableOpacity>
     );
 }

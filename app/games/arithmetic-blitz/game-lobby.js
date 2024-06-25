@@ -31,7 +31,8 @@ export default function GameLobby() {
                     headerLeft: ReturnHeaderBtn,
                     headerTitle: '',
                     headerStyle: {
-                        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + '80'
+                        backgroundColor:
+                            theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + '80'
                     }
                 }}
             />

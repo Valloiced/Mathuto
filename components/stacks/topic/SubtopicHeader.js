@@ -11,7 +11,7 @@ export default function SubtopicHeader({ section, isCollapsed }) {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     const formatLessonCount =
         section.lessons.length <= 1
             ? section.lessons.length + ' Lesson'

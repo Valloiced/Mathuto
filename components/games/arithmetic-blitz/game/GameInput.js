@@ -10,7 +10,10 @@ import Animated, {
 import { StyleSheet, Text, TextInput, TouchableOpacity, Easing } from 'react-native';
 import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 
+import useSound from '../../../../hooks/useSound';
+
 export default function GameInput({ answer, answerStatus, handleSubmit, continueGame, dispatch }) {
+    const { sounds, playSound } = useSound();
     const shake = useSharedValue(0);
 
     const shakeAnimation = useAnimatedStyle(() => ({
@@ -56,11 +59,23 @@ export default function GameInput({ answer, answerStatus, handleSubmit, continue
                 autoFocus={!answerStatus.isAnswered}
             />
             {answerStatus.isAnswered ? (
-                <TouchableOpacity style={styles.gameInputBtn} onPress={continueGame}>
+                <TouchableOpacity
+                    style={styles.gameInputBtn}
+                    onPress={() => {
+                        playSound(sounds.click);
+                        continueGame();
+                    }}
+                >
                     <Text style={styles.gameInputBtnText}>CONTINUE</Text>
                 </TouchableOpacity>
             ) : (
-                <TouchableOpacity style={styles.gameInputBtn} onPress={handleSubmit}>
+                <TouchableOpacity
+                    style={styles.gameInputBtn}
+                    onPress={() => {
+                        playSound(sounds.click);
+                        handleSubmit();
+                    }}
+                >
                     <Text style={styles.gameInputBtnText}>SUBMIT</Text>
                 </TouchableOpacity>
             )}

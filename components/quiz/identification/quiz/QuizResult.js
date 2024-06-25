@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { router } from 'expo-router';
 import {
     StyleSheet,
@@ -18,6 +18,7 @@ import Animated, {
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
 
+import useSound from '../../../../hooks/useSound';
 import useNetStatus from '../../../../hooks/useNetStatus';
 
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
@@ -66,9 +67,15 @@ export default function QuizResult({
     quizQuestions,
     handleRetake
 }) {
+    const { sounds, playSound } = useSound();
     const { isConnected } = useNetStatus();
+
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+
+    useEffect(() => {
+        playSound(sounds.achievementHigh);
+    }, []);
 
     useEffect(() => {
         const submitScore = async () => {
@@ -85,6 +92,7 @@ export default function QuizResult({
                     autoHide: false,
                     swipeable: false
                 });
+                console.log(uidToken, quizId, correctAnswers, timeTaken);
                 setSubmitting(true);
                 await axios.put(
                     `${process.env.EXPO_PUBLIC_SERVER}/api/quiz/submit`,
@@ -181,14 +189,20 @@ export default function QuizResult({
                         <TouchableOpacity
                             style={styles.retakeBtn}
                             disabled={submitting}
-                            onPress={handleRetake}
+                            onPress={() => {
+                                playSound(sounds.click);
+                                handleRetake();
+                            }}
                         >
                             <Text style={styles.retakeBtnLabel}>Retake Quiz</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.goBackBtn}
                             disabled={submitting}
-                            onPress={() => router.back()}
+                            onPress={() => {
+                                playSound(sounds.click);
+                                router.back();
+                            }}
                         >
                             <Text style={styles.goBackBtnLabel}>Go Back</Text>
                         </TouchableOpacity>

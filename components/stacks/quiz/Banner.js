@@ -7,7 +7,6 @@ import BannerImg from '../../../assets/bg/quiz-banner-bg.png';
 
 import getStyles from './style/banner.style';
 
-
 export default function Banner() {
     const [theme, changeTheme] = useTheme();
 

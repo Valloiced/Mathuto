@@ -110,14 +110,16 @@ export default function PaginationButtons({ topicId, currentPage }) {
                 onPress={handlePrev}
             >
                 <ArrowLeft
-                    color={!disabledPrev ? (theme === 'default' 
-                        ? COLORS.tertiary 
-                        : COLORS_RED.tertiary) 
-                    : (theme === 'default' 
-                        ? COLORS.disabled
-                        : COLORS_RED.disabled)
-                    } 
-                    size={20} 
+                    color={
+                        !disabledPrev
+                            ? theme === 'default'
+                                ? COLORS.tertiary
+                                : COLORS_RED.tertiary
+                            : theme === 'default'
+                              ? COLORS.disabled
+                              : COLORS_RED.disabled
+                    }
+                    size={20}
                 />
                 <Text style={styles.paginationBtnText(disabledPrev)}>PREV</Text>
             </TouchableOpacity>
@@ -127,15 +129,17 @@ export default function PaginationButtons({ topicId, currentPage }) {
                 onPress={handleNext}
             >
                 <Text style={styles.paginationBtnText(disabledNext)}>NEXT</Text>
-                <ArrowRight 
-                    color={!disabledNext ? (theme === 'default' 
-                        ? COLORS.tertiary 
-                        : COLORS_RED.tertiary) 
-                    : (theme === 'default' 
-                        ? COLORS.disabled
-                        : COLORS_RED.disabled)
-                    } 
-                    size={20} 
+                <ArrowRight
+                    color={
+                        !disabledNext
+                            ? theme === 'default'
+                                ? COLORS.tertiary
+                                : COLORS_RED.tertiary
+                            : theme === 'default'
+                              ? COLORS.disabled
+                              : COLORS_RED.disabled
+                    }
+                    size={20}
                 />
             </TouchableOpacity>
         </View>

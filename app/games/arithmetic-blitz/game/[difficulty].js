@@ -3,6 +3,9 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import useMusic from '../../../../hooks/useMusic';
+import useProfile from '../../../../hooks/useProfile';
+
 import Loading from '../../../../components/games/arithmetic-blitz/game/Loading';
 import GameField from '../../../../components/games/arithmetic-blitz/game/GameField';
 import GameOverScreen from '../../../../components/games/arithmetic-blitz/game/GameOverScreen';
@@ -10,9 +13,9 @@ import GameOverScreen from '../../../../components/games/arithmetic-blitz/game/G
 import { diffMultiplier } from '../../../../components/games/arithmetic-blitz/game/utils/game.utils';
 
 import { COLORS } from '../../../../constants/theme';
-import useProfile from '../../../../hooks/useProfile';
 
 export default function ArithmeticBlitzGame() {
+    const { music, loadMusicList, playMusicList, unloadMusic } = useMusic();
     const params = useLocalSearchParams();
     const user = useProfile();
 
@@ -24,7 +27,31 @@ export default function ArithmeticBlitzGame() {
     });
 
     useEffect(() => {
+        const loadMusic = async () => {
+            switch (params.difficulty) {
+                case 'easy':
+                    loadMusicList(music.easy, music.easyAlt);
+                    break;
+                case 'medium':
+                    loadMusicList(music.medium, music.mediumAlt);
+                    break;
+                case 'hard':
+                    loadMusicList(music.hardAlt, music.hard);
+                    break;
+            }
+
+            playMusicList();
+        };
+
+        if (params.difficulty && !loading) {
+            loadMusic();
+        }
+    }, [params.difficulty, loading]);
+
+    useEffect(() => {
         if (gameStatus.isGameOver && gameStatus.totalPoints == null) {
+            unloadMusic();
+
             const totalPoints = gameStatus.finalPoints * diffMultiplier(params.difficulty);
 
             setGameStatus({

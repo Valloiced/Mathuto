@@ -9,15 +9,17 @@ import Animated, {
     Easing,
     withDelay,
     runOnJS,
-    Boun,
     BounceOut
 } from 'react-native-reanimated';
+
+import useSound from '../../../../hooks/useSound';
 
 import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 import { IconLetterings } from '../../../../assets/icons/math-scramble';
 
 export default function GameLoading({ animationLoaded, setAnimationLoaded }) {
+    const { sounds, playSound } = useSound();
     const { ScrambleIconM, ScrambleIconA, ScrambleIconT, ScrambleIconH } = IconLetterings;
 
     const startDelay = 500;
@@ -60,7 +62,7 @@ export default function GameLoading({ animationLoaded, setAnimationLoaded }) {
         iconT.value = withDelay(
             startDelay + letterDelay * 0,
             withSequence(
-                withSpring({ scale: 1, translateX: 0, rotate: -10 }, sceneAConfig),
+                withSpring({ scale: 1, translateX: 0, rotate: -10 }, sceneAConfig, () => runOnJS(playSound)(sounds.popup)),
                 withDelay(
                     letterDelay * 3,
                     withTiming({ scale: 1, translateX: -20, rotate: 0 }, sceneBConfig)
@@ -74,7 +76,7 @@ export default function GameLoading({ animationLoaded, setAnimationLoaded }) {
         iconM.value = withDelay(
             startDelay + letterDelay * 1,
             withSequence(
-                withSpring({ scale: 1, translateX: 0, rotate: 10 }, sceneAConfig),
+                withSpring({ scale: 1, translateX: 0, rotate: 10 }, sceneAConfig, () => runOnJS(playSound)(sounds.popup)),
                 withDelay(
                     letterDelay * 2,
                     withTiming({ scale: 1, translateX: -iconSize * 1 - 17, rotate: 0 }, sceneBConfig)
@@ -88,7 +90,7 @@ export default function GameLoading({ animationLoaded, setAnimationLoaded }) {
         iconH.value = withDelay(
             startDelay + letterDelay * 2,
             withSequence(
-                withSpring({ scale: 1, translateX: 0, rotate: -10 }, sceneAConfig),
+                withSpring({ scale: 1, translateX: 0, rotate: -10 }, sceneAConfig, () => runOnJS(playSound)(sounds.popup)),
                 withDelay(
                     letterDelay * 1,
                     withTiming({ scale: 1, translateX: -iconSize * 2 - 14, rotate: 0 }, sceneBConfig)
@@ -102,17 +104,18 @@ export default function GameLoading({ animationLoaded, setAnimationLoaded }) {
         iconA.value = withDelay(
             startDelay + letterDelay * 3,
             withSequence(
-                withSpring({ scale: 1, translateX: 0, rotate: 10 }, sceneAConfig),
+                withSpring({ scale: 1, translateX: 0, rotate: 10 }, sceneAConfig, () => runOnJS(playSound)(sounds.popup)),
                 withDelay(
                     letterDelay * 0,
                     withTiming({ scale: 1, translateX: -iconSize * 3 - 11, rotate: 0 }, sceneBConfig)
                 ),
-                withSpring({ scale: 1, translateX: -iconSize * 3 - 11, rotate: -1 * 16 }, sceneCConfig),
+                withSpring({ scale: 1, translateX: -iconSize * 3 - 11, rotate: -1 * 16 }, sceneCConfig, () => runOnJS(playSound)(sounds.whoosh)),
                 withSpring({ scale: 1, translateX: -iconSize * 2, rotate: 0 }, {},
                     // After icon animation
                     () => {
                     // Start subtitle animation
                     subtitle.value = withTiming({ scale: 1, translateX: 0 }, {}, () => {
+                        runOnJS(playSound)(sounds.achievementLow)
                         // Final Animation
                         subtitle.value = withSequence(
                             withTiming({ ...subtitle.value, scale: 1.1 }),

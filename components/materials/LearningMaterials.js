@@ -10,7 +10,7 @@ import useNetStatus from '../../hooks/useNetStatus';
 import LearningMaterialsCard from './LearningMaterialsCard';
 
 import getStyles from './style/learningMaterials.style';
-import { COLORS } from '../../constants/theme';
+import { COLORS, COLORS_RED } from '../../constants/theme';
 
 export default function LearningMaterials() {
     const { data, cacheData } = useCache('materials', []);
@@ -81,7 +81,7 @@ export default function LearningMaterials() {
         <View style={styles.learningMaterialsContainer}>
             <Text style={styles.learningMaterialsHeader}>Learning Materials</Text>
             {loading ? (
-                <ActivityIndicator size="large" color={COLORS.primary} />
+                <ActivityIndicator size="large" color={theme === 'default' ? COLORS.primary : COLORS_RED.primary} />
             ) : (
                 <View>{topicCards}</View>
             )}

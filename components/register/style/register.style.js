@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         fontSize: SIZES.small,
         fontFamily: FONT.MSBold,
         letterSpacing: 1,
-        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary,
+        color: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary
     },
     subtitle: {
         fontFamily: FONT.PopBold,

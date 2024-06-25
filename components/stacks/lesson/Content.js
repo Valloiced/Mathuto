@@ -15,7 +15,7 @@ function LinkCard({ link, handleRedirect }) {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     return (
         <TouchableOpacity style={styles.linkCard} onPress={() => handleRedirect(link)}>
             <View style={styles.iconWrapper}>
@@ -31,7 +31,7 @@ export default function Description({ content, currentTab }) {
 
     const styles = getStyles(theme);
     const markdownStyles = getMarkdownStyles(theme);
-    
+
     const descriptionHeader =
         currentTab === 'summary'
             ? 'Brief Summary'
@@ -66,14 +66,11 @@ export default function Description({ content, currentTab }) {
                 <Text style={styles.descriptionLabel}>{descriptionHeader}</Text>
                 <View style={styles.contentContainer}>
                     {currentTab !== 'links' ? (
-                        <Markdown 
-                            onLinkPress={handleRedirect} 
-                            style={markdownStyles}
-                        >
+                        <Markdown onLinkPress={handleRedirect} style={markdownStyles}>
                             {content}
                         </Markdown>
-                        /* <Text style={styles.content}>{content}</Text> */
                     ) : (
+                        /* <Text style={styles.content}>{content}</Text> */
                         <View style={styles.linkCardContainer}>
                             {!links || links.length === 0 ? (
                                 <Text style={styles.linkStatus}>No External Links Available</Text>

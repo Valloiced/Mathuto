@@ -21,6 +21,7 @@ export default function QuizField({ quizData, setQuizStatus }) {
 
     /* Setup */
     useEffect(() => {
+        dispatch({ type: 'RESET' });
         dispatch({ type: 'SETUP', data: quizData.questions });
 
         timerInterval.current = setInterval(() => {
@@ -45,15 +46,14 @@ export default function QuizField({ quizData, setQuizStatus }) {
         }
 
         if (state.questionNum === quizData.details.numOfQuestions - 1) {
-            return handleFinish();
+            clearInterval(timerInterval.current);
+            return setTimeout(() => handleFinish(), 500);
         }
 
         dispatch({ type: 'NEXT_LEVEL', data: quizData.questions });
     };
 
     const handleFinish = () => {
-        clearInterval(timerInterval.current);
-
         // Prevent abrupt completion
         setQuizStatus({
             isCompleted: true,

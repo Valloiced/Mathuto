@@ -13,7 +13,7 @@ export default function ProfileContainer({ username, profileImg = '' }) {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     return (
         <View style={styles.profileContainer}>
             <View style={[styles.imageContainer, SHADOWS.medium]}>

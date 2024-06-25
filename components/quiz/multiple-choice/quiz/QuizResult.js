@@ -17,6 +17,7 @@ import Animated, {
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
 
+import useSound from '../../../../hooks/useSound';
 import useNetStatus from '../../../../hooks/useNetStatus';
 
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
@@ -59,8 +60,14 @@ function AccuracyBar({ correctAnswers, questionCount }) {
 
 export default function QuizResult({ quizId, quizDetails, quizStats, handleRetake }) {
     const { isConnected } = useNetStatus();
+    const { sounds, playSound } = useSound();
+
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+
+    useEffect(() => {
+        playSound(sounds.achievementHigh);
+    }, []);
 
     useEffect(() => {
         const submitScore = async () => {
@@ -175,14 +182,20 @@ export default function QuizResult({ quizId, quizDetails, quizStats, handleRetak
                 <TouchableOpacity
                     style={styles.retakeBtn}
                     disabled={submitting}
-                    onPress={handleRetake}
+                    onPress={() => {
+                        playSound(sounds.click);
+                        handleRetake();
+                    }}
                 >
                     <Text style={styles.retakeBtnLabel}>Retake Quiz</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.goBackBtn}
                     disabled={submitting}
-                    onPress={() => router.back()}
+                    onPress={() => {
+                        playSound(sounds.click);
+                        router.back();
+                    }}
                 >
                     <Text style={styles.goBackBtnLabel}>Go Back</Text>
                 </TouchableOpacity>

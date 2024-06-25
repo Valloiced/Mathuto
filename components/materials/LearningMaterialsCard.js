@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import useTheme from '../../hooks/useTheme';
 import useCache from '../../hooks/useCache';
 
-import getStyles  from './style/learningMaterials.style';
+import getStyles from './style/learningMaterials.style';
 
 import { User } from '../../assets/icons';
 import itemBGRed from '../../assets/bg/material-red.png';
@@ -17,7 +17,7 @@ export default function LearningMaterialsCard({ topicId, topicName, itemCount, c
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     const addToRecentView = async () => {
         try {
             const recentTopics = data;

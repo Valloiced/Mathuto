@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import useTheme from '../../hooks/useTheme';
 
-import getStyles  from './style/mainContainer.style';
+import getStyles from './style/mainContainer.style';
 
 import Statistics from './Statistics';
 import GameOptions from './GameOptions';

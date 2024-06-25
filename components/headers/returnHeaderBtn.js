@@ -27,10 +27,11 @@ export default function ReturnHeaderBtn({ backTo = '' }) {
     );
 }
 
-const getStyles = (theme = 'default') => StyleSheet.create({
-    btnContainer: {
-        padding: 6,
-        borderRadius: 50,
-        backgroundColor: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary
-    }
-});
+const getStyles = (theme = 'default') =>
+    StyleSheet.create({
+        btnContainer: {
+            padding: 6,
+            borderRadius: 50,
+            backgroundColor: theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary
+        }
+    });

@@ -13,7 +13,7 @@ function LeaderboardModalCard({ rank, username, profileImg = '', score }) {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     return (
         <View style={styles.leaderboardCard}>
             <Text style={styles.rank}>{rank}</Text>

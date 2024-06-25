@@ -25,7 +25,9 @@ export default function FormsContainer({
                     name="email"
                     style={styles.loginInput}
                     placeholder="Email Address"
-                    placeholderTextColor={theme === 'default' ? COLORS.tertiary: COLORS_RED.tertiary}
+                    placeholderTextColor={
+                        theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary
+                    }
                     value={loginForm.email}
                     onChangeText={handleEmailInput}
                 />
@@ -36,7 +38,9 @@ export default function FormsContainer({
                     name="password"
                     style={styles.loginInput}
                     placeholder="Password"
-                    placeholderTextColor={theme === 'default' ? COLORS.tertiary: COLORS_RED.tertiary}
+                    placeholderTextColor={
+                        theme === 'default' ? COLORS.tertiary : COLORS_RED.tertiary
+                    }
                     value={loginForm.password}
                     onChangeText={handlePasswordInput}
                     secureTextEntry={true}

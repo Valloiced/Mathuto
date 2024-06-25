@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import he from 'he';
 import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
 
-import getStyles  from './style/ytMaterials.style';
+import getStyles from './style/ytMaterials.style';
 
 import useTheme from '../../hooks/useTheme';
 

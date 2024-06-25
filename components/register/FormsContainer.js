@@ -25,36 +25,55 @@ export default function FormsContainer({
             <View style={styles.inputContainer}>
                 <View style={styles.inputWrapper}>
                     <View style={styles.iconWrapper}>
-                        <UserSolid size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
+                        <UserSolid
+                            size={25}
+                            color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary}
+                        />
                     </View>
                     <TextInput
                         style={styles.registerInput}
                         placeholder="User Name"
-                        placeholderTextColor={theme === 'default' ? theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark : COLORS_RED.dark}
+                        placeholderTextColor={
+                            theme === 'default'
+                                ? theme === 'default'
+                                    ? COLORS.textPrimary
+                                    : COLORS_RED.dark
+                                : COLORS_RED.dark
+                        }
                         value={registerForm.username}
                         onChangeText={handleUsernameInput}
                     />
                 </View>
                 <View style={styles.inputWrapper}>
                     <View style={styles.iconWrapper}>
-                        <MailSolid size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
+                        <MailSolid
+                            size={25}
+                            color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary}
+                        />
                     </View>
                     <TextInput
                         style={styles.registerInput}
                         placeholder="Email Address"
-                        placeholderTextColor={theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark}
+                        placeholderTextColor={
+                            theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
+                        }
                         value={registerForm.email}
                         onChangeText={handleEmailInput}
                     />
                 </View>
                 <View style={styles.inputWrapper}>
                     <View style={styles.iconWrapper}>
-                        <LockSolid size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
+                        <LockSolid
+                            size={25}
+                            color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary}
+                        />
                     </View>
                     <TextInput
                         style={styles.registerInput}
                         placeholder="Password"
-                        placeholderTextColor={theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark}
+                        placeholderTextColor={
+                            theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
+                        }
                         value={registerForm.password}
                         onChangeText={handlePasswordInput}
                         secureTextEntry={coverPassword}
@@ -65,9 +84,19 @@ export default function FormsContainer({
                             onPress={togglePasswordVisibility}
                         >
                             {coverPassword ? (
-                                <ViewPassword size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
+                                <ViewPassword
+                                    size={25}
+                                    color={
+                                        theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary
+                                    }
+                                />
                             ) : (
-                                <HidePassword size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
+                                <HidePassword
+                                    size={25}
+                                    color={
+                                        theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary
+                                    }
+                                />
                             )}
                         </TouchableOpacity>
                     )}

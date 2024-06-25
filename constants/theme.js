@@ -93,13 +93,5 @@ const BORDER_RADIUS = {
     xLarge: 40,
     xxLarge: 50
 };
-    
 
-export { 
-    COLORS_RED, 
-    COLORS, 
-    FONT, 
-    SIZES, 
-    SHADOWS, 
-    BORDER_RADIUS
-};
+export { COLORS_RED, COLORS, FONT, SIZES, SHADOWS, BORDER_RADIUS };

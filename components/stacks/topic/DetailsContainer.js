@@ -7,13 +7,13 @@ import useTheme from '../../../hooks/useTheme';
 import itemBGRed from '../../../assets/bg/material-red.png';
 
 import { COLORS } from '../../../constants/theme';
-import getStyles  from './style/detailsContainer.style';
+import getStyles from './style/detailsContainer.style';
 
 export default function DetailsContainer({ name, creator }) {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     return (
         <ImageBackground
             source={itemBGRed}

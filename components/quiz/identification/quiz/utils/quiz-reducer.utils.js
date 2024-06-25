@@ -77,6 +77,18 @@ const reducer = (state, action) => {
                 ...state,
                 answer: action.answer
             };
+        case 'RESET':
+            const resetFields = {
+                correctAnswers: 0,
+                incorrectAnswers: 0,
+                questionNum: 0,
+                currentQuestion: {},
+                answer: '',
+                answers: [],
+                quizOrder: []
+            };
+
+            return resetFields;
         default:
             return state;
     }

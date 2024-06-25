@@ -19,8 +19,10 @@ export default function HomeLayout() {
                 headerShown: false,
                 headerBackgroundContainerStyle: COLORS.lightWhite,
                 drawerActiveTintColor: theme === 'default' ? COLORS.textTertiary : COLORS_RED.dark,
-                drawerActiveBackgroundColor: theme === 'default' ? COLORS.secondary + '80' : COLORS_RED.primaryLight + '80',
-                drawerInactiveTintColor: theme === 'default' ? COLORS.textSecondary + 'BF' : COLORS_RED.base,
+                drawerActiveBackgroundColor:
+                    theme === 'default' ? COLORS.secondary + '80' : COLORS_RED.primaryLight + '80',
+                drawerInactiveTintColor:
+                    theme === 'default' ? COLORS.textSecondary + 'BF' : COLORS_RED.base,
                 drawerType: 'slide'
             }}
             drawerContent={(props) => <HomeDrawerContent {...props} />}
@@ -34,7 +36,8 @@ export default function HomeLayout() {
                     headerTitle: '',
                     headerLeft: HomeHeaderLeft,
                     headerStyle: {
-                        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF'
+                        backgroundColor:
+                            theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF'
                     },
                     drawerIcon: ({ color }) => {
                         return <HomeSolid size={20} color={color} />;

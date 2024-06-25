@@ -14,8 +14,8 @@ export default function useTheme(initialTheme = 'default') {
             } catch (error) {
                 console.log('Error fetching data from AsyncStorage:', error);
             }
-        }
-        
+        };
+
         fetchTheme();
     }, []);
 
@@ -27,7 +27,7 @@ export default function useTheme(initialTheme = 'default') {
         } catch (error) {
             console.log('Error saving data to AsyncStorage:', error);
         }
-    }
+    };
 
     return [theme, changeTheme];
 }

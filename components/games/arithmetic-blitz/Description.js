@@ -54,10 +54,7 @@ export default function Description() {
                         styles={styles.content}
                         content={'Earn higher points the more you progress in the game.'}
                     />
-                    <RenderBulletList
-                        styles={styles.content}
-                        content={'Good luck and have fun!'} 
-                    />
+                    <RenderBulletList styles={styles.content} content={'Good luck and have fun!'} />
                 </View>
             </View>
         </View>

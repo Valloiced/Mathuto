@@ -9,14 +9,14 @@ import { formatTime } from '../../quiz/multiple-choice/quiz/utils/quiz.utils';
 import { Play } from '../../../assets/icons';
 
 import getStyles from './style/quizModal.style';
- 
+
 import { SHADOWS } from '../../../constants/theme';
 
 export default function QuizModal({ topicId, openedQuiz, modalVisible, setModalVisible }) {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     const handleStart = () => {
         setModalVisible(false);
         router.replace(`/quiz/${openedQuiz.type}/${topicId}/${openedQuiz.id}`);

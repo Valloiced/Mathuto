@@ -2,7 +2,11 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
 import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 
+import useSound from '../../../../hooks/useSound';
+
 export default function Loading({ setLoading }) {
+    const { sounds, playSound } = useSound();
+
     // Added extra 1 second for the start message and delay
     const [countdown, setCountdown] = useState(4);
     const animatedValue = useMemo(() => new Animated.Value(0), []);
@@ -17,19 +21,26 @@ export default function Loading({ setLoading }) {
                 // Animate in
                 Animated.timing(animatedValue, {
                     toValue: 1,
-                    duration: 750,
+                    duration: 500,
                     useNativeDriver: true
                 }).start(() => {
                     // Animate out
                     Animated.timing(animatedValue, {
                         toValue: 0,
-                        duration: 750,
+                        duration: 500,
                         useNativeDriver: true
                     }).start();
                 });
+
+                if (prevCount === 1) {
+                    playSound(sounds.achievementLow);
+                } else {
+                    playSound(sounds.click);
+                }
+
                 return prevCount - 1;
             });
-        }, 1500);
+        }, 1000);
 
         return () => clearInterval(startUpInterval);
     }, [animatedValue, countdown]);

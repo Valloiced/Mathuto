@@ -8,6 +8,7 @@ import Toast from 'react-native-toast-message';
 
 import useProfile from '../../../../hooks/useProfile';
 import useNetStatus from '../../../../hooks/useNetStatus';
+import useSound from '../../../../hooks/useSound';
 
 import { firebaseAuthService } from '../../../../utils/firebase.utils';
 
@@ -21,6 +22,8 @@ const Status = ({ message }) => (
 );
 
 export default function GameOverScreen({ scoreDetails }) {
+    const { sounds, playSound } = useSound();
+
     const { earnedPoints, difficulty, multiplier, overallPoints } = scoreDetails;
 
     const { isConnected } = useNetStatus();
@@ -34,6 +37,10 @@ export default function GameOverScreen({ scoreDetails }) {
     const confettiRef = useRef(null);
 
     useEffect(() => {
+        playSound(sounds.achievementSuperHigh);
+    }, []);
+
+    useEffect(() => {
         const submitScore = async () => {
             const uidToken = await firebaseAuthService.getIdToken();
 
@@ -43,7 +50,7 @@ export default function GameOverScreen({ scoreDetails }) {
             try {
                 await axios.put(
                     `${process.env.EXPO_PUBLIC_SERVER}/api/score/submit`,
-                    { new_score: overallPoints },
+                    { new_score: earnedPoints * multiplier },
                     {
                         headers: {
                             Authorization: `Bearer ${uidToken}`
@@ -70,21 +77,21 @@ export default function GameOverScreen({ scoreDetails }) {
         let confettiTimeout;
 
         // If score is 0, then don't submit it, just wasting resources
-        if (isConnected && overallPoints && user.uid && !submitted) {
+        if (isConnected && earnedPoints && user.uid && !submitted) {
             submitScore();
         }
 
         // Show confetti
         if (
             confettiRef.current && // if confetti is mounted
-            overallPoints !== 0 // if user earned a score
+            earnedPoints !== 0 // if user earned a score
         ) {
             confettiRef.current.play(0);
             confettiTimeout = setTimeout(() => setShowConfetti(false), 3000);
         }
 
         // Just display the score if score is 0 and no connection
-        if (overallPoints === 0 || !isConnected) {
+        if (earnedPoints === 0 || !isConnected) {
             setSubmitting(false);
             setShowConfetti(false);
         }
@@ -121,7 +128,7 @@ export default function GameOverScreen({ scoreDetails }) {
             clearTimeout(confettiTimeout);
             clearTimeout(screenTimeout);
         };
-    }, [overallPoints, isConnected, confettiRef, user.uid, submitted]);
+    }, [earnedPoints, isConnected, confettiRef, user.uid, submitted]);
 
     BounceIn.delay(200).duration(500).easing(Easing.ease);
     BounceOut.delay(200).duration(500).easing(Easing.ease);
@@ -152,7 +159,9 @@ export default function GameOverScreen({ scoreDetails }) {
                             <View style={styles.totalScoreBoard}>
                                 <View style={styles.totalScoreWrapper}>
                                     <Text style={styles.totalScoreHeader}>TOTAL POINTS</Text>
-                                    <Text style={styles.totalScore}>{overallPoints}</Text>
+                                    <Text style={styles.totalScore}>
+                                        {earnedPoints * multiplier}
+                                    </Text>
                                 </View>
                                 <View style={styles.totalScoreWrapper}>
                                     <Text style={styles.totalScoreHeader}>OVERALL POINTS</Text>
@@ -160,7 +169,7 @@ export default function GameOverScreen({ scoreDetails }) {
                                         <Text style={styles.totalScore}>{overallPoints}</Text>
                                         <Text
                                             style={styles.addedPoints}
-                                        >{`(+${overallPoints})`}</Text>
+                                        >{`(+${earnedPoints})`}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -175,6 +184,7 @@ export default function GameOverScreen({ scoreDetails }) {
                             disabled={submitting}
                             style={[styles.button('#66FF88', submitting), SHADOWS.medium]}
                             onPress={() => {
+                                playSound(sounds.click);
                                 router.replace(`/home`);
                             }}
                         >
@@ -183,9 +193,10 @@ export default function GameOverScreen({ scoreDetails }) {
                         <TouchableOpacity
                             disabled={submitting}
                             style={[styles.button('#E34D4D', submitting), SHADOWS.medium]}
-                            onPress={() =>
-                                router.replace(`/games/arithmetic-blitz/game/${difficulty}`)
-                            }
+                            onPress={() => {
+                                playSound(sounds.click);
+                                router.replace(`/games/arithmetic-blitz/game/${difficulty}`);
+                            }}
                         >
                             <Restart size={25} color={'#490000'} />
                         </TouchableOpacity>

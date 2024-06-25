@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         color: '#FFF',
-        backgroundColor: (theme === 'default' ? COLORS.primary : COLORS_RED.primary) + (isRegistering ? '80' : ''),
+        backgroundColor:
+            (theme === 'default' ? COLORS.primary : COLORS_RED.primary) +
+            (isRegistering ? '80' : ''),
         marginTop: SIZES.medium,
         paddingVertical: SIZES.small,
         borderRadius: BORDER_RADIUS.small

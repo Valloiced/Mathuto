@@ -8,10 +8,10 @@ import useTheme from '../../hooks/useTheme';
 
 import { getChannelDetails, getVideoDetails, searchVideosList } from '../../utils/youtube.utils';
 
-import getStyles  from './style/ytMaterials.style';
+import getStyles from './style/ytMaterials.style';
 
 import YTMaterialsCard from './YTMaterialsCard';
-import { COLORS } from '../../constants/theme';
+import { COLORS, COLORS_RED } from '../../constants/theme';
 
 export default function YTMaterials() {
     const netinfo = useNetInfo();
@@ -126,7 +126,7 @@ export default function YTMaterials() {
                 // If videoList is empty, the query set must be deformed, let's refetch it
                 if (!videoList.length) {
                     videoList = await searchVideosList(defaultValues, 200);
-                    
+
                     // Reset cache
                     await AsyncStorage.removeItem('recent-lessons');
                 }
@@ -233,7 +233,7 @@ export default function YTMaterials() {
                 <Text style={styles.ytHeader}>RECOMMENDED FOR YOU</Text>
             </View>
             {loading ? (
-                <ActivityIndicator size={'large'} color={COLORS.textTertiary} />
+                <ActivityIndicator size={'large'} color={                <ActivityIndicator size="large" color={theme === 'default' ? COLORS.textTertiary : COLORS_RED.base} />} />
             ) : (
                 <FlatList
                     data={searchData}

@@ -3,7 +3,7 @@ import { Modal, View, Text, TouchableOpacity } from 'react-native';
 
 import useTheme from '../../../hooks/useTheme';
 
-import getStyles  from './dialogs.style';
+import getStyles from './dialogs.style';
 
 export default function RetakeDialog({
     modalVisible,
@@ -14,7 +14,7 @@ export default function RetakeDialog({
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     const handleCancel = () => {
         dialogCallback(false);
         setModalVisible(false);

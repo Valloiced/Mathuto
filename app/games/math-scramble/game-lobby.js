@@ -17,11 +17,10 @@ import OfflineView from '../../../components/games/game-scramble/OfflineView';
 import { COLORS, SIZES } from '../../../constants/theme';
 import getStyles from '../../../components/games/game-scramble/style/game-lobby.style';
 
-
 function SelectionLabel({ selectedCount }) {
     const [theme, changeTheme] = useTheme();
 
-const styles = getStyles(theme);
+    const styles = getStyles(theme);
 
     return (
         <View style={styles.selectionLabelWrapper}>

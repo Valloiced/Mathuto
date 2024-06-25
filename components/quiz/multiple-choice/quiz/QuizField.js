@@ -1,6 +1,8 @@
 import React, { useState, useRef, useReducer, useEffect } from 'react';
 import { StyleSheet, Dimensions, ImageBackground, View, Text } from 'react-native';
 
+import useSound from '../../../../hooks/useSound';
+
 import reducer from './utils/quiz-reducer.utils';
 import initialState from './utils/quiz-state.utils';
 
@@ -13,6 +15,7 @@ import QuizTimer from './QuizTimer';
 import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 export default function QuizField({ quizData, quizStatus, setQuizStatus }) {
+    const { sounds, playSound } = useSound();
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const timerInterval = useRef(null);
@@ -25,6 +28,7 @@ export default function QuizField({ quizData, quizStatus, setQuizStatus }) {
 
     /* Setup */
     useEffect(() => {
+        dispatch({ type: 'RESET' });
         dispatch({ type: 'SETUP', data: quizData.questions });
 
         timerInterval.current = setInterval(() => {
@@ -78,9 +82,13 @@ export default function QuizField({ quizData, quizStatus, setQuizStatus }) {
         if (answer === correctAnswer) {
             dispatch({ type: 'CORRECT_ANSWER', answer: answer });
             isCorrect = true;
+
+            playSound(sounds.achievementLow);
         } else {
             dispatch({ type: 'WRONG_ANSWER', answer: answer });
             isCorrect = false;
+
+            playSound(sounds.lose);
         }
 
         setAnswerStatus({

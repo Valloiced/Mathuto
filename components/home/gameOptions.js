@@ -29,7 +29,7 @@ export default function GameOptions() {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     return (
         <View style={styles.optionsContainer}>
             <View style={styles.optionsWrapper}>

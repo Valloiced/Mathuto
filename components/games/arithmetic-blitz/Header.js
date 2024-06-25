@@ -10,7 +10,7 @@ export default function Header() {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     return (
         <View style={styles.headerContainer}>
             <Image source={Blitz} style={styles.headerImg} />

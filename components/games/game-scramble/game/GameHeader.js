@@ -10,9 +10,9 @@ export default function GameHeader({ points, remainingLives, lessonsAnswered, no
         .fill(0)
         .map((val, index) =>
             remainingLives > index ? (
-                <WrongCloseSolid key={val + index} style={styles.failedAttempt} />
-            ) : (
                 <WrongSolid key={val + index} style={styles.failedAttempt} />
+            ) : (
+                <WrongCloseSolid key={val + index} style={styles.failedAttempt} />
             )
         );
 

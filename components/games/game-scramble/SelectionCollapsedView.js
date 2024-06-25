@@ -104,8 +104,8 @@ export default function SelectionCollapsedView({ section, isCollapsed }) {
                 {column.map((term, termIndex) => (
                     <RenderBulletList
                         styles={styles.termItem}
-                        key={term.term + termIndex} 
-                        term={term.term} 
+                        key={term.term + termIndex}
+                        term={term.term}
                     />
                 ))}
             </View>

@@ -139,7 +139,11 @@ export default function Login() {
 
     return (
         <View style={styles.loginContainer}>
-            <Image source={theme === 'default' ? LogoDefault : LogoRed} style={styles.icon(225)} resizeMode="contain" />
+            <Image
+                source={theme === 'default' ? LogoDefault : LogoRed}
+                style={styles.icon(225)}
+                resizeMode="contain"
+            />
             <View style={styles.formsWrapper}>
                 <Text style={[styles.loginHeader, SHADOWS.text]}>LOG IN</Text>
                 <FormsContainer

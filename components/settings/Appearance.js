@@ -13,7 +13,7 @@ export default function Appearance({ setModalVisible, setDialogCallback }) {
     const [theme, changeTheme] = useTheme();
 
     const layoutStyles = getLayoutStyles(theme);
-    
+
     const handlePress = () => {
         const callback = async (newTheme) => {
             if (newTheme) {
@@ -25,7 +25,7 @@ export default function Appearance({ setModalVisible, setDialogCallback }) {
         setDialogCallback(() => callback);
         setModalVisible(true);
     };
-    
+
     return (
         <View style={layoutStyles.settingsSection}>
             <Text style={layoutStyles.settingsHeader}>Appearance</Text>
@@ -34,7 +34,7 @@ export default function Appearance({ setModalVisible, setDialogCallback }) {
                     <Text style={layoutStyles.textLabel}>Theme</Text>
                     <View style={styles.themeWrapper}>
                         <View style={styles.theme(theme)} />
-                        <TouchableOpacity 
+                        <TouchableOpacity
                             style={[styles.changeTheme, SHADOWS.small]}
                             onPress={handlePress}
                         >
@@ -44,5 +44,5 @@ export default function Appearance({ setModalVisible, setDialogCallback }) {
                 </View>
             </View>
         </View>
-    )
+    );
 }

@@ -14,10 +14,10 @@ export default function AppInfo() {
     return (
         <View style={styles.appInfoContainer}>
             <View style={styles.logoContainer}>
-                <Image 
-                    source={theme === 'default' ? IconMDefault : IconMRed} 
-                    style={styles.logo} 
-                    resizeMode="contain" 
+                <Image
+                    source={theme === 'default' ? IconMDefault : IconMRed}
+                    style={styles.logo}
+                    resizeMode="contain"
                 />
             </View>
             <Text style={styles.version}>1.0.0</Text>

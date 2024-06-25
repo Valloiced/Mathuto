@@ -1,6 +1,9 @@
 import React, { useState, useReducer, useEffect, useRef } from 'react';
 import { View, Vibration } from 'react-native';
 
+import useSound from '../../../../hooks/useSound';
+import useMusic from '../../../../hooks/useMusic';
+
 import { initialState, reducer } from './utils';
 
 import GameAction from './GameAction';
@@ -9,6 +12,8 @@ import GameHeader from './GameHeader';
 import GameInput from './GameInput';
 
 export default function GameField({ gameData, gameStatus, setGameStatus }) {
+    const { sounds, playSound } = useSound();
+    const { music, playMusic, unloadMusic } = useMusic();
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const levelDuration = 15; // Duration per level (secs)
@@ -27,6 +32,7 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
         dispatch({ type: 'SETUP', data: gameData });
 
         setTimer(levelDuration);
+        playMusic(music.timer);
     }, [gameData]);
 
     /** Timer Tracker */
@@ -35,9 +41,16 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
             timerInterval.current = setInterval(() => setTimer((prev) => prev - 1), 1000);
         }
 
+        if (timer === 7) {
+            playSound(sounds.clockTicking);
+        }
+
         if (timer <= 0 && timerInterval.current) {
             clearInterval(timerInterval.current);
             timerInterval.current = null;
+            unloadMusic();
+            playSound(sounds.lose);
+
             dispatch({ type: 'WRONG_ANSWER' });
             setAnswerStatus({
                 isAnswered: true,
@@ -59,6 +72,9 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
             });
             setIsCancelled(false);
             dispatch({ type: 'NEXT_LEVEL', data: gameData });
+
+            playMusic(music.timer);
+            playSound(sounds.powerUp);
         }
     }, [gameData, showBanner, answerStatus, setAnswerStatus, gameStatus.isGameOver]);
 
@@ -76,6 +92,8 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
                 isGameOver: true,
                 totalPoints: state.points
             });
+            unloadMusic();
+            playSound(sounds.achievementSuperHigh);
             // .... Complete Game Modal
         }
 
@@ -86,6 +104,8 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
                 isGameOver: true,
                 totalPoints: state.points
             });
+            unloadMusic();
+            playSound(sounds.achievementHigh);
             // ....
         }
     }, [
@@ -109,14 +129,17 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
 
         clearTimeout(timerInterval.current); // Stop the timer first
         timerInterval.current = null;
+        unloadMusic();
         setIsCancelled(true); // Stop progress bar
 
         if (answer === correctAnswer) {
             dispatch({ type: 'CORRECT_ANSWER' });
             isCorrect = true;
+            playSound(sounds.achievementLow);
         } else {
             dispatch({ type: 'WRONG_ANSWER' });
             isCorrect = false;
+            playSound(sounds.lose);
             Vibration.vibrate(300);
         }
 

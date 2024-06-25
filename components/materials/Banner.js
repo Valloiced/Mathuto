@@ -14,17 +14,13 @@ export default function Banner() {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     return (
-        <ImageBackground 
-            source={banner} 
-            style={styles.banner} 
-            imageStyle={styles.bannerImg}
-        >
+        <ImageBackground source={banner} style={styles.banner} imageStyle={styles.bannerImg}>
             <View style={styles.logoWrapper}>
                 <Image
                     style={styles.logo}
-                    source={theme === 'default' ? LogoDefault : LogoRed} 
+                    source={theme === 'default' ? LogoDefault : LogoRed}
                     resizeMode="contain"
                 />
             </View>

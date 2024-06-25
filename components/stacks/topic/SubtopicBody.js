@@ -75,17 +75,19 @@ export default function SubtopicBody({ topicId, section }) {
     const [theme, changeTheme] = useTheme();
 
     const styles = getStyles(theme);
-    
+
     const lessonCard = section.lessons.map((lesson, index) => {
         const { id, name, lessonNo } = lesson;
 
-        return <LessonCard 
-            key={id} 
-            topicId={topicId} 
-            lessonId={id} 
-            lessonNo={lessonNo}
-            lessonName={name} 
-        />;
+        return (
+            <LessonCard
+                key={id}
+                topicId={topicId}
+                lessonId={id}
+                lessonNo={lessonNo}
+                lessonName={name}
+            />
+        );
     });
 
     return <View style={styles.subtopicBodyWrapper}>{lessonCard}</View>;

@@ -13,9 +13,9 @@ export default function Description({ description }) {
 
     return (
         <View style={styles.descriptionContainer}>
-            <ImageBackground 
-                source={theme === 'default' ? EdgeBgDefault : EdgeBgRed} 
-                style={styles.edgeBg} 
+            <ImageBackground
+                source={theme === 'default' ? EdgeBgDefault : EdgeBgRed}
+                style={styles.edgeBg}
                 imageStyle={styles.edgeBgImage}
             >
                 <Text style={styles.descriptionHeader}>Description</Text>

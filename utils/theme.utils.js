@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const getTheme = async () => {
     const defaultTheme = 'default';
@@ -6,7 +6,7 @@ export const getTheme = async () => {
     try {
         const themeData = await AsyncStorage.getItem('theme');
         if (themeData !== null) {
-            return await JSON.parse(themeData)
+            return await JSON.parse(themeData);
         } else {
             return defaultTheme;
         }
@@ -14,17 +14,16 @@ export const getTheme = async () => {
         console.log('Error fetching theme: ', error.message);
         return defaultTheme;
     }
-}
+};
 
 export const getThemeTest = async () => {
     return new Promise((resolve, reject) => {
         resolve(AsyncStorage.getItem('theme'));
-        reject()
-    })
-}
+        reject();
+    });
+};
 
 console.log(getThemeTest());
-  
 
 export const changeTheme = async (newTheme) => {
     try {
@@ -33,4 +32,4 @@ export const changeTheme = async (newTheme) => {
     } catch (error) {
         console.log('Error saving data to AsyncStorage:', error);
     }
-}
+};

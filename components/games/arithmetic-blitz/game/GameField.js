@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useReducer, useRef } from 'react';
 import { StyleSheet, View, Vibration } from 'react-native';
 
+import useSound from '../../../../hooks/useSound';
+
 import GameHeader from './GameHeader';
 import GameCard from './GameCard';
 import GameInput from './GameInput';
@@ -12,6 +14,8 @@ import { initialState, reducer } from './utils';
 import { diffInterval, diffTimer } from './utils/game.utils';
 
 export default function GameField({ difficulty, gameOver }) {
+    const { sounds, playSound } = useSound();
+
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const flipInterval = useRef(null);
@@ -27,6 +31,7 @@ export default function GameField({ difficulty, gameOver }) {
     // Initialization
     useEffect(() => {
         const setup = () => {
+            dispatch({ type: 'RESET' });
             dispatch({ type: 'SETUP', diff: difficulty });
         };
         const startGame = () => {
@@ -67,6 +72,8 @@ export default function GameField({ difficulty, gameOver }) {
 
         if (!timer && showGameInput) {
             clearInterval(timerInterval.current);
+            playSound(sounds.lose);
+
             dispatch({ type: 'WRONG_ANSWER' });
             setAnswerStatus({
                 isAnswered: true,
@@ -102,6 +109,7 @@ export default function GameField({ difficulty, gameOver }) {
         dispatch({ type: 'RESET_ROUND' });
 
         flipInterval.current = setInterval(startGame, flipRoundInterval());
+        playSound(sounds.powerUp);
     };
 
     const flipRoundInterval = () => {
@@ -128,9 +136,13 @@ export default function GameField({ difficulty, gameOver }) {
         if (answer === correctAnswer) {
             dispatch({ type: 'CORRECT_ANSWER' });
             isCorrect = true;
+
+            playSound(sounds.achievementLow);
         } else {
             dispatch({ type: 'WRONG_ANSWER' });
             isCorrect = false;
+
+            playSound(sounds.lose);
             Vibration.vibrate(300);
         }
         setAnswerStatus({

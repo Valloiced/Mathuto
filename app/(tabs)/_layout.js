@@ -20,8 +20,10 @@ export default function TabsLayout() {
                 headerShown: false,
                 tabBarActiveTintColor: COLORS.white,
                 tabBarInactiveTintColor: 'transparent',
-                tabBarActiveBackgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
-                tabBarInactiveBackgroundColor: theme === 'default' ? COLORS.primary : COLORS_RED.primary,
+                tabBarActiveBackgroundColor:
+                    theme === 'default' ? COLORS.primary : COLORS_RED.primary,
+                tabBarInactiveBackgroundColor:
+                    theme === 'default' ? COLORS.primary : COLORS_RED.primary,
                 tabBarShowLabel: false,
                 tabBarStyle: {
                     height: 55
@@ -33,11 +35,16 @@ export default function TabsLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <TabItemWrapper color={color}>
-                            <HomeSolid size={30} color={focused ? (
-                                theme === 'default' 
-                                    ? COLORS.primary 
-                                    : COLORS_RED.primary
-                            ) : COLORS.white} />
+                            <HomeSolid
+                                size={30}
+                                color={
+                                    focused
+                                        ? theme === 'default'
+                                            ? COLORS.primary
+                                            : COLORS_RED.primary
+                                        : COLORS.white
+                                }
+                            />
                         </TabItemWrapper>
                     )
                 }}
@@ -47,11 +54,16 @@ export default function TabsLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <TabItemWrapper color={color}>
-                            <QuizSolid size={30} color={focused ? (
-                                theme === 'default' 
-                                    ? COLORS.primary 
-                                    : COLORS_RED.primary
-                            ) : COLORS.white} />
+                            <QuizSolid
+                                size={30}
+                                color={
+                                    focused
+                                        ? theme === 'default'
+                                            ? COLORS.primary
+                                            : COLORS_RED.primary
+                                        : COLORS.white
+                                }
+                            />
                         </TabItemWrapper>
                     )
                 }}
@@ -61,11 +73,16 @@ export default function TabsLayout() {
                 options={{
                     tabBarIcon: ({ color, focused }) => (
                         <TabItemWrapper color={color}>
-                            <PlaySolid size={30} color={focused ? (
-                                theme === 'default' 
-                                    ? COLORS.primary 
-                                    : COLORS_RED.primary
-                            ) : COLORS.white} />
+                            <PlaySolid
+                                size={30}
+                                color={
+                                    focused
+                                        ? theme === 'default'
+                                            ? COLORS.primary
+                                            : COLORS_RED.primary
+                                        : COLORS.white
+                                }
+                            />
                         </TabItemWrapper>
                     )
                 }}
@@ -77,11 +94,14 @@ export default function TabsLayout() {
                         <TabItemWrapper color={color}>
                             <Leaderboard
                                 size={30}
-                                color={focused ? (
-                                theme === 'default' 
-                                    ? COLORS.primary 
-                                :    COLORS_RED.primary
-                            ) : COLORS.white} />
+                                color={
+                                    focused
+                                        ? theme === 'default'
+                                            ? COLORS.primary
+                                            : COLORS_RED.primary
+                                        : COLORS.white
+                                }
+                            />
                         </TabItemWrapper>
                     )
                 }}

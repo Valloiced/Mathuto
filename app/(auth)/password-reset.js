@@ -47,12 +47,17 @@ export default function PasswordReset() {
             </Text>
             <View style={styles.inputWrapper}>
                 <View style={styles.iconWrapper}>
-                    <MailSolid size={25} color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary} />
+                    <MailSolid
+                        size={25}
+                        color={theme === 'default' ? COLORS.bgPrimary : COLORS_RED.primary}
+                    />
                 </View>
                 <TextInput
                     style={styles.passwordResetInput}
                     placeholder="Email Address"
-                    placeholderTextColor={theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark}
+                    placeholderTextColor={
+                        theme === 'default' ? COLORS.textPrimary : COLORS_RED.dark
+                    }
                     value={recoveryEmail}
                     onChangeText={handleEmailInput}
                 />

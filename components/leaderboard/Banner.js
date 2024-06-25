@@ -15,10 +15,10 @@ export default function Banner() {
     return (
         <View style={styles.banner}>
             <View style={styles.bannerImgWrapper}>
-                <Image 
-                    source={theme === 'default' ? LogoDefault : LogoRed} 
+                <Image
+                    source={theme === 'default' ? LogoDefault : LogoRed}
                     style={styles.bannerImg}
-                    resizeMode="contain" 
+                    resizeMode="contain"
                 />
             </View>
         </View>

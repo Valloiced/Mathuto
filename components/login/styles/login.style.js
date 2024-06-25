@@ -7,7 +7,7 @@ const theme = getTheme();
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF',
+        backgroundColor: theme === 'default' ? COLORS.bgTertiary : COLORS_RED.primaryLight + 'BF'
     },
     loginHeader: {
         fontFamily: FONT.MSExtraBold,

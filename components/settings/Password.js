@@ -12,14 +12,14 @@ import { Checkmark } from '../../assets/icons';
 
 import styles from './style/password.style';
 import getLayoutStyles from './style/settings.style';
- 
+
 import { COLORS } from '../../constants/theme';
 
 export default function Password({ uid, setModalVisible, setDialogCallback }) {
     const [theme, changeTheme] = useTheme();
 
     const layoutStyles = getLayoutStyles(theme);
-    
+
     const [passwordForm, setPasswordForm] = useState({
         currentPassword: '',
         newPassword: '',

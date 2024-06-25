@@ -2,9 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
+import useSound from '../../../../hooks/useSound';
+
 import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 function Symbols({ symbol, handlePress }) {
+    const { sounds, playSound } = useSound();
+
     const translateY = useSharedValue(-SIZES.xxSmall * 0.4);
 
     const handlePressIn = () => {
@@ -26,7 +30,10 @@ function Symbols({ symbol, handlePress }) {
             style={styles.accessSymbolsBtn}
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
-            onPress={handlePress}
+            onPress={() => {
+                playSound(sounds.click);
+                handlePress();
+            }}
         >
             <Animated.View style={[styles.accessSymbols, pressAnimation]}>
                 <Text style={styles.accessSymbolsText}>{symbol}</Text>
