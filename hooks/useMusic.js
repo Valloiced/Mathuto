@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Audio } from 'expo-av';
 import { useState, useEffect } from 'react';
 
@@ -12,7 +13,7 @@ export default function useMusic() {
         timer: require('../assets/music/timer.wav')
     };
 
-    const soundConfig = {
+    let soundConfig = {
         staysActiveInBackground: false,
         interruptionModeAndroid: 1,
         shouldDuckAndroid: true,
@@ -21,20 +22,34 @@ export default function useMusic() {
         playsInSilentModeIOS: true
     };
 
+    const [playback, setPlayback] = useState(new Audio.Sound());
     const [loadedMusic, setLoadedMusic] = useState([]);
     const [playingMusic, setPlayingMusic] = useState(0);
     const [musicListLoaded, setMusicListLoaded] = useState(false);
-    const [playback, setPlayback] = useState(new Audio.Sound());
     const [volume, setVolume] = useState(0.6); // Default
+    const [isMuted, setIsMuted] = useState(false);
 
     // Apply Config
     useEffect(() => {
-        const applyConfig = async () => await Audio.setAudioModeAsync(soundConfig);
+        const applyConfig = async () => {
+            try {
+                const response = await AsyncStorage.getItem('music-vol');
+                const currentVol = response ? JSON.parse(response) : volume;
+                soundConfig = { ...soundConfig, volume: currentVol };
 
+                await AsyncStorage.setItem('music-vol', JSON.stringify(currentVol));
+                await Audio.setAudioModeAsync(soundConfig);
+
+                const isMuted = JSON.parse(await AsyncStorage.getItem('is-music-muted')) || false;
+                setIsMuted(isMuted);
+                setVolume(currentVol);
+            } catch (error) {
+                console.error('Error applying config:', error);
+            }
+        };
         applyConfig();
     }, []);
 
-    // For music list
     useEffect(() => {
         const onPlaybackStatusUpdate = (playbackStatus) => {
             if (
@@ -67,6 +82,12 @@ export default function useMusic() {
         }
     }, [musicListLoaded, loadedMusic]);
 
+    useEffect(() => {
+        if (loadedMusic.length) {
+            playback.setVolumeAsync(isMuted ? 0 : volume).catch(error => console.error('Error setting volume:', error));
+        }
+    }, [isMuted, volume]);
+
     const playMusic = async (currentMusic, isLooping = false) => {
         try {
             await playback.unloadAsync();
@@ -75,7 +96,7 @@ export default function useMusic() {
             setPlayback(newPlayback);
 
             await newPlayback.loadAsync(currentMusic);
-            await newPlayback.setVolumeAsync(volume);
+            await newPlayback.setVolumeAsync(isMuted ? 0 : volume);
 
             if (isLooping) {
                 await newPlayback.setIsLoopingAsync(true);
@@ -84,6 +105,20 @@ export default function useMusic() {
             await newPlayback.playAsync();
         } catch (error) {
             console.error('Error playing music:', error);
+        }
+    };
+
+    const shouldDuckMusic = async (shouldDuck = false) => {
+        const newVolume = shouldDuck ? 0.1 : 0.6;
+        setVolume(newVolume);
+    };
+
+    const muteMusic = async (mute = false) => {
+        try {
+            await AsyncStorage.setItem('is-music-muted', JSON.stringify(mute));
+            setIsMuted(mute);
+        } catch (error) {
+            console.error('Error muting music:', error);
         }
     };
 
@@ -106,8 +141,9 @@ export default function useMusic() {
             setPlayback(newPlayback);
 
             await newPlayback.loadAsync(loadedMusic[index]);
-            await newPlayback.setVolumeAsync(volume);
+            await newPlayback.setVolumeAsync(isMuted ? 0 : volume);
             await newPlayback.playAsync();
+            console.log('Playing music from list with volume:', isMuted ? 0 : volume);
         } catch (error) {
             console.error('Error playing music list:', error);
         }
@@ -128,7 +164,10 @@ export default function useMusic() {
 
     return {
         music,
+        isMuted,
         playMusic,
+        shouldDuckMusic,
+        muteMusic,
         loadMusicList,
         playMusicList,
         unloadMusic,

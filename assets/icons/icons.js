@@ -5,6 +5,7 @@ import Font5Icon from 'react-native-vector-icons/FontAwesome5';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import EntIcon from 'react-native-vector-icons/Entypo';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
+import MatComIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FonIcon from 'react-native-vector-icons/Fontisto';
 import FeatIcon from 'react-native-vector-icons/Feather';
 
@@ -108,6 +109,10 @@ const Trophy = ({ style, size, color }) => (
     <FontIcon name="trophy" style={style} size={size} color={color} />
 );
 
+const Pause = ({ style, size, color }) => (
+    <FeatIcon name="pause" style={style} size={size} color={color} />
+);
+
 const WrongSolid = ({ style, size, color }) => (
     <AntIcon name="closesquareo" style={style} size={size} color={color} />
 );
@@ -144,6 +149,22 @@ const BookReaderSolid = ({ style, size, color }) => (
     <Font5Icon name="book-reader" style={style} size={size} color={color} />
 );
 
+const VolumeSolid = ({ style, size, color }) => (
+    <Font5Icon name="volume-up" style={style} size={size} color={color} />
+);
+
+const VolumeMuteSolid = ({ style, size, color }) => (
+    <Font5Icon name="volume-mute" style={style} size={size} color={color} />
+);
+
+const MusicSolid = ({ style, size, color }) => (
+    <MatComIcon name="music" style={style} size={size} color={color} />
+);
+
+const MusicMuteSolid = ({ style, size, color }) => (
+    <MatComIcon name="music-off" style={style} size={size} color={color} />
+);
+
 module.exports = {
     Mail,
     Lock,
@@ -170,6 +191,7 @@ module.exports = {
     Play,
     Clock,
     Trophy,
+    Pause,
     WrongSolid,
     WrongCloseSolid,
     UserSolid,
@@ -178,5 +200,9 @@ module.exports = {
     HomeSolid,
     QuizSolid,
     PlaySolid,
-    BookReaderSolid
+    BookReaderSolid,
+    VolumeSolid,
+    VolumeMuteSolid,
+    MusicSolid,
+    MusicMuteSolid
 };

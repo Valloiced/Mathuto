@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { COLORS, FONT, SIZES } from '../../../../constants/theme';
 
-import { Heart, HeartFull } from '../../../../assets/icons';
+import { Heart, HeartFull, Pause } from '../../../../assets/icons';
 
-export default function GameHeader({ remainingLives, points, difficulty }) {
+export default function GameHeader({ remainingLives, points, difficulty, setModalVisible }) {
     // Generate Remaining Hearts Display
     const remainingHearts = new Array(3)
         .fill(0)
@@ -22,7 +22,16 @@ export default function GameHeader({ remainingLives, points, difficulty }) {
                 <View style={styles.heartsContainer}>{remainingHearts}</View>
                 <Text style={styles.difficulty}>{`Difficulty: ${difficulty}`}</Text>
             </View>
-            <Text style={styles.points}>{`Points: ${points}`}</Text>
+            <View style={styles.headerWrapper}>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Pause 
+                        size={25} 
+                        color={COLORS.white} 
+                        style={styles.pause} 
+                    />
+                </TouchableOpacity>
+                <Text style={styles.points}>{`Points: ${points}`}</Text>
+            </View>
         </View>
     );
 }
@@ -37,14 +46,15 @@ const styles = StyleSheet.create({
         gap: SIZES.xSmall
     },
     difficulty: {
-        fontFamily: FONT.MSExtraBold,
+        fontFamily: FONT.TorBold,
         fontSize: SIZES.small,
         color: COLORS.lightWhite,
-        textTransform: 'capitalize'
+        textTransform: 'capitalize',
+        letterSpacing: 1
     },
     points: {
         fontFamily: FONT.TorBold,
-        fontSize: SIZES.large,
+        fontSize: SIZES.medium,
         color: COLORS.white,
         letterSpacing: 1
     },
@@ -56,5 +66,8 @@ const styles = StyleSheet.create({
         width: dimensions[0],
         height: dimensions[1],
         resizeMode: 'cover'
-    })
+    }),
+    pause: {
+        alignSelf: 'flex-end'
+    }
 });

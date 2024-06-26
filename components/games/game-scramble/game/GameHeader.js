@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { WrongSolid, WrongCloseSolid } from '../../../../assets/icons';
+import { WrongSolid, WrongCloseSolid, Pause } from '../../../../assets/icons';
 import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 import { GameTheme } from './utils/theme.utils';
 
-export default function GameHeader({ points, remainingLives, lessonsAnswered, noOfLessons }) {
+export default function GameHeader({ points, remainingLives, lessonsAnswered, noOfLessons, setModalVisible }) {
     const remainingAttempts = new Array(3)
         .fill(0)
         .map((val, index) =>
@@ -20,6 +20,15 @@ export default function GameHeader({ points, remainingLives, lessonsAnswered, no
         <View style={styles.headerContainer}>
             <View style={styles.gameTrackerWrapper}>
                 <Text style={styles.gameTracker}>{`${lessonsAnswered}/${noOfLessons}`}</Text>
+            </View>
+            <View style={styles.pauseButton}>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Pause 
+                        size={25} 
+                        color={GameTheme.secondaryBgColor} 
+                        style={styles.pause} 
+                    />
+                </TouchableOpacity>
             </View>
             <View style={styles.pointsWrapper}>
                 <Text style={styles.pointsHeader}>POINTS</Text>
@@ -73,5 +82,10 @@ const styles = StyleSheet.create({
     failedAttempt: {
         color: GameTheme.secondaryBgColor,
         fontSize: SIZES.xxLarge
+    },
+    pauseButton: {
+        position: 'absolute',
+        top: 0,
+        right: SIZES.small
     }
 });

@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Audio } from 'expo-av';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function useSound() {
     const sounds = {
@@ -26,15 +27,40 @@ export default function useSound() {
         playsInSilentModeIOS: true
     };
 
-    useEffect(() => {
-        const applyConfig = async () => await Audio.setAudioModeAsync(soundConfig);
+    const [isMuted, setIsMuted] = useState(false);
 
+    useEffect(() => {
+        const applyConfig = async () => {
+            try {
+                await Audio.setAudioModeAsync(soundConfig);
+
+                const isMuted = JSON.parse(await AsyncStorage.getItem('is-sound-muted')) || false;
+                setIsMuted(isMuted);
+            } catch (error) {
+                console.error('Error applying config:', error);
+            }
+        };
         applyConfig();
     }, []);
 
-    const playSound = async (sound, isLooping = false) => {
+    // For the love of god, this is just a temporary solution
+    // Please forgive me, I will refactor this next time (or never)
+    useEffect(() => {
+        const fetchCurrentMuteState = async () => {
+            const isMuted = JSON.parse(await AsyncStorage.getItem('is-sound-muted')) || false;
+            setIsMuted(isMuted);
+        }
+
+        // Fetch mute state for every 3 seconds to sync with the user changes
+        const fetchInterval = setInterval(() => fetchCurrentMuteState(), 5000);
+        
+        return () => clearInterval(fetchInterval);
+    }, [])
+
+    const playSound = async (sound) => {
         const soundInstance = new Audio.Sound();
         await soundInstance.loadAsync(sound);
+        await soundInstance.setVolumeAsync(isMuted ? 0 : 1);
 
         await soundInstance.playAsync();
 
@@ -46,5 +72,14 @@ export default function useSound() {
         });
     };
 
-    return { sounds, playSound };
+    const muteSound = async (mute = false) => {
+        try {
+            await AsyncStorage.setItem('is-sound-muted', JSON.stringify(mute));
+            setIsMuted(mute);
+        } catch (error) {
+            console.error('Error muting sound:', error);
+        }
+    };
+
+    return { sounds, playSound, isMuted, muteSound };
 }

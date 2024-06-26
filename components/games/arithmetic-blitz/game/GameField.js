@@ -13,7 +13,7 @@ import { COLORS, SIZES } from '../../../../constants/theme';
 import { initialState, reducer } from './utils';
 import { diffInterval, diffTimer } from './utils/game.utils';
 
-export default function GameField({ difficulty, gameOver }) {
+export default function GameField({ difficulty, gameOver, modalVisible, setModalVisible }) {
     const { sounds, playSound } = useSound();
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -157,6 +157,7 @@ export default function GameField({ difficulty, gameOver }) {
                 remainingLives={state.remainingLives}
                 points={state.points}
                 difficulty={difficulty}
+                setModalVisible={setModalVisible}
             />
             <GameCard
                 flip={state.flip}
@@ -170,6 +171,7 @@ export default function GameField({ difficulty, gameOver }) {
                 reset={state.flip} // timer reset on flip change
                 showProgressBar={!showGameInput}
                 duration={flipRoundInterval()}
+                modalVisible={modalVisible}
             />
             {showGameInput && (
                 <GameInput

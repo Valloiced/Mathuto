@@ -7,11 +7,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import useProfile from '../../../../hooks/useProfile';
 import useCache from '../../../../hooks/useCache';
 import useNetStatus from '../../../../hooks/useNetStatus';
+import useMusic from '../../../../hooks/useMusic';
 
 import { filterPlayableTerms } from '../../../../components/games/game-scramble/game/utils/game.utils';
 
 import GameField from '../../../../components/games/game-scramble/game/GameField';
 import GameOverScreen from '../../../../components/games/game-scramble/game/GameOverScreen';
+import PauseGameDialog from '../../../../components/common/dialogs/PauseGameDialog';
 
 import styles from '../../../../components/games/game-scramble/style/game.style';
 import GameLoading from '../../../../components/games/game-scramble/game/Loading';
@@ -21,6 +23,14 @@ export default function MathScrableGame() {
     const params = useGlobalSearchParams();
     const { isConnected } = useNetStatus();
     const { data, loadingCache } = useCache('topics', []);
+    const { 
+        music,
+        isMuted,
+        shouldDuckMusic,
+        muteMusic,
+        playMusic,
+        unloadMusic
+    } = useMusic();
 
     const [loading, setLoading] = useState(true);
     const [animationLoaded, setAnimationLoaded] = useState(false);
@@ -32,6 +42,9 @@ export default function MathScrableGame() {
         isGameOver: false,
         totalPoints: null
     });
+
+    /* Pause Dialog */
+    const [modalVisible, setModalVisible] = useState(false);
 
     const fetchDataFromCache = useCallback(() => {
         // Extract topic ids from the params
@@ -112,6 +125,8 @@ export default function MathScrableGame() {
                         gameData={gameData}
                         gameStatus={gameStatus}
                         setGameStatus={setGameStatus}
+                        setModalVisible={setModalVisible}
+                        musicUtils={{ music, playMusic, unloadMusic }}
                     />
                 )}
                 {!loading && animationLoaded && gameStatus.isGameOver && (
@@ -123,6 +138,15 @@ export default function MathScrableGame() {
                     />
                 )}
             </SafeAreaView>
+            <PauseGameDialog
+                isMusicMuted={isMuted}
+                muteMusic={muteMusic}
+                revertMusic={() => shouldDuckMusic(false)}
+                duckMusic={() => shouldDuckMusic(true)}
+                restartPath={`/games/math-scramble/game/${params.topics}`}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+            />
         </>
     );
 }

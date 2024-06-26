@@ -2,7 +2,6 @@ import React, { useState, useReducer, useEffect, useRef } from 'react';
 import { View, Vibration } from 'react-native';
 
 import useSound from '../../../../hooks/useSound';
-import useMusic from '../../../../hooks/useMusic';
 
 import { initialState, reducer } from './utils';
 
@@ -11,9 +10,9 @@ import GameHeader from './GameHeader';
 
 import GameInput from './GameInput';
 
-export default function GameField({ gameData, gameStatus, setGameStatus }) {
+export default function GameField({ gameData, gameStatus, setGameStatus, setModalVisible, musicUtils }) {
     const { sounds, playSound } = useSound();
-    const { music, playMusic, unloadMusic } = useMusic();
+    const { music, playMusic, unloadMusic } = musicUtils;
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const levelDuration = 15; // Duration per level (secs)
@@ -158,6 +157,7 @@ export default function GameField({ gameData, gameStatus, setGameStatus }) {
                 remainingLives={state.remainingLives}
                 lessonsAnswered={state.rounds + 1}
                 noOfLessons={gameData.length}
+                setModalVisible={setModalVisible}
             />
             <GameAction
                 term={state.currentTerm.term}

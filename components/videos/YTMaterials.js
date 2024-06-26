@@ -15,7 +15,7 @@ import { COLORS, COLORS_RED } from '../../constants/theme';
 
 export default function YTMaterials() {
     const netinfo = useNetInfo();
-    const [theme, changeTheme] = useTheme();
+    const [theme] = useTheme(); // Assuming `useTheme` provides a single value now
 
     const styles = getStyles(theme);
 
@@ -28,13 +28,10 @@ export default function YTMaterials() {
         try {
             const response = await AsyncStorage.getItem('recent-lessons');
             const recentLessons = JSON.parse(response);
-            if (!recentLessons) {
-                return [];
-            }
-
-            return recentLessons.map((lessons) => lessons.name);
+            return recentLessons ? recentLessons.map(lesson => lesson.name) : [];
         } catch (error) {
             console.error(error.message);
+            return [];
         }
     };
 
@@ -42,56 +39,48 @@ export default function YTMaterials() {
         try {
             const response = await AsyncStorage.getItem('recent-yt-data');
             const recentYTData = JSON.parse(response);
-            if (!recentYTData) {
-                return [];
-            }
-
-            return recentYTData;
+            return recentYTData || [];
         } catch (error) {
             console.error(error.message);
+            return [];
         }
     };
 
     const checkAllowSearch = async () => {
         try {
-            let response = await AsyncStorage.getItem('saved-yt-queries');
-            let latestQueries = JSON.parse(response);
+            const response = await AsyncStorage.getItem('saved-yt-queries');
+            const latestQueries = JSON.parse(response);
 
-            if (!latestQueries || !latestQueries?.videoData.length) {
-                return true; // Fetch data if there is no queries saved yet
+            if (!latestQueries || !latestQueries.videoData.length) {
+                return true;
             }
 
             if (latestQueries.fetchDate) {
                 const currentTime = new Date();
                 const prevSearchTime = new Date(latestQueries.fetchDate);
-                const differenceInTime = currentTime.getTime() - prevSearchTime.getTime();
+                const differenceInDays = (currentTime - prevSearchTime) / (1000 * 3600 * 24);
 
-                const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-
-                return differenceInDays >= 1; // Return true if a day has passed
-            } else {
-                return false;
+                return differenceInDays >= 1;
             }
+            return false;
         } catch (error) {
             console.error(error.message);
+            return false;
         }
     };
 
     const getRandomVideos = (queries, limit) => {
-        if (limit > queries.length) {
-            limit = queries.length;
-        }
+        if (limit > queries.length) limit = queries.length;
 
         const videos = [];
-        const usedIndices = [];
+        const usedIndices = new Set();
 
         while (videos.length < limit) {
             const pickIndex = Math.floor(Math.random() * queries.length);
 
-            if (usedIndices.indexOf(pickIndex) === -1) {
-                const pickVideo = queries[pickIndex];
-                videos.push(pickVideo);
-                usedIndices.push(pickIndex);
+            if (!usedIndices.has(pickIndex)) {
+                videos.push(queries[pickIndex]);
+                usedIndices.add(pickIndex);
             }
         }
 
@@ -103,31 +92,19 @@ export default function YTMaterials() {
 
         try {
             const isSearchAvailable = await checkAllowSearch();
-
             let videoList;
 
-            // Check if recent lessons exist and append them to default search terms
             let searchTerms = await fetchRecentOpenedLessons();
+            searchTerms = searchTerms.length > 0 ? searchTerms.join(',') : '';
 
-            if (searchTerms.length > 0) {
-                searchTerms = searchTerms.join(',');
-            } else {
-                searchTerms = '';
-            }
-
-            // The app is limited to one search a day with 200 queries, if a day has passed
-            // This condition will fetch new data again and store it to async storage
             if (isSearchAvailable) {
                 videoList = await searchVideosList(
-                    defaultValues + (searchTerms ? ',' + searchTerms : ''),
+                    `${defaultValues}${searchTerms ? ',' + searchTerms : ''}`,
                     200
                 );
 
-                // If videoList is empty, the query set must be deformed, let's refetch it
                 if (!videoList.length) {
                     videoList = await searchVideosList(defaultValues, 200);
-
-                    // Reset cache
                     await AsyncStorage.removeItem('recent-lessons');
                 }
 
@@ -136,32 +113,28 @@ export default function YTMaterials() {
                     videoData: videoList
                 };
 
-                await AsyncStorage.removeItem('saved-yt-queries');
                 await AsyncStorage.setItem('saved-yt-queries', JSON.stringify(latestQueries));
             } else {
-                let response = await AsyncStorage.getItem('saved-yt-queries');
+                const response = await AsyncStorage.getItem('saved-yt-queries');
                 const storedVideoData = JSON.parse(response);
                 videoList = storedVideoData.videoData;
             }
 
-            // Twenty random videos are pick the stored queries every load
-            let pickedVideos = getRandomVideos(videoList, 20);
+            const pickedVideos = getRandomVideos(videoList, 20);
 
-            const fetchVideoDetails = pickedVideos.map(async (video) => {
-                const channelImg = await getChannelDetails(video.snippet.channelId, 'snippet');
-                const videoDetails = await getVideoDetails(video.id.videoId, 'snippet,statistics');
+            const videoListDetails = await Promise.all(
+                pickedVideos.map(async (video) => {
+                    const channelImg = await getChannelDetails(video.snippet.channelId, 'snippet');
+                    const videoDetails = await getVideoDetails(video.id.videoId, 'snippet,statistics');
 
-                return {
-                    ...video,
-                    channelImg: channelImg ? channelImg.snippet.thumbnails.medium.url : null,
-                    viewCount: videoDetails.statistics.viewCount
-                };
-            });
+                    return {
+                        ...video,
+                        channelImg: channelImg?.snippet?.thumbnails?.medium?.url || null,
+                        viewCount: videoDetails?.statistics?.viewCount || '0'
+                    };
+                })
+            );
 
-            const videoListDetails = await Promise.all(fetchVideoDetails);
-
-            // For offline use, cache
-            await AsyncStorage.removeItem('recent-yt-data');
             await AsyncStorage.setItem('recent-yt-data', JSON.stringify(videoListDetails));
 
             setSearchData(videoListDetails);
@@ -184,7 +157,6 @@ export default function YTMaterials() {
     const renderSavedRecommendation = useCallback(async () => {
         try {
             const savedYtData = await fetchRecentSavedData();
-
             if (savedYtData.length) {
                 setSearchData(savedYtData);
             } else {
@@ -208,24 +180,20 @@ export default function YTMaterials() {
     useEffect(() => {
         if (netinfo.isConnected === false) {
             renderSavedRecommendation();
-        }
-        if (netinfo.isConnected) {
+        } else if (netinfo.isConnected) {
             searchRecommendations();
         }
-    }, [searchRecommendations, netinfo, renderSavedRecommendation]);
+    }, [netinfo.isConnected, searchRecommendations, renderSavedRecommendation]);
 
     const onRefresh = useCallback(async () => {
         setRefreshing(true);
-
         if (netinfo.isConnected === false) {
             renderSavedRecommendation();
-        }
-        if (netinfo.isConnected) {
+        } else {
             searchRecommendations();
         }
-
         setRefreshing(false);
-    }, [searchRecommendations, netinfo, renderSavedRecommendation]);
+    }, [netinfo.isConnected, searchRecommendations, renderSavedRecommendation]);
 
     return (
         <View style={styles.ytMaterialContainer}>
@@ -233,7 +201,7 @@ export default function YTMaterials() {
                 <Text style={styles.ytHeader}>RECOMMENDED FOR YOU</Text>
             </View>
             {loading ? (
-                <ActivityIndicator size={'large'} color={                <ActivityIndicator size="large" color={theme === 'default' ? COLORS.textTertiary : COLORS_RED.base} />} />
+                <ActivityIndicator size="large" color={theme === 'default' ? COLORS.textTertiary : COLORS_RED.base} />
             ) : (
                 <FlatList
                     data={searchData}

@@ -5,6 +5,7 @@ import Toast from 'react-native-toast-message';
 import getStyles from '../../../components/settings/style/settings.style';
 
 import Appearance from '../../../components/settings/Appearance';
+import Preferences from '../../../components/settings/Preferences';
 import PersonalInfo from '../../../components/settings/PersonalInfo';
 import Password from '../../../components/settings/Password';
 import ButtonContainer from '../../../components/settings/ButtonContainer';
@@ -52,6 +53,7 @@ export default function Settings() {
                     setModalVisible={setThemeModalVisible}
                     setDialogCallback={setThemeDialogCallback}
                 />
+                <Preferences />
                 <PersonalInfo
                     uid={user.uid}
                     username={user.username}

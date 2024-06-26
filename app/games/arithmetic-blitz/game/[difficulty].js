@@ -9,15 +9,27 @@ import useProfile from '../../../../hooks/useProfile';
 import Loading from '../../../../components/games/arithmetic-blitz/game/Loading';
 import GameField from '../../../../components/games/arithmetic-blitz/game/GameField';
 import GameOverScreen from '../../../../components/games/arithmetic-blitz/game/GameOverScreen';
+import PauseGameDialog from '../../../../components/common/dialogs/PauseGameDialog';
 
 import { diffMultiplier } from '../../../../components/games/arithmetic-blitz/game/utils/game.utils';
 
 import { COLORS } from '../../../../constants/theme';
 
 export default function ArithmeticBlitzGame() {
-    const { music, loadMusicList, playMusicList, unloadMusic } = useMusic();
+    const { 
+        music,
+        isMuted,
+        loadMusicList, 
+        playMusicList, 
+        unloadMusic,
+        shouldDuckMusic,
+        muteMusic
+    } = useMusic();
     const params = useLocalSearchParams();
     const user = useProfile();
+
+    /* Pause Dialog */
+    const [modalVisible, setModalVisible] = useState(false);
 
     const [loading, setLoading] = useState(true);
     const [gameStatus, setGameStatus] = useState({
@@ -74,7 +86,12 @@ export default function ArithmeticBlitzGame() {
                 {loading ? (
                     <Loading setLoading={setLoading} />
                 ) : !gameStatus.isGameOver ? (
-                    <GameField difficulty={params.difficulty} gameOver={setGameStatus} />
+                    <GameField 
+                        difficulty={params.difficulty} 
+                        gameOver={setGameStatus} 
+                        modalVisible={modalVisible}
+                        setModalVisible={setModalVisible}
+                    />
                 ) : (
                     <GameOverScreen
                         scoreDetails={{
@@ -87,6 +104,15 @@ export default function ArithmeticBlitzGame() {
                     />
                 )}
             </SafeAreaView>
+            <PauseGameDialog
+                isMusicMuted={isMuted}
+                muteMusic={muteMusic}
+                revertMusic={() => shouldDuckMusic(false)}
+                duckMusic={() => shouldDuckMusic(true)}
+                restartPath={`/games/arithmetic-blitz/game/${params.difficulty}`}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+            />
         </>
     );
 }

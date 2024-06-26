@@ -114,13 +114,13 @@ export default function GameOverScreen({ gameQuery, totalPoints, overallPoints, 
         }
 
         // Timeout so that user would be redirected back to home page when they stayed
-        // a bit long (don't know why)
-        let screenTimeout = !submitting && setTimeout(() => router.replace('/home'), 20000);
+        // // a bit long (don't know why)
+        // let screenTimeout = !submitting && setTimeout(() => router.replace('/home'), 20000);
 
-        return () => {
-            clearTimeout(confettiTimeout);
-            clearTimeout(screenTimeout);
-        };
+        // return () => {
+        //     clearTimeout(confettiTimeout);
+        //     clearTimeout(screenTimeout);
+        // };
     }, [totalPoints, isCompleted, isConnected, confettiRef, user.uid, submitted]);
 
     const componentEnter = BounceIn.delay(500).duration(850);
