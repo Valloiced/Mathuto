@@ -41,3 +41,5 @@ yarn-error.*
 server/
 
 google-services.json
+# EAS / signing credentials
+credentials.json
