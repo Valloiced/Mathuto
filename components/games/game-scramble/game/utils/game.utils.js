@@ -2,6 +2,7 @@ import { Dimensions } from 'react-native';
 import { LevelTheme } from './theme.utils';
 
 import { SIZES } from '../../../../../constants/theme';
+import { getWindow } from '../../../../../constants/window';
 
 const getLevelTheme = (themeIndex = 0) => {
     const themes = Object.values(LevelTheme);
@@ -53,7 +54,7 @@ const scramble = (pickedWord) => {
 };
 
 const determineFontSize = (charCount, wordWidth) => {
-    const { width } = Dimensions.get('window');
+    const { width } = getWindow();
 
     const screenPadding = SIZES.medium * 2;
     const charGap = SIZES.small; // Gap between characters in a word

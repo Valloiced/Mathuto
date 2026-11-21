@@ -8,7 +8,12 @@ import styles from './style/banner.style';
 
 export default function Banner() {
     return (
-        <ImageBackground source={banner} style={styles.banner} imageStyle={styles.bannerImg}>
+        <ImageBackground
+            source={banner}
+            resizeMode="cover"
+            style={styles.banner}
+            imageStyle={styles.bannerImg}
+        >
             <Image source={logo} resizeMode="cover" />
             <Text style={styles.bannerHeader}>Learning Materials</Text>
         </ImageBackground>

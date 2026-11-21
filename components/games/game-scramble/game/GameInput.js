@@ -1,13 +1,5 @@
 import React, { useId, useRef, useEffect, useCallback } from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    TextInput,
-    Pressable,
-    Dimensions,
-    TouchableOpacity
-} from 'react-native';
+import { StyleSheet, View, Text, TextInput, Pressable, TouchableOpacity } from 'react-native';
 import Animated, { BounceIn } from 'react-native-reanimated';
 
 import { Shuffle } from '../../../../assets/icons';
@@ -16,6 +8,7 @@ import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme'
 import { findLongestWord } from './utils/game.utils';
 
 import { GameTheme } from './utils/theme.utils';
+import { getWindow } from '../../../../constants/window';
 
 export default function GameInput({
     scrambledTerm,
@@ -55,7 +48,7 @@ export default function GameInput({
         };
 
         const getTextBoxDimensions = () => {
-            const { width } = Dimensions.get('window');
+            const { width } = getWindow();
 
             const wordLength = scrambledTerm[0].length;
             const charFontSize = fontSize / 1.5; // Smaller
@@ -164,7 +157,7 @@ export default function GameInput({
     );
 }
 
-const { height } = Dimensions.get('window');
+const { height } = getWindow();
 
 const styles = StyleSheet.create({
     gameInputContainer: {

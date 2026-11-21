@@ -1,7 +1,8 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { COLORS } from '../../../../constants/theme';
+import { getWindow } from '../../../../constants/window';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = getWindow();
 
 const styles = StyleSheet.create({
     gameLobbyContainer: {

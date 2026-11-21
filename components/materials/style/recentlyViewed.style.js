@@ -1,7 +1,8 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { getWindow } from '../../../constants/window';
 
-const { width } = Dimensions.get('window');
+const { width } = getWindow();
 
 const styles = StyleSheet.create({
     recentlyViewedContainer: {

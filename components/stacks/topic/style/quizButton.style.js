@@ -1,10 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../../constants/theme';
 
 const styles = StyleSheet.create({
     gameButtonContainer: {
-        position: 'fixed',
+        // 'fixed' is not a React Native value: native keeps the bar in normal flow at the
+        // bottom; on web it would pin to the browser window, so use 'absolute' instead.
+        position: Platform.OS === 'web' ? 'absolute' : 'fixed',
         bottom: 0,
+        left: 0,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',

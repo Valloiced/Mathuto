@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npx expo export --platform web --output-dir dist",
+  "installCommand": "npm install --legacy-peer-deps",
+  "outputDirectory": "dist",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/materials/:path*", "destination": "https://mathtuto-serverless.vercel.app/api/materials/:path*" },
+    { "source": "/api/materials", "destination": "https://mathtuto-serverless.vercel.app/api/materials" },
+    { "source": "/api/leaderboard", "destination": "https://mathtuto-serverless.vercel.app/api/leaderboard" },
+    { "source": "/api/quiz/:path*", "destination": "https://mathtuto-serverless.vercel.app/api/quiz/:path*" },
+    { "source": "/api/score/submit", "destination": "https://mathtuto-serverless.vercel.app/api/score/submit" },
+    { "source": "/api/profile/update", "destination": "https://mathtuto-serverless.vercel.app/api/profile/update" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

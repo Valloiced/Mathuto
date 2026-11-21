@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     bannerImg: {
+        width: '100%',
         opacity: 0.6
     },
     bannerHeader: {

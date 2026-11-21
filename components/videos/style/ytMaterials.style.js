@@ -1,7 +1,8 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { BORDER_RADIUS, COLORS, FONT, SIZES } from '../../../constants/theme';
+import { getWindow } from '../../../constants/window';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = getWindow();
 
 const styles = StyleSheet.create({
     ytMaterialContainer: {
