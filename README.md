@@ -71,13 +71,6 @@ npx expo start
 
 Scan the QR code with Expo Go, or press `a` for an Android emulator.
 
-## 🧠 What I learned
-
-- Structuring a mid-sized React Native codebase (~13k lines) with file-based routing and feature folders
-- Building offline-tolerant UX: caching API responses and checking connectivity before network calls
-- Designing game loops and animations in React Native without a game engine
-- Working from a client's acceptance tests and iterating on feedback
-
 ---
 
 Made by [Vince Sualog](https://github.com/Valloiced)
