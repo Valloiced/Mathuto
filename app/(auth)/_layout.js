@@ -2,7 +2,7 @@ import React from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'react-native';
 
-import ReturnHeaderBtn from '../../components/headers/ReturnHeaderBtn';
+import ReturnHeaderBtn from '../../components/headers/returnHeaderBtn';
 
 export default function AuthLayout() {
     return (

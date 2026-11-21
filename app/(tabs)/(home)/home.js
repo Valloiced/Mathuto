@@ -5,8 +5,8 @@ import Toast from 'react-native-toast-message';
 import useNetStatus from '../../../hooks/useNetStatus';
 import useProfile from '../../../hooks/useProfile';
 
-import ProfileContainer from '../../../components/home/ProfileContainer';
-import MainContainer from '../../../components/home/MainContainer';
+import ProfileContainer from '../../../components/home/profileContainer';
+import MainContainer from '../../../components/home/mainContainer';
 
 import styles from '../../../components/home/style/home.styles';
 

@@ -5,7 +5,7 @@ import Toast from 'react-native-toast-message';
 
 import useNetStatus from '../../../hooks/useNetStatus';
 
-import ReturnHeaderBtn from '../../../components/headers/ReturnHeaderBtn';
+import ReturnHeaderBtn from '../../../components/headers/returnHeaderBtn';
 import VideoPlayer from '../../../components/stacks/video/VideoPlayer';
 import Description from '../../../components/stacks/video/Description';
 import YTOfflineModal from '../../../components/stacks/video/YTOfflineModal';

@@ -12,7 +12,7 @@ import LessonsContainer from '../../../../components/stacks/topic/LessonsContain
 import QuizButton from '../../../../components/stacks/topic/QuizButton';
 
 import styles from '../../../../components/stacks/topic/style/topic.style';
-import ReturnHeaderBtn from '../../../../components/headers/ReturnHeaderBtn';
+import ReturnHeaderBtn from '../../../../components/headers/returnHeaderBtn';
 
 export default function Topics() {
     const params = useGlobalSearchParams();

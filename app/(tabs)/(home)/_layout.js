@@ -2,7 +2,7 @@ import React from 'react';
 import { Drawer } from 'expo-router/drawer';
 
 import HomeDrawerContent from '../../../components/home/drawer/DrawerContent';
-import HomeHeaderLeft from '../../../components/headers/HomeHeaderLeft';
+import HomeHeaderLeft from '../../../components/headers/homeHeaderLeft';
 
 import { COLORS, FONT, SIZES } from '../../../constants/theme';
 
@@ -13,7 +13,7 @@ export default function HomeLayout() {
         <Drawer
             screenOptions={{
                 headerShown: false,
-                headerBackgroundContainerStyle: COLORS.lightWhite,
+                headerBackgroundContainerStyle: { backgroundColor: COLORS.lightWhite },
                 drawerActiveTintColor: COLORS.textTertiary,
                 drawerActiveBackgroundColor: COLORS.secondary + '80',
                 drawerInactiveTintColor: COLORS.textSecondary + 'BF',

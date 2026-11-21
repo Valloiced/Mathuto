@@ -1,12 +1,12 @@
 import React from 'react';
-import AntIcon from 'react-native-vector-icons/AntDesign';
-import FontIcon from 'react-native-vector-icons/FontAwesome';
-import Font5Icon from 'react-native-vector-icons/FontAwesome5';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import EntIcon from 'react-native-vector-icons/Entypo';
-import MatIcon from 'react-native-vector-icons/MaterialIcons';
-import FonIcon from 'react-native-vector-icons/Fontisto';
-import FeatIcon from 'react-native-vector-icons/Feather';
+import AntIcon from '@expo/vector-icons/AntDesign';
+import FontIcon from '@expo/vector-icons/FontAwesome';
+import Font5Icon from '@expo/vector-icons/FontAwesome5';
+import Ionicon from '@expo/vector-icons/Ionicons';
+import EntIcon from '@expo/vector-icons/Entypo';
+import MatIcon from '@expo/vector-icons/MaterialIcons';
+import FonIcon from '@expo/vector-icons/Fontisto';
+import FeatIcon from '@expo/vector-icons/Feather';
 
 const Mail = ({ style, size, color }) => (
     <AntIcon name="mail" style={style} size={size} color={color} />

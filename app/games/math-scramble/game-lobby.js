@@ -7,7 +7,7 @@ import Toast from 'react-native-toast-message';
 import useCache from '../../../hooks/useCache';
 import useNetStatus from '../../../hooks/useNetStatus';
 
-import ReturnHeaderBtn from '../../../components/headers/ReturnHeaderBtn';
+import ReturnHeaderBtn from '../../../components/headers/returnHeaderBtn';
 import SelectionContainer from '../../../components/games/game-scramble/SelectionContainer';
 import StartButton from '../../../components/games/game-scramble/StartButton';
 import OfflineCard from '../../../components/games/game-scramble/OfflineCard';

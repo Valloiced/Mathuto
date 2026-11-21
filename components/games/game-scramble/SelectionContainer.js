@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import SelectionCollapsedView from './SelectionCollapsedView';
 import SelectionCard from './SelectionCard';
 
-import styles from './style/selectionContainer.style';
+import styles from './style/SelectionContainer.style';
 import { COLORS } from '../../../constants/theme';
 
 export default function SelectionContainer({

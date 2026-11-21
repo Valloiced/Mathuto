@@ -8,7 +8,7 @@ import useCache from '../../../../../hooks/useCache';
 
 import styles from '../../../../../components/stacks/lesson/style/lesson.style';
 
-import ReturnHeaderBtn from '../../../../../components/headers/ReturnHeaderBtn';
+import ReturnHeaderBtn from '../../../../../components/headers/returnHeaderBtn';
 import Header from '../../../../../components/stacks/lesson/Header';
 import LessonTabs from '../../../../../components/stacks/lesson/LessonTabs';
 import Content from '../../../../../components/stacks/lesson/Content';

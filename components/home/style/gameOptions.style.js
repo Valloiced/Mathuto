@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderWidth: 1,
         borderColor: COLORS.textTertiary,
-        borderRadius: BORDER_RADIUS.small
+        borderRadius: BORDER_RADIUS.small,
+        overflow: 'hidden'
     },
     gameOptionBg: {
         borderRadius: BORDER_RADIUS.small

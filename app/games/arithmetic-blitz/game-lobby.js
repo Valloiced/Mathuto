@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 
 import styles from '../../../components/games/arithmetic-blitz/style/game-lobby.style';
 
-import ReturnHeaderBtn from '../../../components/headers/ReturnHeaderBtn';
+import ReturnHeaderBtn from '../../../components/headers/returnHeaderBtn';
 import Header from '../../../components/games/arithmetic-blitz/Header';
 import Description from '../../../components/games/arithmetic-blitz/Description';
 import StartButton from '../../../components/games/arithmetic-blitz/StartButton';

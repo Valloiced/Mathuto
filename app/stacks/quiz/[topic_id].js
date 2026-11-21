@@ -8,7 +8,7 @@ import useProfile from '../../../hooks/useProfile';
 
 import styles from '../../../components/stacks/quiz/style/quiz.style';
 
-import ReturnHeaderBtn from '../../../components/headers/ReturnHeaderBtn';
+import ReturnHeaderBtn from '../../../components/headers/returnHeaderBtn';
 import Banner from '../../../components/stacks/quiz/Banner';
 import QuizContainer from '../../../components/stacks/quiz/QuizContainer';
 import QuizModal from '../../../components/stacks/quiz/QuizModal';
