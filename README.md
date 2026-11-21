@@ -2,6 +2,14 @@
 
 A mobile math-learning app built with **React Native (Expo)** and **Firebase**. Students learn from structured lessons, watch curated video lessons, take quizzes, and play math mini-games that post to a shared leaderboard.
 
+Mathuto is one part of a three-part system:
+
+| Part | Stack | Repo |
+|---|---|---|
+| **Mobile app** (this repo) | React Native, Expo Router, Firebase Auth | here |
+| **Serverless API** | Node.js functions on Vercel, Firebase Admin, scheduled leaderboard resets | private |
+| **Admin dashboard** | Next.js CMS for modules, lessons and quizzes | private |
+
 > Built for a client. Features were revised against the client's test cases (see the commit history).
 
 ---
@@ -24,7 +32,7 @@ A mobile math-learning app built with **React Native (Expo)** and **Firebase**. 
 | App | React Native, Expo, Expo Router (file-based routing), React Navigation drawer |
 | UI | RNEUI, Lottie animations, Reanimated, linear gradients, toast messages |
 | Data and auth | Firebase Auth, Firestore, AsyncStorage, NetInfo |
-| Backend | Node.js + Express + TypeScript ([`mathtuto-backend`](https://github.com/Valloiced/mathtuto-backend)) |
+| Backend | Node.js serverless functions on Vercel with Firebase Admin (separate repo) |
 | Code quality | ESLint + Prettier |
 
 ## 📂 Project structure
